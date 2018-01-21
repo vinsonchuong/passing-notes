@@ -1,7 +1,7 @@
 {
   "name": "passing-notes",
   "version": "0.0.0",
-  "description": "An awesome package",
+  "description": "Workflows for transfering data between frontend and backend",
   "keywords": [],
   "homepage": "https://github.com/splayd/passing-notes",
   "bugs": "https://github.com/splayd/passing-notes/issues",
@@ -11,20 +11,26 @@
     "src"
   ],
   "main": "./src/index.js",
-  "bin": "./src/bin/passing-notes.js",
+  "bin": "./src/bin.js",
   "repository": "splayd/passing-notes",
   "scripts": {
     "test": "standard -v --fix && flow && ava",
     "prepack": "build-esm"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "ava": "^0.24.0",
+  "dependencies": {
     "babel-preset-diff": "^1.0.3",
     "babel-register": "^6.26.0",
+    "fs-extra": "^5.0.0",
+    "get-port": "^3.2.0",
+    "interop-require": "^1.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
     "build-esm": "^3.1.0",
+    "cross-fetch": "^1.1.1",
     "flow-bin": "^0.63.1",
-    "standard-esnext": "^4.0.3"
+    "standard-esnext": "^4.0.3",
+    "tempy": "^0.2.1"
   },
   "babel": {
     "presets": [
