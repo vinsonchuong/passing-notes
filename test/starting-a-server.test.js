@@ -6,7 +6,7 @@ import { withProject, writeFile, start, stop } from './helpers'
 
 withProject()
 
-test('it works', async t => {
+test('starting a server', async t => {
   const { projectDirectory } = t.context
   await writeFile(
     projectDirectory,

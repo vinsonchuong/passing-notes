@@ -3,7 +3,7 @@
 import * as path from 'path'
 import { Server } from 'http'
 import { pathExists, readJson } from 'fs-extra'
-import getPort from 'get-port'
+import getPort from 'passing-notes/src/get-port'
 import interopRequire from 'interop-require'
 
 async function run() {
@@ -13,7 +13,7 @@ async function run() {
     ...overrides
   })
 
-  const port = await findPort()
+  const port = await getPort()
   const server = new Server()
   // $FlowFixMe
   const application = interopRequire(path.resolve(process.argv[2]))
@@ -40,13 +40,5 @@ async function readBabelConfig() {
     return require(path.resolve('.babelrc.js'))
   } else {
     return null
-  }
-}
-
-async function findPort(): Promise<number> {
-  if (process.env.PORT) {
-    return Number(process.env.PORT)
-  } else {
-    return getPort({ port: 8080 })
   }
 }
