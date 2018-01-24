@@ -4,20 +4,23 @@ import * as path from 'path'
 import { Server } from 'http'
 import getPort from 'passing-notes/src/get-port'
 import getBabelConfig from 'passing-notes/src/get-babel-config'
-import interopRequire from 'interop-require'
+import importModule from 'passing-notes/src/import-module'
 
 async function run() {
-  const overrides = await getBabelConfig()
-  require('babel-register')({
-    presets: ['diff'],
-    ...overrides
-  })
+  const applicationPath = path.resolve(process.argv[2])
+
+  const userBabelConfig = await getBabelConfig()
+  const babelConfig = {
+    presets: [require('babel-preset-diff')],
+    ...userBabelConfig
+  }
 
   const port = await getPort()
   const server = new Server()
-  // $FlowFixMe
-  const application = interopRequire(path.resolve(process.argv[2]))
-  server.on('request', application)
+  server.on('request', (request, response) => {
+    const application = importModule(babelConfig, applicationPath)
+    application(request, response)
+  })
   server.listen(port)
 
   await new Promise(resolve => {

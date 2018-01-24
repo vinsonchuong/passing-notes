@@ -25,8 +25,12 @@ test('starting a server', async t => {
     waitForOutput: 'Listening'
   })
 
-  const response = await fetch(`http://localhost:${port}`)
-  t.is(await response.text(), 'Hello World!')
+  t.is(await fetchText(`http://localhost:${port}`), 'Hello World!')
 
   await stop(server)
 })
+
+async function fetchText(url: string): Promise<string> {
+  const response = await fetch(url)
+  return response.text()
+}
