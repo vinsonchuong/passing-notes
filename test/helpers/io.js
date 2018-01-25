@@ -15,10 +15,11 @@ export async function makeTemporaryDirectory(): Promise<string> {
   return directoryPath
 }
 
-export async function writeFile(...args: Array<string>): Promise<void> {
+export async function writeFile(...args: Array<string>): Promise<string> {
   const filePath = path.resolve(...args.slice(0, -1))
   const fileContents = args[args.length - 1]
   await outputFile(filePath, fileContents)
+  return filePath
 }
 
 export async function start(

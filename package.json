@@ -20,15 +20,16 @@
   "dependencies": {
     "babel-preset-diff": "^1.0.3",
     "babel-register": "^6.26.0",
+    "cross-fetch": "^1.1.1",
     "fs-extra": "^5.0.0",
     "get-port": "^3.2.0",
-    "interop-require": "^1.0.0"
+    "parcel-bundler": "^1.5.0"
   },
   "devDependencies": {
     "ava": "^0.24.0",
     "build-esm": "^3.1.0",
-    "cross-fetch": "^1.1.1",
     "flow-bin": "^0.63.1",
+    "puppet-strings": "^0.0.2",
     "standard-esnext": "^4.0.3",
     "tempy": "^0.2.1"
   },

@@ -1,7 +1,6 @@
 /* @flow */
 import test from 'ava'
-import fetch from 'cross-fetch'
-import getPort from 'get-port'
+import { getPort, fetchText } from 'passing-notes/src/http'
 import { withProject, writeFile, start, stop } from './helpers'
 
 withProject()
@@ -21,7 +20,7 @@ test('starting a server', async t => {
   const port = await getPort()
   const server = await start(['yarn', 'passing-notes', 'server.js'], {
     cwd: projectDirectory,
-    env: { PORT: port },
+    env: { PORT: String(port) },
     waitForOutput: 'Listening'
   })
 
@@ -29,8 +28,3 @@ test('starting a server', async t => {
 
   await stop(server)
 })
-
-async function fetchText(url: string): Promise<string> {
-  const response = await fetch(url)
-  return response.text()
-}

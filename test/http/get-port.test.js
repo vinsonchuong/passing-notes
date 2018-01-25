@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
 import { Server } from 'http'
-import getPort from 'passing-notes/src/get-port'
+import { getPort } from 'passing-notes/src/http'
 
 test.serial('preferring port 8080', async t => {
   t.is(await getPort(), 8080)
