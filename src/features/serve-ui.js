@@ -1,12 +1,10 @@
 /* @flow */
-// import type { IncomingMessage, ServerResponse } from 'http'
+import type { IncomingMessage, ServerResponse } from 'http'
 import Bundler from 'parcel-bundler'
 
-export default function(entryPoint: string) {
-  const bundler = new Bundler(entryPoint, { logLevel: 0 })
-  return bundler.middleware()
+type Respond = (request: IncomingMessage, response: ServerResponse) => void
 
-  // return (request: IncomingMessage, response: ServerResponse): void => {
-  //   response.end('Hello World!')
-  // }
+export default function(entryPoint: string): Respond {
+  const bundler = new Bundler(entryPoint)
+  return bundler.middleware()
 }
