@@ -7,7 +7,7 @@ import {
   withBrowser
 } from 'passing-notes/test/helpers'
 import { startServer, stopServer } from 'passing-notes/src/http'
-import passNotes, { serveUi } from 'passing-notes'
+import passNotes, { ui } from 'passing-notes'
 
 withDirectory()
 withBrowser()
@@ -41,7 +41,7 @@ test('compiling and serving a UI', async t => {
   `
   )
 
-  const server = await startServer(10020, passNotes(serveUi(entryPoint)))
+  const server = await startServer(10020, passNotes(ui(entryPoint)))
   const tab = await openTab(browser, 'http://localhost:10020')
 
   await t.notThrows(findElement(tab, '#root', 'Hello World!'))

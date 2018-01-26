@@ -8,4 +8,4 @@ export type Feature = (
 ) => void | Promise<void>
 
 export { default } from 'passing-notes/src/pass-notes'
-export { default as serveUi } from 'passing-notes/src/features/serve-ui'
+export { default as ui } from 'passing-notes/src/features/ui'
