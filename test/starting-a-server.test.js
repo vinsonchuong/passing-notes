@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { getPort, fetchText } from 'passing-notes/src/http'
+import { fetchText } from 'passing-notes/src/http'
 import { withProject, writeFile, start, stop } from './helpers'
 
 withProject()
@@ -17,14 +17,13 @@ test('starting a server', async t => {
   `
   )
 
-  const port = await getPort()
   const server = await start(['yarn', 'passing-notes', 'server.js'], {
     cwd: projectDirectory,
-    env: { PORT: String(port) },
+    env: { PORT: '10000' },
     waitForOutput: 'Listening'
   })
 
-  t.is(await fetchText(`http://localhost:${port}`), 'Hello World!')
+  t.is(await fetchText('http://localhost:10000'), 'Hello World!')
 
   await stop(server)
 })

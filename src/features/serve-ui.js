@@ -1,10 +1,8 @@
 /* @flow */
-import type { IncomingMessage, ServerResponse } from 'http'
+import type { Feature } from 'passing-notes'
 import Bundler from 'parcel-bundler'
 
-type Respond = (request: IncomingMessage, response: ServerResponse) => void
-
-export default function(entryPoint: string): Respond {
+export default function(entryPoint: string): Feature {
   const bundler = new Bundler(entryPoint)
   return bundler.middleware()
 }
