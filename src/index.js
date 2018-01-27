@@ -9,3 +9,4 @@ export type Feature = (
 
 export { default } from 'passing-notes/src/pass-notes'
 export { default as ui } from 'passing-notes/src/features/ui'
+export { default as rpc } from 'passing-notes/src/features/rpc'
