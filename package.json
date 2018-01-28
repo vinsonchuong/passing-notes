@@ -13,8 +13,7 @@
   "main": "./src/index.js",
   "bin": "./src/bin.js",
   "browser": {
-    "./src/index.js": "./src/index.browser.js",
-    "./": "./src/index.browser.js"
+    "./src/index.js": "./src/index.browser.js"
   },
   "repository": "splayd/passing-notes",
   "scripts": {
