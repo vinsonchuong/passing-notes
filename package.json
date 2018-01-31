@@ -11,7 +11,9 @@
     "src"
   ],
   "main": "./src/index.js",
-  "bin": "./src/bin.js",
+  "bin": {
+    "pass-notes": "./src/bin/pass-notes.js"
+  },
   "browser": {
     "./src/index.js": "./src/index.browser.js"
   },

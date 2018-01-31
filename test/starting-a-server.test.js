@@ -17,7 +17,7 @@ test('starting a server', async t => {
   `
   )
 
-  const server = await start(['yarn', 'passing-notes', 'server.js'], {
+  const server = await start(['yarn', 'pass-notes', 'server.js'], {
     cwd: projectDirectory,
     env: { PORT: '10000' },
     waitForOutput: 'Listening'
