@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
-import { withDirectory, writeFile } from './helpers'
-import importModule from 'passing-notes/src/import-module'
+import { withDirectory, writeFile } from 'passing-notes/test/helpers'
+import { importModule } from 'passing-notes/src/babel'
 
 withDirectory()
 

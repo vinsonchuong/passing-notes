@@ -2,8 +2,7 @@
 /* @flow */
 import * as path from 'path'
 import { startServer, getPort } from 'passing-notes/src/http'
-import getBabelConfig from 'passing-notes/src/get-babel-config'
-import importModule from 'passing-notes/src/import-module'
+import { getBabelConfig, importModule } from 'passing-notes/src/babel'
 
 async function run() {
   const applicationPath = path.resolve(process.argv[2])

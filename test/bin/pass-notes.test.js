@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
 import { fetchText } from 'passing-notes/src/http'
-import { withProject, writeFile, start, stop } from './helpers'
+import { withProject, writeFile, start, stop } from 'passing-notes/test/helpers'
 
 withProject()
 

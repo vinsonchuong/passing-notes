@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
-import { withDirectory, writeFile } from './helpers'
-import getBabelConfig from 'passing-notes/src/get-babel-config'
+import { withDirectory, writeFile } from 'passing-notes/test/helpers'
+import { getBabelConfig } from 'passing-notes/src/babel'
 
 withDirectory()
 
