@@ -1,23 +1,22 @@
-/* eslint-disable flowtype/no-weak-types */
 /* @flow */
+import type { Request, Response } from 'passing-notes/src/http'
+import { omit } from 'lodash'
 import fetch from 'cross-fetch'
 
-type Request = {
-  method: 'GET',
-  url: string
-}
-
-type Response = {
-  status: number,
-  headers: { [string]: string },
-  body: any
-}
+const omittedHeaders = ['content-length', 'content-type']
 
 export default async function({ url, ...params }: Request): Promise<Response> {
-  const response = await fetch(url, params)
+  const response = await fetch(url, {
+    ...params,
+    headers: {
+      ...params.headers,
+      'User-Agent':
+        'passing-notes/1.0 (+https://github.com/splayd/passing-notes)'
+    }
+  })
   return {
     status: response.status,
-    headers: parseHeaders(response.headers),
+    headers: omit(parseHeaders(response.headers), omittedHeaders),
     body: await response.json()
   }
 }
