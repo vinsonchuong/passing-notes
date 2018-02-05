@@ -2,6 +2,11 @@
 /* @flow */
 import type { IncomingMessage, ServerResponse } from 'http'
 
+export type NodeRequestHandler = (
+  request: IncomingMessage,
+  response: ServerResponse
+) => void | Promise<void>
+
 export type Request = {
   method: string,
   url: string,
@@ -14,10 +19,7 @@ export type Response = {
   body: any
 }
 
-export type NodeRequestHandler = (
-  request: IncomingMessage,
-  response: ServerResponse
-) => void | Promise<void>
+export type Responder = Request => Response | Promise<Response>
 
 export { default as getPort } from './get-port'
 export { default as startServer } from './start-server'

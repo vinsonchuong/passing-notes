@@ -3,7 +3,13 @@ import type { Request, Response } from 'passing-notes/src/http'
 import { omit } from 'lodash'
 import fetch from 'cross-fetch'
 
-const omittedHeaders = ['content-length', 'content-type']
+const omittedHeaders = [
+  'connection',
+  'content-encoding',
+  'content-length',
+  'content-type',
+  'date'
+]
 
 export default async function({ url, ...params }: Request): Promise<Response> {
   const response = await fetch(url, {

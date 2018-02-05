@@ -15,9 +15,11 @@ test('responding to requests', async t => {
     respondToRequests(request => {
       t.deepEqual(request, {
         method: 'GET',
-        url: '/path',
+        url: 'http://localhost:10040/path',
         headers: {
-          host: 'localhost:10040',
+          accept: '*/*',
+          'user-agent':
+            'passing-notes/1.0 (+https://github.com/splayd/passing-notes)',
           'x-request': 'Hello'
         }
       })
@@ -25,7 +27,8 @@ test('responding to requests', async t => {
       return {
         status: 200,
         headers: {
-          'X-Response': 'World!'
+          'x-response': 'World!',
+          'content-type': 'application/json'
         },
         body: {
           hello: 'world'
@@ -34,20 +37,17 @@ test('responding to requests', async t => {
     })
   )
 
-  const requestTime = new Date().toUTCString()
   const response = await sendRequest({
     method: 'GET',
     url: 'http://localhost:10040/path',
     headers: {
-      'X-Request': 'Hello'
+      'x-request': 'Hello'
     }
   })
 
   t.deepEqual(response, {
     status: 200,
     headers: {
-      connection: 'close',
-      date: requestTime,
       'x-response': 'World!'
     },
     body: {
