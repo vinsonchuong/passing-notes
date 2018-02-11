@@ -7,15 +7,18 @@ export type NodeRequestHandler = (
   response: ServerResponse
 ) => void | Promise<void>
 
+export type Headers = { [string]: string }
+
 export type Request = {
   method: string,
   url: string,
-  headers: { [string]: string }
+  headers: Headers,
+  body?: string
 }
 
 export type Response = {
   status: number,
-  headers: { [string]: string },
+  headers: Headers,
   body: any
 }
 

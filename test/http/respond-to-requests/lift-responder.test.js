@@ -15,6 +15,7 @@ test('adapting a functional responder to a Node request handler', async t => {
       return {
         status: 200,
         headers: {
+          'content-type': 'application/json',
           'x-response': 'World!'
         },
         body: JSON.stringify({ hello: 'world' })

@@ -6,13 +6,13 @@ import compressBody from './compress-body'
 import serializeJson from './serialize-json'
 import setContentLength from './set-content-length'
 
-export default flow(
+export default flow([
   addAuthorityToUrl,
   serializeJson,
   compressBody,
   setContentLength,
   liftResponder
-)
+])
 
 export { default as liftResponder } from './lift-responder'
 
