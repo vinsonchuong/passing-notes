@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { serializeJson } from 'passing-notes/src/http/respond-to-requests'
+import { serializeJson } from 'passing-notes/src/middleware'
 
 test('serializing a JSON body', async t => {
   const respond = serializeJson(request => ({

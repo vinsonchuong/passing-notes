@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { liftRequest } from 'passing-notes/src/http/send-request'
+import { liftRequest } from 'passing-notes/src/http'
 
 test('adapting a functional requester to the Fetch API', async t => {
   const response = await liftRequest({

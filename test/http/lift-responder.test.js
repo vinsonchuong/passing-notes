@@ -1,7 +1,7 @@
 /* @flow */
 import test from 'ava'
-import { startServer, stopServer, sendRequest } from 'passing-notes/src/http'
-import { liftResponder } from 'passing-notes/src/http/respond-to-requests'
+import { startServer, stopServer, liftResponder } from 'passing-notes/src/http'
+import { sendRequest } from 'passing-notes'
 
 test('adapting a functional responder to a Node request handler', async t => {
   const server = await startServer(

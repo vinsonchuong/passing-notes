@@ -7,7 +7,7 @@ import { getBabelConfig, importModule } from 'passing-notes/src/babel'
 async function run() {
   const applicationPath = path.resolve(process.argv[2])
 
-  const userBabelConfig = await getBabelConfig()
+  const userBabelConfig = await getBabelConfig(path.resolve())
   const babelConfig = {
     presets: [require('babel-preset-diff')],
     ...userBabelConfig

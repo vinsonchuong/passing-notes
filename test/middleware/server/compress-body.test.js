@@ -3,7 +3,7 @@ import test from 'ava'
 import { promisify } from 'util'
 import * as zlib from 'zlib'
 import { repeat } from 'lodash'
-import { compressBody } from 'passing-notes/src/http/respond-to-requests'
+import { compressBody } from 'passing-notes/src/middleware'
 
 const gunzip = promisify(zlib.gunzip)
 

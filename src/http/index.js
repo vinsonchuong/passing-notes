@@ -13,7 +13,7 @@ export type Request = {
   method: string,
   url: string,
   headers: Headers,
-  body?: string
+  body?: any
 }
 
 export type Response = {
@@ -28,7 +28,5 @@ export { default as getPort } from './get-port'
 export { default as startServer } from './start-server'
 export { default as stopServer } from './stop-server'
 
-export { default as fetchText } from './fetch-text'
-
-export { default as sendRequest } from './send-request'
-export { default as respondToRequests } from './respond-to-requests'
+export { default as liftResponder } from './lift-responder'
+export { default as liftRequest } from './lift-request'

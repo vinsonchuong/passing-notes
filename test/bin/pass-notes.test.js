@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { fetchText } from 'passing-notes/src/http'
+import { sendRequest } from 'passing-notes'
 import { withProject, writeFile, start, stop } from 'passing-notes/test/helpers'
 
 withProject()
@@ -12,6 +12,9 @@ test('starting a server', async t => {
     'server.js',
     `
     export default function(request, response) {
+      response.writeHead(200, {
+        'content-type': 'text/plain'
+      })
       response.end('Hello World!')
     }
   `
@@ -23,7 +26,12 @@ test('starting a server', async t => {
     waitForOutput: 'Listening'
   })
 
-  t.is(await fetchText('http://localhost:10000'), 'Hello World!')
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:10000'
+  })
+
+  t.is(response.body, 'Hello World!')
 
   await stop(server)
 })

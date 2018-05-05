@@ -7,7 +7,6 @@ withDirectory()
 
 test.serial('preferring package.json', async t => {
   const { directory } = t.context
-  process.chdir(directory)
 
   await writeFile(
     directory,
@@ -31,14 +30,13 @@ test.serial('preferring package.json', async t => {
   `
   )
 
-  t.deepEqual(await getBabelConfig(), {
+  t.deepEqual(await getBabelConfig(directory), {
     presets: ['one']
   })
 })
 
 test.serial('reading .babelrc', async t => {
   const { directory } = t.context
-  process.chdir(directory)
 
   await writeFile(directory, 'package.json', '{}')
 
@@ -52,14 +50,13 @@ test.serial('reading .babelrc', async t => {
   `
   )
 
-  t.deepEqual(await getBabelConfig(), {
+  t.deepEqual(await getBabelConfig(directory), {
     presets: ['one']
   })
 })
 
 test.serial('reading .babelrc.js', async t => {
   const { directory } = t.context
-  process.chdir(directory)
 
   await writeFile(directory, 'package.json', '{}')
 
@@ -73,7 +70,7 @@ test.serial('reading .babelrc.js', async t => {
   `
   )
 
-  t.deepEqual(await getBabelConfig(), {
+  t.deepEqual(await getBabelConfig(directory), {
     presets: ['one']
   })
 })

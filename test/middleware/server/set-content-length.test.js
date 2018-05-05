@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { setContentLength } from 'passing-notes/src/http/respond-to-requests'
+import { setContentLength } from 'passing-notes/src/middleware'
 
 test('setting the Content-Length header', async t => {
   const respond = setContentLength(request => ({

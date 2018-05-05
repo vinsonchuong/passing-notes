@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { addAuthorityToUrl } from 'passing-notes/src/http/respond-to-requests'
+import { addAuthorityToUrl } from 'passing-notes/src/middleware'
 
 test('combining the Host header with the URL', t => {
   t.plan(2)

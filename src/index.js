@@ -1,12 +1,5 @@
 /* @flow */
-import type { IncomingMessage, ServerResponse } from 'http'
+export { default } from './pass-notes'
 
-export type Feature = (
-  request: IncomingMessage,
-  response: ServerResponse,
-  next: ?() => void
-) => void | Promise<void>
-
-export { default } from 'passing-notes/src/pass-notes'
-export { default as ui } from 'passing-notes/src/features/ui'
-export { default as rpc } from 'passing-notes/src/features/rpc'
+export { default as sendRequest } from './send-request'
+export { default as respondToRequests } from './respond-to-requests'

@@ -7,15 +7,15 @@ type BabelConfig = {
   plugins?: Array<string>
 }
 
-export default async function(): Promise<?BabelConfig> {
-  const packageJson = await readJson(path.resolve('package.json'))
+export default async function(rootDir: string): Promise<?BabelConfig> {
+  const packageJson = await readJson(path.resolve(rootDir, 'package.json'))
   if ('babel' in packageJson) {
     return packageJson.babel
-  } else if (await pathExists(path.resolve('.babelrc'))) {
-    return readJson(path.resolve('.babelrc'))
-  } else if (await pathExists(path.resolve('.babelrc.js'))) {
+  } else if (await pathExists(path.resolve(rootDir, '.babelrc'))) {
+    return readJson(path.resolve(rootDir, '.babelrc'))
+  } else if (await pathExists(path.resolve(rootDir, '.babelrc.js'))) {
     // $FlowFixMe
-    return require(path.resolve('.babelrc.js'))
+    return require(path.resolve(rootDir, '.babelrc.js'))
   } else {
     return null
   }

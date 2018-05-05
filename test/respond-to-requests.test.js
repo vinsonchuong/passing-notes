@@ -1,11 +1,7 @@
 /* @flow */
 import test from 'ava'
-import {
-  startServer,
-  stopServer,
-  respondToRequests,
-  sendRequest
-} from 'passing-notes/src/http'
+import { startServer, stopServer } from 'passing-notes/src/http'
+import { sendRequest, respondToRequests } from 'passing-notes'
 
 test('responding to requests', async t => {
   t.plan(2)
