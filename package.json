@@ -7,9 +7,6 @@
   "bugs": "https://github.com/splayd/passing-notes/issues",
   "license": "MIT",
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
-  "files": [
-    "src"
-  ],
   "main": "./src/index.js",
   "bin": {
     "pass-notes": "./src/bin/pass-notes.js"

@@ -1,7 +1,7 @@
 /* @flow */
 import * as path from 'path'
 import JSAsset from 'parcel-bundler/src/assets/JSAsset'
-import getBabelConfig from '../babel/get-babel-config'
+import { getBabelConfig } from 'passing-notes/lib/babel'
 
 // `export default` makes Parcel fail without any error output
 module.exports = class extends JSAsset {
