@@ -5,7 +5,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import waitForEvent from 'promisify-event'
 import Bundler from 'parcel-bundler'
-import JsAsset from 'passing-notes/src/parcel/JSAsset'
+import JsAsset from 'passing-notes/lib/parcel/JSAsset'
 
 const dist = path.resolve('dist')
 const readFile = promisify(fs.readFile)
