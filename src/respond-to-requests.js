@@ -1,6 +1,6 @@
 /* @flow */
 import { flow } from 'lodash'
-import { liftResponder } from 'passing-notes/src/http'
+import { liftResponder } from 'passing-notes/lib/http'
 import {
   addAuthorityToUrl,
   compressBody,

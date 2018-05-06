@@ -4,7 +4,7 @@ import * as path from 'path'
 import { withBrowser } from 'passing-notes/test/helpers'
 import { flow } from 'lodash'
 import { openTab, findElement } from 'puppet-strings'
-import { startServer, stopServer, liftResponder } from 'passing-notes/src/http'
+import { startServer, stopServer, liftResponder } from 'passing-notes/lib/http'
 import { serveUi } from 'passing-notes/src/middleware'
 
 const htmlFixturePath = path.join(__dirname, 'fixtures', 'index.html')

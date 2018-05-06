@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* @flow */
 import * as path from 'path'
-import { startServer, getPort } from 'passing-notes/src/http'
+import { startServer, getPort } from 'passing-notes/lib/http'
 import { getBabelConfig, importModule } from 'passing-notes/lib/babel'
 
 async function run() {

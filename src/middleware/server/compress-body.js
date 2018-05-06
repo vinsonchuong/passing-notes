@@ -1,5 +1,5 @@
 /* @flow */
-import type { Responder } from 'passing-notes/src/http'
+import type { Responder } from 'passing-notes/lib/http'
 import { promisify } from 'util'
 import * as zlib from 'zlib'
 import { omit } from 'lodash'
