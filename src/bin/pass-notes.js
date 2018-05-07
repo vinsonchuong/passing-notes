@@ -6,12 +6,7 @@ import { getBabelConfig, importModule } from 'passing-notes/lib/babel'
 
 async function run() {
   const applicationPath = path.resolve(process.argv[2])
-
-  const userBabelConfig = await getBabelConfig(path.resolve())
-  const babelConfig = {
-    presets: [require('babel-preset-diff')],
-    ...userBabelConfig
-  }
+  const babelConfig = await getBabelConfig(path.resolve())
 
   const port = await getPort()
   await startServer(port, (request, response) => {
