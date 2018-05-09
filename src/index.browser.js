@@ -1,22 +1,16 @@
 /* @flow */
-import fetch from 'cross-fetch'
+import sendRequest from './send-request'
 
 export const api = new Proxy(
   {},
   {
     get: (_, procedure) => async (...parameters) => {
-      const response = await fetch('/rpc', {
+      const response = await sendRequest({
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          procedure,
-          parameters
-        })
+        url: '/rpc',
+        body: { procedure, parameters }
       })
-      const body = await response.json()
-      return body.result
+      return response.body.result
     }
   }
 )
