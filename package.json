@@ -9,7 +9,7 @@
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
   "main": "./src/index.js",
   "bin": {
-    "pass-notes": "./src/bin/pass-notes.js"
+    "pass-notes": "./src/cli/pass-notes/bin.js"
   },
   "browser": {
     "./src/index.js": "./src/index.browser.js"

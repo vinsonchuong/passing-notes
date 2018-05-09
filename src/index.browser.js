@@ -1,5 +1,5 @@
 /* @flow */
-import sendRequest from './send-request'
+import sendRequest from './http/send-request'
 
 export const api = new Proxy(
   {},
