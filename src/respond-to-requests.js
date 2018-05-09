@@ -6,7 +6,7 @@ import {
   compressBody,
   serializeJson,
   setContentLength
-} from 'passing-notes/src/middleware'
+} from 'passing-notes/lib/middleware/server'
 
 export default flow([
   addAuthorityToUrl,
