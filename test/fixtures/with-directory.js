@@ -10,7 +10,5 @@ export default defineFixture({
     return directoryPath
   },
 
-  async teardown(directory: string): Promise<void> {
-    await remove(directory)
-  }
+  teardown: remove
 })
