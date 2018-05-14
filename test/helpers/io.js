@@ -3,17 +3,9 @@ import type { ChildProcess } from 'child_process'
 import { promisify } from 'util'
 import * as childProcess from 'child_process'
 import * as path from 'path'
-import { ensureDir, outputFile } from 'fs-extra'
-import tempy from 'tempy'
+import { outputFile } from 'fs-extra'
 
 export const exec = promisify(childProcess.exec)
-export { remove } from 'fs-extra'
-
-export async function makeTemporaryDirectory(): Promise<string> {
-  const directoryPath = tempy.directory()
-  await ensureDir(directoryPath)
-  return directoryPath
-}
 
 export async function writeFile(...args: Array<string>): Promise<string> {
   const filePath = path.resolve(...args.slice(0, -1))

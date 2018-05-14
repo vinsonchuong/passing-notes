@@ -1,15 +1,16 @@
 /* @flow */
-import test from 'ava'
-import { makeTemporaryDirectory, remove } from './'
+import { defineFixture } from 'passing-notes/test/helpers'
+import tempy from 'tempy'
+import { ensureDir, remove } from 'fs-extra'
 
-export default function(): void {
-  test.beforeEach(async t => {
-    const directory = await makeTemporaryDirectory()
-    Object.assign(t.context, { directory })
-  })
+export default defineFixture({
+  async setup(): Promise<string> {
+    const directoryPath = tempy.directory()
+    await ensureDir(directoryPath)
+    return directoryPath
+  },
 
-  test.afterEach.always(async t => {
-    const { directory } = t.context
+  async teardown(directory: string): Promise<void> {
     await remove(directory)
-  })
-}
+  }
+})
