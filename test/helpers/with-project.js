@@ -1,6 +1,7 @@
 /* @flow */
 import test from 'ava'
-import { withDirectory, exec } from './'
+import { withDirectory } from 'passing-notes/test/fixtures'
+import { exec } from './'
 
 export default function(): void {
   withDirectory({ perTest: false, key: 'compiledPassingNotesPath' })

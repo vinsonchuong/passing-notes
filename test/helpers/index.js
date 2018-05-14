@@ -1,6 +1,5 @@
 /* @flow */
 export { default as defineFixture } from './define-fixture'
 export { exec, writeFile, start, stop } from './io'
-export { default as withDirectory } from './with-directory'
 export { default as withProject } from './with-project'
 export { default as withBrowser } from './with-browser'
