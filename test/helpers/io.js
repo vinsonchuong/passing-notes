@@ -1,11 +1,8 @@
 /* @flow */
 import type { ChildProcess } from 'child_process'
-import { promisify } from 'util'
 import * as childProcess from 'child_process'
 import * as path from 'path'
 import { outputFile } from 'fs-extra'
-
-export const exec = promisify(childProcess.exec)
 
 export async function writeFile(...args: Array<string>): Promise<string> {
   const filePath = path.resolve(...args.slice(0, -1))

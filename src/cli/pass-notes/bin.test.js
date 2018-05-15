@@ -1,12 +1,15 @@
 /* @flow */
 import test from 'ava'
 import { sendRequest } from 'passing-notes'
-import { withProject, writeFile, start, stop } from 'passing-notes/test/helpers'
+import { writeFile, start, stop } from 'passing-notes/test/helpers'
+import { withProject } from 'passing-notes/test/fixtures'
 
-withProject()
+withProject({ perTest: true, key: 'project' })
 
 test('starting a server', async t => {
-  const { projectDirectory } = t.context
+  const {
+    project: { projectDirectory }
+  } = t.context
   await writeFile(
     projectDirectory,
     'server.js',

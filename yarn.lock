@@ -1406,9 +1406,9 @@ buffers@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/buffers/-/buffers-0.1.1.tgz#b24579c3bed4d6d396aeee6d9a8ae7f5482ab7bb"
 
-build-esm@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/build-esm/-/build-esm-3.1.1.tgz#bea6b55d2ea93763bff51a2d4c3cc933a691ec06"
+build-esm@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/build-esm/-/build-esm-3.2.0.tgz#1e96e7a070faa5e60e2fcee284e0b60749d9171a"
   dependencies:
     babel-core "^6.26.3"
     mkdirp "^0.5.1"

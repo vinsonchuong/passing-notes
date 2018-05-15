@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
-    "build-esm": "^3.1.1",
+    "build-esm": "^3.2.0",
     "flow-bin": "0.69.0",
     "flow-typed": "^2.4.0",
     "puppet-strings": "^0.0.5",
