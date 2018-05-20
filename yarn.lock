@@ -679,12 +679,6 @@ babel-plugin-package-name-import@^1.0.3:
     babel-runtime "^6.25.0"
     find-nearest-package-json "^2.0.1"
 
-babel-plugin-symlink-import@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/babel-plugin-symlink-import/-/babel-plugin-symlink-import-0.0.3.tgz#c63b41a584265072dfda4262bca42a8cc2a06fe6"
-  dependencies:
-    find-nearest-package-json "^2.0.1"
-
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -1024,12 +1018,11 @@ babel-polyfill@^6.26.0:
     core-js "^2.5.0"
     regenerator-runtime "^0.10.5"
 
-babel-preset-diff@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-diff/-/babel-preset-diff-2.2.0.tgz#8fb32f7c90a5740ffd114daadfb2797084171b6b"
+babel-preset-diff@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-diff/-/babel-preset-diff-3.0.0.tgz#4b23d7b8c4fe4842d3f0fb0c141235a7539fe2d9"
   dependencies:
     babel-plugin-package-name-import "^1.0.3"
-    babel-plugin-symlink-import "^0.0.3"
     babel-preset-env "^1.6.1"
     babel-preset-flow "^6.23.0"
     babel-preset-stage-0 "^6.24.1"

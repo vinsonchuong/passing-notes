@@ -21,7 +21,7 @@
     "prepack": "build-esm"
   },
   "dependencies": {
-    "babel-preset-diff": "^2.2.0",
+    "babel-preset-diff": "^3.0.0",
     "babel-register": "^6.26.0",
     "compressible": "^2.0.13",
     "content-type": "^1.0.4",

@@ -7,28 +7,28 @@ import * as withDirectory from 'passing-notes/test/fixtures/with-directory'
 const exec = promisify(childProcess.exec)
 
 type Fixture = {
-  passingNotesDirectory: string,
-  projectDirectory: string
+  passingNotes: string,
+  directory: string
 }
 
 export async function setup(): Promise<Fixture> {
-  const passingNotesDirectory = await withDirectory.setup()
-  await exec(`yarn build-esm ${passingNotesDirectory}`)
+  const passingNotes = await withDirectory.setup()
+  await exec(`yarn build-esm ${passingNotes}`)
 
-  const projectDirectory = await withDirectory.setup()
-  await exec(`yarn add --dev ${passingNotesDirectory}`, {
-    cwd: projectDirectory
+  const directory = await withDirectory.setup()
+  await exec(`yarn add --dev ${passingNotes}`, {
+    cwd: directory
   })
 
-  return { passingNotesDirectory, projectDirectory }
+  return { passingNotes, directory }
 }
 
 export async function teardown({
-  passingNotesDirectory,
-  projectDirectory
+  passingNotes,
+  directory
 }: Fixture): Promise<void> {
-  await withDirectory.teardown(passingNotesDirectory)
-  await withDirectory.teardown(projectDirectory)
+  await withDirectory.teardown(passingNotes)
+  await withDirectory.teardown(directory)
 }
 
 export default defineFixture({ setup, teardown })

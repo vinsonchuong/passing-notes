@@ -7,11 +7,9 @@ import { withProject } from 'passing-notes/test/fixtures'
 withProject({ perTest: true, key: 'project' })
 
 test('starting a server', async t => {
-  const {
-    project: { projectDirectory }
-  } = t.context
+  const { project } = t.context
   await writeFile(
-    projectDirectory,
+    project.directory,
     'server.js',
     `
     export default function(request, response) {
@@ -24,7 +22,7 @@ test('starting a server', async t => {
   )
 
   const server = await start(['yarn', 'pass-notes', 'server.js'], {
-    cwd: projectDirectory,
+    cwd: project.directory,
     env: { PORT: '10000' },
     waitForOutput: 'Listening'
   })
