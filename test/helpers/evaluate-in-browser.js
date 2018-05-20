@@ -4,6 +4,7 @@ import { start, stop, writeFile } from 'passing-notes/test/helpers'
 import * as withBrowser from 'passing-notes/test/fixtures/with-browser'
 import * as withProject from 'passing-notes/test/fixtures/with-project'
 import { openTab, evalInTab } from 'puppet-strings'
+import { getPort } from 'passing-notes/lib/http'
 
 export default async function(moduleContents: string): Promise<any> {
   const project = await withProject.setup()
@@ -46,14 +47,15 @@ export default async function(moduleContents: string): Promise<any> {
       `
     )
 
+    const port = await getPort()
     const server = await start(['yarn', 'pass-notes', 'server.js'], {
       cwd: project.directory,
-      env: { PORT: '20000' },
+      env: { PORT: port.toString() },
       waitForOutput: 'Listening'
     })
     const browser = await withBrowser.setup()
     try {
-      const tab = await openTab(browser, 'http://localhost:20000')
+      const tab = await openTab(browser, `http://localhost:${port}`)
       return await evalInTab(tab, [], 'return window.fn()')
     } finally {
       await withBrowser.teardown(browser)
