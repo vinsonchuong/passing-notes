@@ -2,11 +2,11 @@
 import { flow } from 'lodash'
 import { liftResponder } from 'passing-notes/lib/http'
 import {
-  addAuthorityToUrl,
   compressBody,
   serializeJson,
-  setContentLength
-} from 'passing-notes/lib/middleware/server'
+  setContentLength,
+  addAuthorityToUrl
+} from 'passing-notes/lib/middleware'
 
 export default flow([
   addAuthorityToUrl,

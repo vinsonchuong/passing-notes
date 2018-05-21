@@ -15,7 +15,7 @@ export default async function(moduleContents: string): Promise<any> {
       `
       import { flow } from 'lodash'
       import { liftResponder } from 'passing-notes/lib/http'
-      import { serveUi } from 'passing-notes/lib/middleware/server'
+      import { serveUi } from 'passing-notes/lib/middleware'
 
       export default flow([
         serveUi('index.html'),

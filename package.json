@@ -13,7 +13,11 @@
   },
   "browser": {
     "./src/index.js": "./src/index.browser.js",
-    "./lib/middleware/client/resolve-absolute-url/index.js": "./lib/middleware/client/resolve-absolute-url/index.browser.js"
+    "./lib/middleware/compress-body/index.js": "./lib/middleware/compress-body/index.browser.js",
+    "./lib/middleware/resolve-absolute-url/index.js": "./lib/middleware/resolve-absolute-url/index.browser.js",
+    "./lib/middleware/serialize-json/index.js": "./lib/middleware/serialize-json/index.browser.js",
+    "./lib/middleware/serve-ui/index.js": "./lib/middleware/serve-ui/index.browser.js",
+    "./lib/middleware/set-content-length/index.js": "./lib/middleware/set-content-length/index.browser.js"
   },
   "repository": "splayd/passing-notes",
   "scripts": {
