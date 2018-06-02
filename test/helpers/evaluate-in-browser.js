@@ -13,11 +13,10 @@ export default async function(moduleContents: string): Promise<any> {
       project.directory,
       'server.js',
       `
-      import { flow } from 'lodash'
       import { liftResponder } from 'passing-notes/lib/http'
-      import { serveUi } from 'passing-notes/lib/middleware'
+      import { combine, serveUi } from 'passing-notes/lib/middleware'
 
-      export default flow([
+      export default combine([
         serveUi('index.html'),
         liftResponder
       ])(() => {

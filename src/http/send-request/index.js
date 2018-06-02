@@ -1,6 +1,9 @@
 /* @flow */
-import { flow } from 'lodash'
 import { liftRequest } from 'passing-notes/lib/http'
-import { filterHeaders, resolveAbsoluteUrl } from 'passing-notes/lib/middleware'
+import {
+  combine,
+  filterHeaders,
+  resolveAbsoluteUrl
+} from 'passing-notes/lib/middleware'
 
-export default flow([resolveAbsoluteUrl, filterHeaders])(liftRequest)
+export default combine([resolveAbsoluteUrl, filterHeaders])(liftRequest)
