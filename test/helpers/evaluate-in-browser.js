@@ -16,10 +16,10 @@ export default async function(moduleContents: string): Promise<any> {
       import { liftResponder } from 'passing-notes/lib/http'
       import { combine, serveUi } from 'passing-notes/lib/middleware'
 
-      export default combine([
-        serveUi('index.html'),
-        liftResponder
-      ])(() => {
+      export default combine(
+        liftResponder,
+        serveUi('index.html')
+      )(() => {
         throw new Error('Unexpected request')
       })
     `

@@ -29,7 +29,9 @@ test('starting a server', async t => {
 
   const response = await sendRequest({
     method: 'GET',
-    url: 'http://localhost:10000'
+    url: 'http://localhost:10000',
+    headers: {},
+    body: null
   })
 
   t.is(response.body, 'Hello World!')

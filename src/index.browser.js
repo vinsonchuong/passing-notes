@@ -7,6 +7,7 @@ export const api = new Proxy(
     get: (_, procedure) => async (...parameters) => {
       const response = await sendRequest({
         method: 'POST',
+        headers: {},
         url: '/rpc',
         body: { procedure, parameters }
       })

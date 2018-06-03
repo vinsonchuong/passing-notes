@@ -8,10 +8,10 @@ import {
   addAuthorityToUrl
 } from 'passing-notes/lib/middleware'
 
-export default combine([
+export default combine(
+  liftResponder,
   addAuthorityToUrl,
-  serializeJson,
-  compressBody,
   setContentLength,
-  liftResponder
-])
+  compressBody,
+  serializeJson
+)

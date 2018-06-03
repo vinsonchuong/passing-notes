@@ -6,4 +6,4 @@ import {
   resolveAbsoluteUrl
 } from 'passing-notes/lib/middleware'
 
-export default combine([resolveAbsoluteUrl, filterHeaders])(liftRequest)
+export default combine(resolveAbsoluteUrl, filterHeaders)(liftRequest)
