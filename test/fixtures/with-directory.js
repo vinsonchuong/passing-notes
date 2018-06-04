@@ -3,7 +3,7 @@ import { defineFixture } from 'passing-notes/test/helpers'
 import tempy from 'tempy'
 import { ensureDir, remove } from 'fs-extra'
 
-type Fixture = string
+export type Fixture = string
 
 export async function setup(): Promise<Fixture> {
   const directoryPath = tempy.directory()

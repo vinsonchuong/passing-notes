@@ -1,26 +1,26 @@
 /* @flow */
 import test from 'ava'
 
-type FixtureDefinition<Fixture> = {
-  setup: () => Promise<Fixture>,
+type FixtureDefinition<Params, Fixture> = {
+  setup: Params => Promise<Fixture>,
   teardown: Fixture => Promise<void>
 }
 
-type AttachFixtureOptions = {
+type AttachFixtureOptions<Params> = Params & {
   perTest: boolean,
   key: string
 }
 
-type AttachFixture = AttachFixtureOptions => void
+type AttachFixture<Params> = (AttachFixtureOptions<Params>) => void
 
-export default function<Fixture>({
+export default function<Params, Fixture>({
   setup,
   teardown
-}: FixtureDefinition<Fixture>): AttachFixture {
-  return ({ perTest, key }) => {
+}: FixtureDefinition<Params, Fixture>): AttachFixture<Params> {
+  return ({ perTest, key, ...params }) => {
     if (perTest) {
       test.beforeEach(async t => {
-        const value = await setup()
+        const value = await setup(params)
         Object.assign(t.context, { [key]: value })
       })
 
@@ -30,7 +30,7 @@ export default function<Fixture>({
       })
     } else {
       test.before(async () => {
-        const value = await setup()
+        const value = await setup(params)
         Object.assign(global, { [key]: value })
       })
 
