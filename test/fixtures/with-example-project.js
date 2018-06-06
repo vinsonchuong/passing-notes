@@ -1,22 +1,42 @@
 /* @flow */
-import type { Fixture as ProjectFixture } from 'passing-notes/test/fixtures/with-project'
-import * as withProject from 'passing-notes/test/fixtures/with-project'
-import { defineFixture } from 'passing-notes/test/helpers'
+import type { Fixture as DirectoryFixture } from 'passing-notes/test/fixtures/with-directory'
+import * as childProcess from 'child_process'
 import * as path from 'path'
+import { promisify } from 'util'
 import { copy } from 'fs-extra'
+import { defineFixture } from 'passing-notes/test/helpers'
+import * as withDirectory from 'passing-notes/test/fixtures/with-directory'
+
+const exec = promisify(childProcess.exec)
 
 type Params = {
   fixtureName: string
 }
 
-export async function setup({ fixtureName }: Params): Promise<ProjectFixture> {
-  const project = await withProject.setup()
-  await copy(path.resolve('examples', fixtureName), project.directory)
-  return project
+export type Fixture = {
+  passingNotes: DirectoryFixture,
+  directory: DirectoryFixture
 }
 
-export async function teardown(project: ProjectFixture): Promise<void> {
-  await withProject.teardown(project)
+export async function setup({ fixtureName }: Params): Promise<Fixture> {
+  const passingNotes = await withDirectory.setup()
+  await exec(`yarn build-esm ${passingNotes}`)
+
+  const directory = await withDirectory.setup()
+  await copy(path.resolve('examples', fixtureName), directory)
+  await exec(`yarn add --dev ${passingNotes}`, {
+    cwd: directory
+  })
+
+  return { passingNotes, directory }
+}
+
+export async function teardown({
+  passingNotes,
+  directory
+}: Fixture): Promise<void> {
+  await withDirectory.teardown(passingNotes)
+  await withDirectory.teardown(directory)
 }
 
 export default defineFixture({ setup, teardown })

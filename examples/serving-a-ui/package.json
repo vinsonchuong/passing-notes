@@ -1,4 +1,8 @@
 {
   "name": "serving-a-ui",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "react": "*",
+    "react-dom": "*"
+  }
 }
