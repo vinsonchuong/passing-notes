@@ -5,7 +5,7 @@ import { startServer, getPort } from 'passing-notes/lib/http'
 import { getBabelConfig, importModule } from 'passing-notes/lib/babel'
 
 async function run() {
-  const applicationPath = path.resolve(process.argv[2])
+  const applicationPath = path.resolve(process.argv[2] || 'server.js')
   const babelConfig = await getBabelConfig(path.resolve())
 
   const port = await getPort()

@@ -16,7 +16,7 @@ test('serving a UI', async t => {
   const { browser } = global
   const { project } = t.context
 
-  const server = await start(['yarn', 'pass-notes', 'server.js'], {
+  const server = await start(['yarn', 'pass-notes'], {
     cwd: project.directory,
     env: { PORT: '30000' },
     waitForOutput: 'Listening'
