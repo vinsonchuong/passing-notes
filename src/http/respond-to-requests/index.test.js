@@ -8,7 +8,7 @@ test('responding to requests', async t => {
 
   const server = await startServer(
     10040,
-    respondToRequests(request => {
+    respondToRequests(next => request => {
       t.deepEqual(request, {
         method: 'GET',
         url: 'http://localhost:10040/path',
@@ -50,6 +50,34 @@ test('responding to requests', async t => {
       hello: 'world'
     }
   })
+
+  await stopServer(server)
+})
+
+test('responding 404 when no middleware are specified', async t => {
+  const server = await startServer(10041, respondToRequests())
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:10041/path',
+    headers: {}
+  })
+
+  t.deepEqual(response, { status: 404, headers: {}, body: null })
+
+  await stopServer(server)
+})
+
+test('responding 404 when no middleware respond', async t => {
+  const server = await startServer(10042, respondToRequests(next => next))
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:10042/path',
+    headers: {}
+  })
+
+  t.deepEqual(response, { status: 404, headers: {}, body: null })
 
   await stopServer(server)
 })

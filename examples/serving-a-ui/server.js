@@ -1,6 +1,4 @@
 /* @flow */
-import { combine, respondToRequests, serveUi } from 'passing-notes'
+import { respondToRequests, serveUi } from 'passing-notes'
 
-export default combine(respondToRequests, serveUi('index.html'))(request => {
-  throw new Error('Should not be delegating')
-})
+export default respondToRequests(serveUi('index.html'))
