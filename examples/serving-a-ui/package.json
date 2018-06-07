@@ -1,6 +1,9 @@
 {
   "name": "serving-a-ui",
   "private": true,
+  "scripts": {
+    "start": "pass-notes api/index.js"
+  },
   "dependencies": {
     "react": "*",
     "react-dom": "*"

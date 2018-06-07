@@ -16,14 +16,22 @@ test('serving a UI', async t => {
   const { browser } = global
   const { project } = t.context
 
-  const server = await start(['yarn', 'pass-notes'], {
+  const server = await start(['yarn', 'start'], {
     cwd: project.directory,
     env: { PORT: '30000' },
     waitForOutput: 'Listening'
   })
 
   const tab = await openTab(browser, 'http://localhost:30000')
-  t.truthy(await findElement(tab, 'div', 'Hello World!'))
+  try {
+    t.truthy(await findElement(tab, 'div', 'Item 1'))
+    t.truthy(await findElement(tab, 'div', 'Item 2'))
+    t.truthy(await findElement(tab, 'div', 'Item 3'))
+  } finally {
+    tab.console.map(console.log)
+    console.log('===')
+    tab.errors.map(console.log)
+  }
 
   await stop(server)
 })

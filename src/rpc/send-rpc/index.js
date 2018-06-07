@@ -1,5 +1,6 @@
 /* @flow */
-import { liftRequest } from 'passing-notes/lib/http'
+import { liftRequest as liftHttpRequest } from 'passing-notes/lib/http'
+import { liftRequest as liftRpcRequest } from 'passing-notes/lib/rpc'
 import {
   combine,
   filterResponseHeaders,
@@ -8,8 +9,9 @@ import {
 } from 'passing-notes/lib/middleware'
 
 export default combine(
+  liftRpcRequest,
   resolveAbsoluteUrl,
   serializeJsonRequest,
   filterResponseHeaders,
-  next => liftRequest
+  next => liftHttpRequest
 )(() => ({ status: 404, headers: {}, body: null }))
