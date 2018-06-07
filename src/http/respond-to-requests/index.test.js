@@ -17,7 +17,8 @@ test('responding to requests', async t => {
           'user-agent':
             'passing-notes/1.0 (+https://github.com/splayd/passing-notes)',
           'x-request': 'Hello'
-        }
+        },
+        body: null
       })
 
       return {
