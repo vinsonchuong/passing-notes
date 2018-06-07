@@ -4,7 +4,7 @@ import { liftResponder } from 'passing-notes/lib/http'
 import {
   combine,
   compressBody,
-  serializeJson,
+  serializeJsonResponse,
   setContentLength,
   addAuthorityToUrl
 } from 'passing-notes/lib/middleware'
@@ -17,7 +17,7 @@ export default function(
     addAuthorityToUrl,
     setContentLength,
     compressBody,
-    serializeJson,
+    serializeJsonResponse,
     ...middleware
   )(() => ({
     status: 404,
