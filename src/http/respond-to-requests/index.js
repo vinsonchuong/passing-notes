@@ -4,6 +4,8 @@ import { liftResponder } from 'passing-notes/lib/http'
 import {
   combine,
   compressBody,
+  deserializeJsonRequest,
+  filterRequestHeaders,
   serializeJsonResponse,
   setContentLength,
   addAuthorityToUrl
@@ -15,6 +17,8 @@ export default function(
   return combine(
     liftResponder,
     addAuthorityToUrl,
+    filterRequestHeaders,
+    deserializeJsonRequest,
     setContentLength,
     compressBody,
     serializeJsonResponse,

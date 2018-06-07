@@ -10,15 +10,18 @@ test('responding to requests', async t => {
     10040,
     respondToRequests(next => request => {
       t.deepEqual(request, {
-        method: 'GET',
+        method: 'POST',
         url: 'http://localhost:10040/path',
         headers: {
           accept: '*/*',
+          'content-type': 'application/json',
           'user-agent':
             'passing-notes/1.0 (+https://github.com/splayd/passing-notes)',
           'x-request': 'Hello'
         },
-        body: null
+        body: {
+          message: 'Ping'
+        }
       })
 
       return {
@@ -28,17 +31,20 @@ test('responding to requests', async t => {
           'content-type': 'application/json'
         },
         body: {
-          hello: 'world'
+          message: 'Pong'
         }
       }
     })
   )
 
   const response = await sendRequest({
-    method: 'GET',
+    method: 'POST',
     url: 'http://localhost:10040/path',
     headers: {
       'x-request': 'Hello'
+    },
+    body: {
+      message: 'Ping'
     }
   })
 
@@ -48,7 +54,7 @@ test('responding to requests', async t => {
       'x-response': 'World!'
     },
     body: {
-      hello: 'world'
+      message: 'Pong'
     }
   })
 
