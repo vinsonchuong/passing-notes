@@ -23,15 +23,9 @@ test('serving a UI', async t => {
   })
 
   const tab = await openTab(browser, 'http://localhost:30000')
-  try {
-    t.truthy(await findElement(tab, 'div', 'Item 1'))
-    t.truthy(await findElement(tab, 'div', 'Item 2'))
-    t.truthy(await findElement(tab, 'div', 'Item 3'))
-  } finally {
-    tab.console.map(console.log)
-    console.log('===')
-    tab.errors.map(console.log)
-  }
+  t.truthy(await findElement(tab, 'div', 'Item 1'))
+  t.truthy(await findElement(tab, 'div', 'Item 2'))
+  t.truthy(await findElement(tab, 'div', 'Item 3'))
 
   await stop(server)
 })

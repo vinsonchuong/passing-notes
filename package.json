@@ -48,6 +48,7 @@
     "flow-typed": "^2.4.0",
     "puppet-strings": "^0.1.0",
     "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "standard-esnext": "^4.0.3",
     "tempy": "^0.2.1"
   },
