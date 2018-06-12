@@ -14,6 +14,8 @@ async function run() {
     application(request, response)
   })
   console.log(`Listening at http://localhost:${port}`)
+
+  importModule(babelConfig, applicationPath)
 }
 
 run()
