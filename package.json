@@ -15,7 +15,6 @@
     "./src/index.js": "./src/index.browser.js",
     "./lib/http/send-request/resolve-absolute-url/index.js": "./lib/http/send-request/resolve-absolute-url/index.browser.js",
     "./lib/middleware/compress-body/index.js": "./lib/middleware/compress-body/index.browser.js",
-    "./lib/middleware/resolve-absolute-url/index.js": "./lib/middleware/resolve-absolute-url/index.browser.js",
     "./lib/middleware/serialize-json/index.js": "./lib/middleware/serialize-json/index.browser.js",
     "./lib/middleware/serve-static/index.js": "./lib/middleware/serve-static/index.browser.js",
     "./lib/bundler/generate-bundle/index.js": "./lib/bundler/generate-bundle/index.browser.js",

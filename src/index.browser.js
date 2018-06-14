@@ -1,3 +1,3 @@
 /* @flow */
-export { sendRequest } from 'passing-notes/src/http'
+export { sendRequest } from 'passing-notes/lib/http'
 export { sendRpc } from 'passing-notes/src/rpc'

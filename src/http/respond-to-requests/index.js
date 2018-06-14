@@ -27,7 +27,9 @@ export default function(
     ...middleware
   )(() => ({
     status: 404,
-    headers: {},
-    body: null
+    headers: {
+      'content-length': '0'
+    },
+    body: ''
   }))
 }

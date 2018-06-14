@@ -15,8 +15,6 @@ test('responding to requests', async t => {
         headers: {
           accept: '*/*',
           'content-type': 'application/json',
-          'user-agent':
-            'passing-notes/1.0 (+https://github.com/splayd/passing-notes)',
           'x-request': 'Hello'
         },
         body: {
@@ -41,16 +39,18 @@ test('responding to requests', async t => {
     method: 'POST',
     url: 'http://localhost:10040/path',
     headers: {
+      'content-type': 'application/json',
       'x-request': 'Hello'
     },
-    body: {
+    body: JSON.stringify({
       message: 'Ping'
-    }
+    })
   })
 
   t.deepEqual(response, {
     status: 200,
     headers: {
+      'content-type': 'application/json',
       'x-response': 'World!'
     },
     body: {
@@ -67,10 +67,11 @@ test('responding 404 when no middleware are specified', async t => {
   const response = await sendRequest({
     method: 'GET',
     url: 'http://localhost:10041/path',
-    headers: {}
+    headers: {},
+    body: ''
   })
 
-  t.deepEqual(response, { status: 404, headers: {}, body: null })
+  t.deepEqual(response, { status: 404, headers: {}, body: '' })
 
   await stopServer(server)
 })
@@ -81,10 +82,11 @@ test('responding 404 when no middleware respond', async t => {
   const response = await sendRequest({
     method: 'GET',
     url: 'http://localhost:10042/path',
-    headers: {}
+    headers: {},
+    body: ''
   })
 
-  t.deepEqual(response, { status: 404, headers: {}, body: null })
+  t.deepEqual(response, { status: 404, headers: {}, body: '' })
 
   await stopServer(server)
 })
@@ -100,7 +102,8 @@ test('responding 500 when an exception is thrown', async t => {
   const response = await sendRequest({
     method: 'GET',
     url: 'http://localhost:10043',
-    headers: {}
+    headers: {},
+    body: ''
   })
 
   t.deepEqual(response, { status: 500, headers: {}, body: '' })
