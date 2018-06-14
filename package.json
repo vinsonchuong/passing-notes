@@ -13,6 +13,7 @@
   },
   "browser": {
     "./src/index.js": "./src/index.browser.js",
+    "./lib/http/send-request/resolve-absolute-url/index.js": "./lib/http/send-request/resolve-absolute-url/index.browser.js",
     "./lib/middleware/compress-body/index.js": "./lib/middleware/compress-body/index.browser.js",
     "./lib/middleware/resolve-absolute-url/index.js": "./lib/middleware/resolve-absolute-url/index.browser.js",
     "./lib/middleware/serialize-json/index.js": "./lib/middleware/serialize-json/index.browser.js",
@@ -34,7 +35,7 @@
     "compressible": "^2.0.14",
     "content-type": "^1.0.4",
     "cross-fetch": "^2.2.1",
-    "filenamify": "^2.0.0",
+    "filenamify": "^2.1.0",
     "fresh": "^0.5.2",
     "fs-extra": "^6.0.1",
     "get-port": "^3.2.0",
@@ -44,7 +45,7 @@
     "lodash": "^4.17.10",
     "mime": "^2.3.1",
     "negotiator": "^0.6.1",
-    "parcel-bundler": "^1.8.1",
+    "parcel-bundler": "^1.9.0",
     "promisify-event": "^1.0.0"
   },
   "devDependencies": {
@@ -54,8 +55,8 @@
     "flow-typed": "^2.4.0",
     "into-stream": "^3.1.0",
     "puppet-strings": "^0.1.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "standard-esnext": "^4.0.3",
     "tempy": "^0.2.1"
   },
