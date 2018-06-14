@@ -3,6 +3,7 @@ import type { Responder, NodeRequestHandler } from 'passing-notes/lib/http'
 import { liftResponder } from 'passing-notes/lib/http'
 import {
   combine,
+  catchErrors,
   compressBody,
   deserializeJsonRequest,
   filterRequestHeaders,
@@ -16,6 +17,7 @@ export default function(
 ): NodeRequestHandler {
   return combine(
     liftResponder,
+    catchErrors,
     addAuthorityToUrl,
     filterRequestHeaders,
     deserializeJsonRequest,

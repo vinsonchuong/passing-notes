@@ -88,3 +88,22 @@ test('responding 404 when no middleware respond', async t => {
 
   await stopServer(server)
 })
+
+test('responding 500 when an exception is thrown', async t => {
+  const server = await startServer(
+    10043,
+    respondToRequests(next => () => {
+      throw new Error('Uncaught')
+    })
+  )
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:10043',
+    headers: {}
+  })
+
+  t.deepEqual(response, { status: 500, headers: {}, body: '' })
+
+  await stopServer(server)
+})
