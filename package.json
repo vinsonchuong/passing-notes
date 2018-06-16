@@ -18,7 +18,6 @@
     "./lib/middleware/serve-static/index.js": "./lib/middleware/serve-static/index.browser.js",
     "./lib/bundler/generate-bundle/index.js": "./lib/bundler/generate-bundle/index.browser.js",
     "./lib/bundler/serve-ui/index.js": "./lib/bundler/serve-ui/index.browser.js",
-    "./lib/rpc/lift-responder/index.js": "./lib/rpc/lift-responder/index.browser.js"
   },
   "repository": "splayd/passing-notes",
   "scripts": {
