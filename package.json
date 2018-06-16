@@ -13,13 +13,11 @@
   },
   "browser": {
     "./src/index.js": "./src/index.browser.js",
+    "./lib/http/index.js": "./lib/http/index.browser.js",
     "./lib/http/send-request/resolve-absolute-url/index.js": "./lib/http/send-request/resolve-absolute-url/index.browser.js",
-    "./lib/middleware/compress-body/index.js": "./lib/middleware/compress-body/index.browser.js",
-    "./lib/middleware/serialize-json/index.js": "./lib/middleware/serialize-json/index.browser.js",
     "./lib/middleware/serve-static/index.js": "./lib/middleware/serve-static/index.browser.js",
     "./lib/bundler/generate-bundle/index.js": "./lib/bundler/generate-bundle/index.browser.js",
     "./lib/bundler/serve-ui/index.js": "./lib/bundler/serve-ui/index.browser.js",
-    "./lib/middleware/set-content-length/index.js": "./lib/middleware/set-content-length/index.browser.js",
     "./lib/rpc/lift-responder/index.js": "./lib/rpc/lift-responder/index.browser.js"
   },
   "repository": "splayd/passing-notes",
@@ -39,6 +37,7 @@
     "fs-extra": "^6.0.1",
     "get-port": "^3.2.0",
     "get-stream": "^3.0.0",
+    "iltorb": "^2.3.2",
     "is-absolute-url": "^2.1.0",
     "is-stream": "^1.1.0",
     "lodash": "^4.17.10",
