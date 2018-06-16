@@ -39,7 +39,6 @@
     "get-stream": "^3.0.0",
     "iltorb": "^2.3.2",
     "is-absolute-url": "^2.1.0",
-    "is-stream": "^1.1.0",
     "lodash": "^4.17.10",
     "mime": "^2.3.1",
     "negotiator": "^0.6.1",

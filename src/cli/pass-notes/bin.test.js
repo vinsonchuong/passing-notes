@@ -31,7 +31,7 @@ test('starting a server defaulting to server.js', async t => {
     method: 'GET',
     url: 'http://localhost:10000',
     headers: {},
-    body: null
+    body: ''
   })
 
   t.is(response.body, 'Hello World!')
@@ -64,7 +64,7 @@ test('starting a server and specifying the entrypoint', async t => {
     method: 'GET',
     url: 'http://localhost:10001',
     headers: {},
-    body: null
+    body: ''
   })
 
   t.is(response.body, 'Hello World!')
