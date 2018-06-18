@@ -1,0 +1,8 @@
+{
+  "name": "serving-a-ui",
+  "private": true,
+  "scripts": {
+    "start": "pass-notes"
+  },
+  "dependencies": {}
+}
