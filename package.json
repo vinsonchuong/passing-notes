@@ -20,6 +20,7 @@
   "scripts": {
     "prepare": "flow-typed update --skip",
     "test": "standard -v --fix && flow && ava",
+    "release": "semantic-release",
     "prepack": "build-esm"
   },
   "dependencies": {
@@ -51,6 +52,7 @@
     "puppet-strings": "^0.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "semantic-release": "^15.5.5",
     "standard-esnext": "^4.0.3",
     "tempy": "^0.2.1",
     "testdouble": "^3.8.1"
