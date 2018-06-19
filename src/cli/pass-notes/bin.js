@@ -3,6 +3,7 @@
 import * as path from 'path'
 import { startServer, getPort } from 'passing-notes/lib/http'
 import { getBabelConfig, importModule } from 'passing-notes/lib/babel'
+import { printLog } from 'passing-notes/lib/log'
 
 async function run() {
   const applicationPath = path.resolve(process.argv[2] || 'server.js')
@@ -13,7 +14,12 @@ async function run() {
     const application = importModule(babelConfig, applicationPath)
     application(request, response)
   })
-  console.log(`Listening at http://localhost:${port}`)
+  printLog({
+    date: new Date(),
+    hrtime: process.hrtime(),
+    type: 'CLI',
+    message: `Listening at http://localhost:${port}`
+  })
 
   importModule(babelConfig, applicationPath)
 }
