@@ -14,8 +14,9 @@ export default async function(moduleContents: string): Promise<any> {
       'server.js',
       `
       import { respondToRequests, serveUi } from 'passing-notes'
+      import { printLog } from 'passing-notes/lib/log'
       export default respondToRequests(
-        serveUi('index.html')
+        serveUi({ entry: 'index.html', log: printLog })
       )
     `
     )
