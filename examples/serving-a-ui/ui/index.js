@@ -1,26 +1,15 @@
 /* @flow */
 import * as React from 'react'
 import { render } from 'react-dom'
-import { sendRpc } from 'passing-notes'
+import { sendRpc } from '../api'
 
 async function run() {
   render(<div>Loading</div>, window.root)
 
-  const response = await sendRpc({ action: 'getItems', params: [] })
-
-  if (
-    typeof response.result === 'object' &&
-    Array.isArray(response.result) &&
-    response.result.every(Boolean)
-  ) {
-    render(
-      <div>
-        {response.result.map(item => (
-          <div key={String(item)}>{String(item)}</div>
-        ))}
-      </div>,
-      window.root
-    )
-  }
+  const response = await sendRpc({ action: 'getThings', params: {} })
+  render(
+    <div>{response.result.map(thing => <div key={thing}>{thing}</div>)}</div>,
+    window.root
+  )
 }
 run()

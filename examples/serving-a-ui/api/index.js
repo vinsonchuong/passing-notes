@@ -1,12 +1,13 @@
 /* @flow */
-import { respondToRequests, serveRpc, serveUi } from 'passing-notes'
+import { respondToRequests, defineRpc, serveUi } from 'passing-notes'
 import { printLog } from 'passing-notes/lib/log'
+import * as actions from '../domain'
+
+const { serveRpc, sendRpc } = defineRpc(actions)
 
 export default respondToRequests(
-  serveRpc({
-    getItems() {
-      return ['Item 1', 'Item 2', 'Item 3']
-    }
-  }),
+  serveRpc,
   serveUi({ entry: 'ui/index.html', log: printLog })
 )
+
+export { sendRpc }
