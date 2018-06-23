@@ -1,14 +1,14 @@
 /* @flow */
 import * as React from 'react'
 import { render } from 'react-dom'
-import { sendRpc } from '../api'
+import { api } from '../api'
 
 async function run() {
   render(<div>Loading</div>, window.root)
 
-  const response = await sendRpc({ action: 'getThings', params: {} })
+  const things = await api.getThings({})
   render(
-    <div>{response.result.map(thing => <div key={thing}>{thing}</div>)}</div>,
+    <div>{things.map(thing => <div key={thing}>{thing}</div>)}</div>,
     window.root
   )
 }
