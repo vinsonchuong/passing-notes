@@ -25,7 +25,7 @@ async function run() {
     message: `Listening at http://localhost:${port}`
   })
 
-  clearCacheOnChange(path.resolve())
+  clearCacheOnChange({ directory: path.resolve(), log: printLog })
   importModule(babelConfig, applicationPath)
 }
 
