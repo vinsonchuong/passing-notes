@@ -28,6 +28,7 @@
   "dependencies": {
     "babel-preset-diff": "^4.0.0",
     "babel-register": "^6.26.0",
+    "chokidar": "^2.0.4",
     "compressible": "^2.0.14",
     "content-type": "^1.0.4",
     "cross-fetch": "^2.2.1",
@@ -37,6 +38,7 @@
     "get-port": "^3.2.0",
     "get-stream": "^3.0.0",
     "iltorb": "^2.3.2",
+    "invalidate-module": "^1.0.0",
     "is-absolute-url": "^2.1.0",
     "lodash": "^4.17.10",
     "mime": "^2.3.1",

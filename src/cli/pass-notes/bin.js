@@ -2,7 +2,11 @@
 /* @flow */
 import * as path from 'path'
 import { startServer, getPort } from 'passing-notes/lib/http'
-import { getBabelConfig, importModule } from 'passing-notes/lib/babel'
+import {
+  getBabelConfig,
+  importModule,
+  clearCacheOnChange
+} from 'passing-notes/lib/babel'
 import { printLog } from 'passing-notes/lib/log'
 
 async function run() {
@@ -21,6 +25,7 @@ async function run() {
     message: `Listening at http://localhost:${port}`
   })
 
+  clearCacheOnChange(path.resolve())
   importModule(babelConfig, applicationPath)
 }
 
