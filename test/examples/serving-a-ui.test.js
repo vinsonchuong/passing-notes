@@ -1,6 +1,6 @@
 /* @flow */
 import test from 'ava'
-import { start, stop } from 'passing-notes/test/helpers'
+import { start, stop, sleep } from 'passing-notes/test/helpers'
 import { withExampleProject, withBrowser } from 'passing-notes/test/fixtures'
 import { openTab, findElement } from 'puppet-strings'
 
@@ -22,10 +22,19 @@ test('serving a UI', async t => {
     waitForOutput: 'Listening'
   })
 
-  const tab = await openTab(browser, 'http://localhost:30000')
-  t.truthy(await findElement(tab, 'div', 'Item 1'))
-  t.truthy(await findElement(tab, 'div', 'Item 2'))
-  t.truthy(await findElement(tab, 'div', 'Item 3'))
+  while (!server.stdout.includes('Compiling UI... › Finished')) {
+    await sleep(1000)
+  }
 
-  await stop(server)
+  try {
+    const tab = await openTab(browser, 'http://localhost:30000')
+    t.truthy(await findElement(tab, 'div', 'Item 1'))
+    t.truthy(await findElement(tab, 'div', 'Item 2'))
+    t.truthy(await findElement(tab, 'div', 'Item 3'))
+  } catch (error) {
+    t.log(server.stdout)
+    throw error
+  } finally {
+    await stop(server)
+  }
 })
