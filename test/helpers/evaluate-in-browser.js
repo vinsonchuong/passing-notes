@@ -1,6 +1,6 @@
 /* eslint-disable flowtype/no-weak-types */
 /* @flow */
-import { start, stop, writeFile } from 'passing-notes/test/helpers'
+import { start, stop, writeFile, sleep } from 'passing-notes/test/helpers'
 import * as withBrowser from 'passing-notes/test/fixtures/with-browser'
 import * as withProject from 'passing-notes/test/fixtures/with-project'
 import { openTab, evalInTab } from 'puppet-strings'
@@ -48,6 +48,11 @@ export default async function(moduleContents: string): Promise<any> {
       env: { PORT: port.toString() },
       waitForOutput: 'Listening'
     })
+
+    while (!server.stdout.includes('Compiling UI... › Finished')) {
+      await sleep(1000)
+    }
+
     const browser = await withBrowser.setup()
     try {
       const tab = await openTab(browser, `http://localhost:${port}`)
