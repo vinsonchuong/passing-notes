@@ -6,7 +6,7 @@ import { api } from '../api'
 async function run() {
   render(<div>Loading</div>, window.root)
 
-  const things = await api.getThings({})
+  const things = await api.getThings()
   render(
     <div>{things.map(thing => <div key={thing}>{thing}</div>)}</div>,
     window.root
