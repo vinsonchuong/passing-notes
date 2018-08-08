@@ -5,9 +5,13 @@ import * as actions from '../domain'
 
 const { serveRpc, api, sendRpc } = defineRpc(actions)
 
+const dependencies = {
+  log: printLog
+}
+
 export default respondToRequests(
-  serveRpc({ log: printLog }),
-  serveUi({ entry: 'ui/index.html', log: printLog })
+  serveRpc({ ...dependencies }),
+  serveUi({ ...dependencies, entry: 'ui/index.html' })
 )
 
 export { api, sendRpc }
