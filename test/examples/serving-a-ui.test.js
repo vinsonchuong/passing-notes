@@ -1,16 +1,17 @@
 /* @flow */
-import test from 'ava'
+import ava from 'ava'
+import { flow } from 'lodash'
 import { start, stop, sleep } from 'passing-notes/test/helpers'
-import { withExampleProject, withBrowser } from 'passing-notes/test/fixtures'
+import {
+  withExampleProject,
+  withGlobalBrowser
+} from 'passing-notes/test/fixtures'
 import { openTab, findElement } from 'puppet-strings'
 
-withExampleProject({
-  perTest: true,
-  key: 'project',
-  fixtureName: 'serving-a-ui'
-})
-
-withBrowser({ perTest: false, key: 'browser' })
+const test = flow(
+  withGlobalBrowser,
+  withExampleProject({ fixtureName: 'serving-a-ui' })
+)(ava)
 
 test('serving a UI', async t => {
   const { browser } = global

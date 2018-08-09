@@ -21,43 +21,45 @@
   "repository": "splayd/passing-notes",
   "scripts": {
     "prepare": "flow-typed update --skip",
-    "test": "standard -v --fix && flow && ava",
+    "test": "standard -v --fix && flow && ava -v",
     "release": "semantic-release",
     "prepack": "build-esm"
   },
   "dependencies": {
-    "babel-preset-diff": "^4.0.0",
-    "babel-register": "^6.26.0",
+    "@babel/core": "^7.0.0-rc.0",
+    "@babel/register": "^7.0.0-rc.0",
+    "babel-preset-diff": "^6.0.1",
     "chokidar": "^2.0.4",
     "compressible": "^2.0.14",
     "content-type": "^1.0.4",
-    "cross-fetch": "^2.2.1",
+    "cross-fetch": "^2.2.2",
     "filenamify": "^2.1.0",
     "fresh": "^0.5.2",
-    "fs-extra": "^6.0.1",
-    "get-port": "^3.2.0",
+    "fs-extra": "^7.0.0",
+    "get-port": "^4.0.0",
     "get-stream": "^3.0.0",
-    "iltorb": "^2.3.2",
+    "iltorb": "^2.4.0",
+    "interop-require": "^1.0.0",
     "invalidate-module": "^1.0.0",
     "is-absolute-url": "^2.1.0",
     "lodash": "^4.17.10",
     "mime": "^2.3.1",
     "negotiator": "^0.6.1",
-    "parcel-bundler": "^1.9.2",
+    "parcel-bundler": "^1.9.7",
     "pretty-error": "^2.1.1",
     "promisify-event": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
-    "build-esm": "^3.2.0",
-    "flow-bin": "0.69.0",
-    "flow-typed": "^2.4.0",
+    "ava": "^1.0.0-beta.6",
+    "build-esm": "^4.0.0",
+    "flow-bin": "^0.78.0",
+    "flow-typed": "^2.5.1",
     "into-stream": "^3.1.0",
-    "puppet-strings": "^0.2.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "semantic-release": "^15.6.0",
-    "standard-esnext": "^4.0.3",
+    "puppet-strings": "^2.1.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "semantic-release": "^15.9.6",
+    "standard-esnext": "^5.1.2",
     "tempy": "^0.2.1",
     "testdouble": "^3.8.1"
   },
@@ -67,10 +69,15 @@
     ]
   },
   "ava": {
-    "concurrency": 8,
-    "babel": "inherit",
     "require": [
-      "babel-register"
+      "@babel/register"
+    ]
+  },
+  "standard": {
+    "ignore": [
+      "lib/http/respond-to-requests/compress-body/index.js",
+      "test/fixtures/with-*.js",
+      "test/helpers/cli.js"
     ]
   }
 }

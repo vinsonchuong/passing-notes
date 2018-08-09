@@ -1,35 +1,34 @@
 /* @flow */
-import type { Fixture as DirectoryFixture } from 'passing-notes/test/fixtures/with-directory'
+import type { TestInterface } from 'ava'
 import * as childProcess from 'child_process'
 import { promisify } from 'util'
-import { defineFixture } from 'passing-notes/test/helpers'
-import * as withDirectory from 'passing-notes/test/fixtures/with-directory'
+import tempy from 'tempy'
+import { ensureDir, remove } from 'fs-extra'
 
 const exec = promisify(childProcess.exec)
 
-export type Fixture = {
-  passingNotes: DirectoryFixture,
-  directory: DirectoryFixture
-}
+export default function<Context>(
+  test: TestInterface<Context>
+): TestInterface<Context & { project: { passingNotes: string, directory: string } }> {
+  const newTest: TestInterface<Context & { project: { passingNotes: string, directory: string } }> = (test: any)
 
-export async function setup(): Promise<Fixture> {
-  const passingNotes = await withDirectory.setup()
-  await exec(`yarn build-esm ${passingNotes}`)
+  newTest.beforeEach(async t => {
+    const passingNotes = tempy.directory()
+    await ensureDir(passingNotes)
+    await exec(`yarn build-esm ${passingNotes}`)
 
-  const directory = await withDirectory.setup()
-  await exec(`yarn add --dev ${passingNotes}`, {
-    cwd: directory
+    const directory = await tempy.directory()
+    await ensureDir(directory)
+    await exec(`yarn add --dev ${passingNotes}`, { cwd: directory })
+
+    Object.assign(t.context, { project: { passingNotes, directory } })
   })
 
-  return { passingNotes, directory }
-}
+  newTest.afterEach.always(async t => {
+    const { project: { passingNotes, directory } } = t.context
+    await remove(directory)
+    await remove(passingNotes)
+  })
 
-export async function teardown({
-  passingNotes,
-  directory
-}: Fixture): Promise<void> {
-  await withDirectory.teardown(passingNotes)
-  await withDirectory.teardown(directory)
+  return newTest
 }
-
-export default defineFixture({ setup, teardown })

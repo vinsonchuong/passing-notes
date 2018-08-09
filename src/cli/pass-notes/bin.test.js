@@ -1,10 +1,11 @@
 /* @flow */
-import test from 'ava'
+import ava from 'ava'
+import { flow } from 'lodash'
 import { sendRequest } from 'passing-notes'
 import { writeFile, start, stop, sleep } from 'passing-notes/test/helpers'
 import { withProject } from 'passing-notes/test/fixtures'
 
-withProject({ perTest: true, key: 'project' })
+const test = flow(withProject)(ava)
 
 test('starting a server defaulting to server.js', async t => {
   const { project } = t.context

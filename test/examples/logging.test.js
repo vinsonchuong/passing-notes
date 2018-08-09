@@ -1,14 +1,11 @@
 /* @flow */
-import test from 'ava'
+import ava from 'ava'
+import { flow } from 'lodash'
 import { start, stop } from 'passing-notes/test/helpers'
 import { withExampleProject } from 'passing-notes/test/fixtures'
 import { sendRequest } from 'passing-notes'
 
-withExampleProject({
-  perTest: true,
-  key: 'project',
-  fixtureName: 'logging'
-})
+const test = flow(withExampleProject({ fixtureName: 'logging' }))(ava)
 
 test('serving a UI', async t => {
   const { project } = t.context

@@ -1,42 +1,38 @@
 /* @flow */
-import type { Fixture as DirectoryFixture } from 'passing-notes/test/fixtures/with-directory'
+import type { TestInterface } from 'ava'
 import * as childProcess from 'child_process'
 import * as path from 'path'
 import { promisify } from 'util'
-import { copy } from 'fs-extra'
-import { defineFixture } from 'passing-notes/test/helpers'
-import * as withDirectory from 'passing-notes/test/fixtures/with-directory'
+import tempy from 'tempy'
+import { ensureDir, remove, copy } from 'fs-extra'
 
 const exec = promisify(childProcess.exec)
 
-type Params = {
-  fixtureName: string
+export default function({ fixtureName }: { fixtureName: string }) {
+  return function<Context>(
+    test: TestInterface<Context>
+  ): TestInterface<Context & { project: { passingNotes: string, directory: string } }> {
+    const newTest: TestInterface<Context & { project: { passingNotes: string, directory: string } }> = (test: any)
+
+    newTest.beforeEach(async t => {
+      const passingNotes = tempy.directory()
+      await ensureDir(passingNotes)
+      await exec(`yarn build-esm ${passingNotes}`)
+
+      const directory = await tempy.directory()
+      await ensureDir(directory)
+      await copy(path.resolve('examples', fixtureName), directory)
+      await exec(`yarn add --dev ${passingNotes}`, { cwd: directory })
+
+      Object.assign(t.context, { project: { passingNotes, directory } })
+    })
+
+    newTest.afterEach.always(async t => {
+      const { project: { passingNotes, directory } } = t.context
+      await remove(directory)
+      await remove(passingNotes)
+    })
+
+    return newTest
+  }
 }
-
-export type Fixture = {
-  passingNotes: DirectoryFixture,
-  directory: DirectoryFixture
-}
-
-export async function setup({ fixtureName }: Params): Promise<Fixture> {
-  const passingNotes = await withDirectory.setup()
-  await exec(`yarn build-esm ${passingNotes}`)
-
-  const directory = await withDirectory.setup()
-  await copy(path.resolve('examples', fixtureName), directory)
-  await exec(`yarn add --dev ${passingNotes}`, {
-    cwd: directory
-  })
-
-  return { passingNotes, directory }
-}
-
-export async function teardown({
-  passingNotes,
-  directory
-}: Fixture): Promise<void> {
-  await withDirectory.teardown(passingNotes)
-  await withDirectory.teardown(directory)
-}
-
-export default defineFixture({ setup, teardown })
