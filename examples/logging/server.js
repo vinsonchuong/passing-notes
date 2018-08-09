@@ -1,9 +1,13 @@
 /* @flow */
-import { respondToRequests } from 'passing-notes'
-import { printLog, logRequestsAndResponses } from 'passing-notes/lib/log'
+import { respondToRequests, logRequestsAndResponses } from 'passing-notes'
+import { printLog } from 'passing-notes/lib/log'
+
+const dependencies = {
+  log: printLog
+}
 
 export default respondToRequests(
-  logRequestsAndResponses({ log: printLog }),
+  logRequestsAndResponses({ ...dependencies }),
   next => async request => {
     if (request.url.endsWith('/ping')) {
       return {

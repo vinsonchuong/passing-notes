@@ -1,5 +1,10 @@
 /* @flow */
-import { respondToRequests, defineRpc, serveUi } from 'passing-notes'
+import {
+  respondToRequests,
+  logRequestsAndResponses,
+  defineRpc,
+  serveUi
+} from 'passing-notes'
 import { printLog } from 'passing-notes/lib/log'
 import * as actions from '../domain'
 
@@ -10,6 +15,7 @@ const dependencies = {
 }
 
 export default respondToRequests(
+  logRequestsAndResponses({ ...dependencies }),
   serveRpc({ ...dependencies }),
   serveUi({ ...dependencies, entry: 'ui/index.html' })
 )
