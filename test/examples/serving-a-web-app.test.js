@@ -7,12 +7,12 @@ import { openTab, findElement } from 'puppet-strings'
 withExampleProject({
   perTest: true,
   key: 'project',
-  fixtureName: 'serving-a-ui'
+  fixtureName: 'serving-a-web-app'
 })
 
 withBrowser({ perTest: false, key: 'browser' })
 
-test('serving a UI', async t => {
+test('serving a web app', async t => {
   const { browser } = global
   const { project } = t.context
 

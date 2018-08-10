@@ -1,5 +1,5 @@
 {
-  "name": "serving-a-ui",
+  "name": "serving-a-web-app",
   "private": true,
   "scripts": {
     "start": "pass-notes api/index.js"
