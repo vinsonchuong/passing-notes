@@ -2,7 +2,7 @@
 import type { Fixture as DirectoryFixture } from 'passing-notes/test/fixtures/with-directory'
 import * as childProcess from 'child_process'
 import { promisify } from 'util'
-import { defineFixture } from 'passing-notes/test/helpers'
+import { defineFixture, install } from 'passing-notes/test/helpers'
 import * as withDirectory from 'passing-notes/test/fixtures/with-directory'
 
 const exec = promisify(childProcess.exec)
@@ -17,9 +17,7 @@ export async function setup(): Promise<Fixture> {
   await exec(`yarn build-esm ${passingNotes}`)
 
   const directory = await withDirectory.setup()
-  await exec(`yarn add --dev ${passingNotes}`, {
-    cwd: directory
-  })
+  await install(passingNotes, directory)
 
   return { passingNotes, directory }
 }

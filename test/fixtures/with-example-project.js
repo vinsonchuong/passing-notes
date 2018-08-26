@@ -4,7 +4,7 @@ import * as childProcess from 'child_process'
 import * as path from 'path'
 import { promisify } from 'util'
 import { copy } from 'fs-extra'
-import { defineFixture } from 'passing-notes/test/helpers'
+import { defineFixture, install } from 'passing-notes/test/helpers'
 import * as withDirectory from 'passing-notes/test/fixtures/with-directory'
 
 const exec = promisify(childProcess.exec)
@@ -24,9 +24,7 @@ export async function setup({ fixtureName }: Params): Promise<Fixture> {
 
   const directory = await withDirectory.setup()
   await copy(path.resolve('examples', fixtureName), directory)
-  await exec(`yarn add --dev ${passingNotes}`, {
-    cwd: directory
-  })
+  await install(passingNotes, directory)
 
   return { passingNotes, directory }
 }

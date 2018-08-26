@@ -8,7 +8,11 @@ async function run() {
 
   const things = await api.getThings()
   render(
-    <div>{things.map(thing => <div key={thing}>{thing}</div>)}</div>,
+    <div>
+      {things.map(thing => (
+        <div key={thing}>{thing}</div>
+      ))}
+    </div>,
     window.root
   )
 }
