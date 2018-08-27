@@ -113,7 +113,7 @@ test('reloading changed files', async t => {
     }
   `
   )
-  await sleep(500)
+  await sleep(1000)
 
   const reloadedResponse = await sendRequest({
     method: 'GET',
