@@ -1,40 +1,47 @@
+/* eslint-disable flowtype/no-weak-types */
 /* @flow */
-import type { Fixture as DirectoryFixture } from 'passing-notes/test/fixtures/with-directory'
-import * as childProcess from 'child_process'
+import type { TestInterface } from 'ava'
 import * as path from 'path'
+import * as childProcess from 'child_process'
 import { promisify } from 'util'
-import { copy } from 'fs-extra'
-import { defineFixture, install } from 'passing-notes/test/helpers'
-import * as withDirectory from 'passing-notes/test/fixtures/with-directory'
+import { install } from 'passing-notes/test/helpers'
+import tempy from 'tempy'
+import { ensureDir, copy, remove } from 'fs-extra'
 
 const exec = promisify(childProcess.exec)
 
-type Params = {
+export default function<Context: {}>(
+  test: TestInterface<Context>,
   fixtureName: string
+): TestInterface<{
+  ...$Exact<Context>,
+  project: string,
+  passingNotes: string
+}> {
+  const testWithProject: TestInterface<{
+    ...$Exact<Context>,
+    project: string,
+    passingNotes: string
+  }> = (test: any)
+
+  testWithProject.beforeEach(async t => {
+    const project = tempy.directory()
+    const passingNotes = tempy.directory()
+    Object.assign(t.context, { project, passingNotes })
+
+    await ensureDir(project)
+    await ensureDir(passingNotes)
+
+    await copy(path.resolve('examples', fixtureName), project)
+
+    await exec(`yarn build-esm ${passingNotes}`)
+    await install(passingNotes, project)
+  })
+
+  testWithProject.afterEach.always(async t => {
+    await remove(t.context.project)
+    await remove(t.context.passingNotes)
+  })
+
+  return testWithProject
 }
-
-export type Fixture = {
-  passingNotes: DirectoryFixture,
-  directory: DirectoryFixture
-}
-
-export async function setup({ fixtureName }: Params): Promise<Fixture> {
-  const passingNotes = await withDirectory.setup()
-  await exec(`yarn build-esm ${passingNotes}`)
-
-  const directory = await withDirectory.setup()
-  await copy(path.resolve('examples', fixtureName), directory)
-  await install(passingNotes, directory)
-
-  return { passingNotes, directory }
-}
-
-export async function teardown({
-  passingNotes,
-  directory
-}: Fixture): Promise<void> {
-  await withDirectory.teardown(passingNotes)
-  await withDirectory.teardown(directory)
-}
-
-export default defineFixture({ setup, teardown })

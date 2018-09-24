@@ -1,16 +1,34 @@
 /* eslint-disable flowtype/no-weak-types */
 /* @flow */
-import { start, stop, writeFile, sleep } from 'passing-notes/test/helpers'
-import * as withBrowser from 'passing-notes/test/fixtures/with-browser'
-import * as withProject from 'passing-notes/test/fixtures/with-project'
-import { openTab, evalInTab } from 'puppet-strings'
+import * as childProcess from 'child_process'
+import { promisify } from 'util'
+import tempy from 'tempy'
+import { ensureDir, remove } from 'fs-extra'
+import {
+  start,
+  stop,
+  writeFile,
+  sleep,
+  install
+} from 'passing-notes/test/helpers'
+import { openChrome, closeBrowser, openTab, evalInTab } from 'puppet-strings'
 import { getPort } from 'passing-notes/lib/http'
 
+const exec = promisify(childProcess.exec)
+
 export default async function(moduleContents: string): Promise<any> {
-  const project = await withProject.setup()
+  const project = tempy.directory()
+  const passingNotes = tempy.directory()
+
+  await ensureDir(project)
+  await ensureDir(passingNotes)
+
+  await exec(`yarn build-esm ${passingNotes}`)
+  await install(passingNotes, project)
+
   try {
     await writeFile(
-      project.directory,
+      project,
       'server.js',
       `
       import { respondToRequests, serveUi } from 'passing-notes'
@@ -22,7 +40,7 @@ export default async function(moduleContents: string): Promise<any> {
     )
 
     await writeFile(
-      project.directory,
+      project,
       'index.html',
       `
       <!doctype html>
@@ -31,10 +49,10 @@ export default async function(moduleContents: string): Promise<any> {
       `
     )
 
-    await writeFile(project.directory, 'user-module.js', moduleContents)
+    await writeFile(project, 'user-module.js', moduleContents)
 
     await writeFile(
-      project.directory,
+      project,
       'index.js',
       `
       import fn from './user-module'
@@ -44,7 +62,7 @@ export default async function(moduleContents: string): Promise<any> {
 
     const port = await getPort()
     const server = await start(['yarn', 'pass-notes', 'server.js'], {
-      cwd: project.directory,
+      cwd: project,
       env: { PORT: port.toString() },
       waitForOutput: 'Listening'
     })
@@ -53,15 +71,16 @@ export default async function(moduleContents: string): Promise<any> {
       await sleep(1000)
     }
 
-    const browser = await withBrowser.setup()
+    const browser = await openChrome()
     try {
       const tab = await openTab(browser, `http://localhost:${port}`)
       return await evalInTab(tab, [], 'return window.fn()')
     } finally {
-      await withBrowser.teardown(browser)
+      await closeBrowser(browser)
       await stop(server)
     }
   } finally {
-    await withProject.teardown(project)
+    await remove(project)
+    await remove(passingNotes)
   }
 }

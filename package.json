@@ -16,7 +16,8 @@
     "./lib/bundler/serve-ui/index.js": "./lib/bundler/serve-ui/index.browser.js",
     "./lib/http/index.js": "./lib/http/index.browser.js",
     "./lib/http/respond-to-requests/index.js": "./lib/http/respond-to-requests/index.browser.js",
-    "./lib/http/send-request/resolve-absolute-url/index.js": "./lib/http/send-request/resolve-absolute-url/index.browser.js"
+    "./lib/http/send-request/resolve-absolute-url/index.js": "./lib/http/send-request/resolve-absolute-url/index.browser.js",
+    "./lib/log/format/format-error.js": "./lib/log/format/format-error.browser.js"
   },
   "repository": "splayd/passing-notes",
   "scripts": {
@@ -26,8 +27,8 @@
     "prepack": "build-esm"
   },
   "dependencies": {
-    "babel-preset-diff": "^4.0.0",
-    "babel-register": "^6.26.0",
+    "@babel/parser": "^7.1.0",
+    "babel-preset-diff": "^6.0.3",
     "chokidar": "^2.0.4",
     "compressible": "^2.0.15",
     "content-type": "^1.0.4",
@@ -38,40 +39,38 @@
     "get-port": "^4.0.0",
     "get-stream": "^4.0.0",
     "iltorb": "^2.4.0",
+    "interop-require": "^1.0.0",
     "invalidate-module": "^1.0.0",
     "is-absolute-url": "^2.1.0",
     "lodash": "^4.17.11",
     "mime": "^2.3.1",
     "negotiator": "^0.6.1",
-    "parcel-bundler": "^1.9.7",
+    "overdub": "^1.2.0",
+    "parcel-bundler": "^1.10.0-beta.1",
     "pretty-error": "^2.1.1",
     "promisify-event": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
-    "build-esm": "^3.2.0",
-    "flow-bin": "0.69.0",
+    "ava": "^1.0.0-beta.8",
+    "build-esm": "^4.1.1",
+    "flow-bin": "0.81.0",
     "flow-typed": "^2.5.1",
     "into-stream": "^3.1.0",
     "puppet-strings": "^2.3.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "rumor-mill": "^2.1.3",
-    "semantic-release": "^15.9.15",
+    "semantic-release": "^15.9.16",
     "standard-esnext": "^5.1.7",
     "tempy": "^0.2.1",
     "testdouble": "^3.8.1"
   },
-  "babel": {
-    "presets": [
-      "diff"
-    ]
-  },
   "ava": {
-    "concurrency": 8,
-    "babel": "inherit",
-    "require": [
-      "babel-register"
-    ]
+    "require": "overdub/register",
+    "babel": {
+      "testOptions": {
+        "extends": "overdub/babel"
+      }
+    }
   }
 }

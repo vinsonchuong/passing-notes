@@ -4,17 +4,13 @@ import { start, stop } from 'passing-notes/test/helpers'
 import { withExampleProject } from 'passing-notes/test/fixtures'
 import { sendRequest } from 'passing-notes'
 
-withExampleProject({
-  perTest: true,
-  key: 'project',
-  fixtureName: 'logging'
-})
+const testWithProject = withExampleProject(test, 'logging')
 
-test('serving a UI', async t => {
+testWithProject('serving a UI', async t => {
   const { project } = t.context
 
   const server = await start(['yarn', 'start'], {
-    cwd: project.directory,
+    cwd: project,
     env: { PORT: '30010' },
     waitForOutput: 'Listening'
   })

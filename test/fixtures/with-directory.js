@@ -1,16 +1,25 @@
+/* eslint-disable flowtype/no-weak-types */
 /* @flow */
-import { defineFixture } from 'passing-notes/test/helpers'
+import type { TestInterface } from 'ava'
 import tempy from 'tempy'
 import { ensureDir, remove } from 'fs-extra'
 
-export type Fixture = string
+export default function<Context: {}>(
+  test: TestInterface<Context>
+): TestInterface<{ ...$Exact<Context>, directory: string }> {
+  const testWithDirectory: TestInterface<{
+    ...$Exact<Context>,
+    directory: string
+  }> = (test: any)
 
-export async function setup(): Promise<Fixture> {
-  const directoryPath = tempy.directory()
-  await ensureDir(directoryPath)
-  return directoryPath
+  testWithDirectory.beforeEach(async t => {
+    t.context.directory = tempy.directory()
+    await ensureDir(t.context.directory)
+  })
+
+  testWithDirectory.afterEach.always(async t => {
+    await remove(t.context.directory)
+  })
+
+  return testWithDirectory
 }
-
-export const teardown = remove
-
-export default defineFixture({ setup, teardown })

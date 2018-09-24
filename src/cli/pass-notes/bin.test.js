@@ -4,12 +4,12 @@ import { sendRequest } from 'passing-notes'
 import { writeFile, start, stop } from 'passing-notes/test/helpers'
 import { withProject } from 'passing-notes/test/fixtures'
 
-withProject({ perTest: true, key: 'project' })
+const testWithProject = withProject(test)
 
-test('starting a server defaulting to server.js', async t => {
+testWithProject('starting a server defaulting to server.js', async t => {
   const { project } = t.context
   await writeFile(
-    project.directory,
+    project,
     'server.js',
     `
     export default function(request, response) {
@@ -22,7 +22,7 @@ test('starting a server defaulting to server.js', async t => {
   )
 
   const server = await start(['yarn', 'pass-notes', 'server.js'], {
-    cwd: project.directory,
+    cwd: project,
     env: { PORT: '10000' },
     waitForOutput: 'Listening'
   })
@@ -39,10 +39,10 @@ test('starting a server defaulting to server.js', async t => {
   await stop(server)
 })
 
-test('starting a server and specifying the entrypoint', async t => {
+testWithProject('starting a server and specifying the entrypoint', async t => {
   const { project } = t.context
   await writeFile(
-    project.directory,
+    project,
     'myserver.js',
     `
     export default function(request, response) {
@@ -55,7 +55,7 @@ test('starting a server and specifying the entrypoint', async t => {
   )
 
   const server = await start(['yarn', 'pass-notes', 'myserver.js'], {
-    cwd: project.directory,
+    cwd: project,
     env: { PORT: '10001' },
     waitForOutput: 'Listening'
   })

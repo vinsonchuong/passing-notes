@@ -4,20 +4,14 @@ import { start, stop, sleep } from 'passing-notes/test/helpers'
 import { withExampleProject, withBrowser } from 'passing-notes/test/fixtures'
 import { openTab, findElement } from 'puppet-strings'
 
-withExampleProject({
-  perTest: true,
-  key: 'project',
-  fixtureName: 'serving-a-web-app'
-})
+const testWithProject = withExampleProject(test, 'serving-a-web-app')
+const testWithProjectAndBrowser = withBrowser(testWithProject)
 
-withBrowser({ perTest: false, key: 'browser' })
-
-test('serving a web app', async t => {
-  const { browser } = global
-  const { project } = t.context
+testWithProjectAndBrowser('serving a web app', async t => {
+  const { project, browser } = t.context
 
   const server = await start(['yarn', 'start'], {
-    cwd: project.directory,
+    cwd: project,
     env: { PORT: '30000' },
     waitForOutput: 'Listening'
   })
