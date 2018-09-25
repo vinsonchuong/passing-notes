@@ -11,7 +11,7 @@ export async function install(packageName: string, projectDirectory: string) {
       cwd: projectDirectory
     })
   } catch (error) {
-    if (error.stderr.includes('ENOENT: no such file or directory, scandir')) {
+    if (error.stderr.includes('ENOENT: no such file or directory')) {
       await sleep(500)
       await install(packageName, projectDirectory)
     } else {
