@@ -1,5 +1,5 @@
 # passing-notes
-[![Build Status](https://travis-ci.org/splayd/passing-notes.svg?branch=master)](https://travis-ci.org/splayd/passing-notes)
+[![Build Status](https://travis-ci.org/vinsonchuong/passing-notes.svg?branch=master)](https://travis-ci.org/vinsonchuong/passing-notes)
 
 Workflows for transfering data between frontend and backend
 
