@@ -1,0 +1,7 @@
+{
+  "name": "serving-a-rest-api",
+  "private": true,
+  "scripts": {
+    "start": "pass-notes api.js"
+  }
+}

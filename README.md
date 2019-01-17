@@ -7,8 +7,10 @@
 Workflows for transfering data between frontend and backend
 
 ## Examples
+- [Serving a REST API](examples/serving-a-rest-api): An lightweight REST API
+  operating directly on HTTP request and response objects
 - [Serving a Web Application](examples/serving-a-web-app): A React UI backed by
-  an RPC API
+  an RPC API, with HTTP semantics abstracted away
 
 ## Usage
 Install [passing-notes](https://yarnpkg.com/en/package/passing-notes)
