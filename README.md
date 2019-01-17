@@ -6,6 +6,10 @@
 
 Workflows for transfering data between frontend and backend
 
+## Examples
+- [Serving a Web Application](examples/serving-a-web-app): A React UI backed by
+  an RPC API
+
 ## Usage
 Install [passing-notes](https://yarnpkg.com/en/package/passing-notes)
 by running
