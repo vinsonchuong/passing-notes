@@ -1,9 +1,11 @@
 /* @flow */
 import test from 'ava'
+import { promisify } from 'util'
 import { sendRequest } from 'passing-notes'
 import { writeFile, start, stop } from 'passing-notes/test/helpers'
 import { withProject } from 'passing-notes/test/fixtures'
 
+const sleep = promisify(setTimeout)
 const testWithProject = withProject(test)
 
 testWithProject('starting a server defaulting to server.js', async t => {
@@ -93,6 +95,8 @@ testWithProject('hot-reloading', async t => {
     waitForOutput: 'Listening'
   })
 
+  await sleep(1000)
+
   await writeFile(
     project,
     'server.js',
@@ -105,6 +109,8 @@ testWithProject('hot-reloading', async t => {
     }
   `
   )
+
+  await sleep(1000)
 
   const response = await sendRequest({
     method: 'GET',
