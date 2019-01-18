@@ -93,7 +93,7 @@ run()
 ```
 
 ### `respondToRequests(...middleware)`
-Takes an array of middleware and returns a
+Take an array of middleware and returns a
 [Node.js request handler](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener).
 
 ```js
@@ -137,3 +137,130 @@ can then:
 
 In this way, requests go from top to bottom, and responses come back from bottom
 to top.
+
+### Middleware
+`puppet-strings` provides a set of middleware to support modern web application
+development.
+
+#### logRequestsAndResponses({ log })
+Log all requests and responses, along with their timings.
+
+```js
+import { respondToRequests, logRequestsAndResponses } from 'passing-notes'
+import { printLog } from 'passing-notes/lib/log'
+
+export default respondToRequests(
+  logRequestsAndResponses({ log: printLog }),
+  next => async request => {
+    return {
+      status: 200,
+      headers: {},
+      body: ''
+    }
+  }
+)
+```
+
+`log` is a function that takes 2 arguments, a starting entry and an ending
+entry. For example, for each request-response cycle, when the request is
+received, a log entry is emitted with details about that request, and, when the
+response is returned, the same log entry is emitted alongside one giving details
+about the response.
+
+Shown above, `printLog` from `passing-notes/lib/log` formats and prints log
+entries to `stdout`.
+
+#### serveUi({ entry, log })
+Compile and serve an ES.next web UI.
+
+```js
+// api.js
+import {
+  respondToRequests,
+  logRequestsAndResponses,
+  serveUi
+} from 'passing-notes'
+import { printLog } from 'passing-notes/lib/log'
+
+export default respondToRequests(
+  serveUi({ entry: 'ui/index.html', log: printLog })
+)
+```
+
+```html
+<!-- ui/index.html -->
+<!doctype html>
+<meta charset="utf-8">
+<script async src="index.js"></script>
+<div id="root"></div>
+```
+
+```js
+// ui/index.js
+import React from 'react'
+import { render } from 'react-dom'
+
+render(<div>Hello World!</div>, window.root)
+```
+
+`entry` is the path (relative to `package.json`) to the HTML entry point of the
+web UI. It is compiled and served using
+[parcel-bundler](https://github.com/parcel-bundler/parcel).
+
+`log` is as described [above](#serveui-entry-log-). Log entries are emitted to
+indicate compilation status and any compilation errors.
+
+#### defineRpc(actions)
+Define a Node.js-side middleware and a browser-side client that enables calling
+procedures defined in Node.js from the browser.
+
+```js
+// api.js
+import {
+  respondToRequests,
+  defineRpc,
+  serveUi
+} from 'passing-notes'
+import { printLog } from 'passing-notes/lib/log'
+
+const { serveRpc, api } = defineRpc({
+  getItems: () => () => ['Item 1', 'Item 2', 'Item 3'],
+  add: () => ({ x, y }) => x + y,
+  readFromDatabase: ({ db }) => () => db.select('some_table')
+})
+
+export default respondToRequests(
+  serveRpc({ log: printLog, db: someDbAdapter }),
+  serveUi({ log: printLog, entry: 'ui/index.html' })
+)
+
+export { api }
+```
+
+```js
+// ui/index.js
+import { api } from '../api'
+
+async function run() {
+  const items = await api.getItems()
+  const sum = await api.add({ x: 4, y: 3 })
+  const records = await api.readFromDatabase()
+}
+
+run()
+```
+
+Each procedure can optionally take an object as argument. That object must be JSON
+serializable. Any return value must also be JSON serializable.
+
+`defineRpc` returns a middleware, `serveRpc` that responds to `POST` requests
+to `/rpc`. The name of the action and any parameters are specified in the
+request body. The return value of the action is returned in the response body.
+
+`serveRpc` can take additional dependencies, all of which are injected into each
+action. In this way, actions can be tested independently from HTTP and any
+outside dependencies.
+
+`defineRpc` also returns a client, `api` that has a method representing each
+action. When a method is called, a `POST` request is sent to `/rpc`, and the
+response is returned.
