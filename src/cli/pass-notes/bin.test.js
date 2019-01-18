@@ -21,7 +21,7 @@ testWithProject('starting a server defaulting to server.js', async t => {
   `
   )
 
-  const server = await start(['yarn', 'pass-notes', 'server.js'], {
+  const server = await start(['yarn', 'pass-notes'], {
     cwd: project,
     env: { PORT: '10000' },
     waitForOutput: 'Listening'
@@ -63,6 +63,101 @@ testWithProject('starting a server and specifying the entrypoint', async t => {
   const response = await sendRequest({
     method: 'GET',
     url: 'http://localhost:10001',
+    headers: {},
+    body: ''
+  })
+
+  t.is(response.body, 'Hello World!')
+
+  await stop(server)
+})
+
+testWithProject('hot-reloading', async t => {
+  const { project } = t.context
+  await writeFile(
+    project,
+    'server.js',
+    `
+    export default function(request, response) {
+      response.writeHead(200, {
+        'content-type': 'text/plain'
+      })
+      response.end('Hello World!')
+    }
+  `
+  )
+
+  const server = await start(['yarn', 'pass-notes'], {
+    cwd: project,
+    env: { PORT: '10002' },
+    waitForOutput: 'Listening'
+  })
+
+  await writeFile(
+    project,
+    'server.js',
+    `
+    export default function(request, response) {
+      response.writeHead(200, {
+        'content-type': 'text/plain'
+      })
+      response.end('Hello There!')
+    }
+  `
+  )
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:10002',
+    headers: {},
+    body: ''
+  })
+
+  t.is(response.body, 'Hello There!')
+
+  await stop(server)
+})
+
+testWithProject('not hot-reloading when NODE_ENV=production', async t => {
+  const { project } = t.context
+  await writeFile(
+    project,
+    'server.js',
+    `
+    export default function(request, response) {
+      response.writeHead(200, {
+        'content-type': 'text/plain'
+      })
+      response.end('Hello World!')
+    }
+  `
+  )
+
+  const server = await start(['yarn', 'pass-notes'], {
+    cwd: project,
+    env: {
+      PORT: '10003',
+      NODE_ENV: 'production'
+    },
+    waitForOutput: 'Listening'
+  })
+
+  await writeFile(
+    project,
+    'server.js',
+    `
+    export default function(request, response) {
+      response.writeHead(200, {
+        'content-type': 'text/plain'
+      })
+      response.end('Hello There!')
+    }
+  `
+  )
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:10003',
     headers: {},
     body: ''
   })

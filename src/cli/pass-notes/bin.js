@@ -7,12 +7,18 @@ import { printLog } from 'passing-notes/lib/log'
 
 async function run() {
   const applicationPath = path.resolve(process.argv[2] || 'server.js')
-
   const port = await getPort()
-  await startServer(port, (request, response) => {
+
+  if (process.env.NODE_ENV === 'production') {
     const application = importModule(applicationPath)
-    application(request, response)
-  })
+    await startServer(port, application)
+  } else {
+    await startServer(port, (request, response) => {
+      const application = importModule(applicationPath)
+      application(request, response)
+    })
+  }
+
   printLog({
     date: new Date(),
     hrtime: process.hrtime(),
@@ -20,8 +26,10 @@ async function run() {
     message: `Listening at http://localhost:${port}`
   })
 
-  clearCacheOnChange({ directory: path.resolve(), log: printLog })
-  importModule(applicationPath)
+  if (process.env.NODE_ENV !== 'production') {
+    clearCacheOnChange({ directory: path.resolve(), log: printLog })
+    importModule(applicationPath)
+  }
 }
 
 run()
