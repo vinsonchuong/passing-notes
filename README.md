@@ -204,8 +204,10 @@ render(<div>Hello World!</div>, window.root)
 ```
 
 `entry` is the path (relative to `package.json`) to the HTML entry point of the
-web UI. It is compiled and served using
-[parcel-bundler](https://github.com/parcel-bundler/parcel).
+web UI. It is assumed to be a file named `index.html`. It is compiled and
+served using [parcel-bundler](https://github.com/parcel-bundler/parcel).
+
+If a requested file cannot be found, the contents of `/` are returned.
 
 `log` is as described [above](#serveui-entry-log-). Log entries are emitted to
 indicate compilation status and any compilation errors.
