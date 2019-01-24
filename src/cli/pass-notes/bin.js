@@ -10,11 +10,14 @@ async function run() {
   const port = await getPort()
 
   if (process.env.NODE_ENV === 'production') {
-    const application = importModule(applicationPath)
+    const application = importAndLogErrors(applicationPath)
     await startServer(port, application)
   } else {
+    clearCacheOnChange({ directory: path.resolve(), log: printLog })
+    importAndLogErrors(applicationPath)
+
     await startServer(port, (request, response) => {
-      const application = importModule(applicationPath)
+      const application = importAndLogErrors(applicationPath)
       application(request, response)
     })
   }
@@ -25,10 +28,22 @@ async function run() {
     type: 'CLI',
     message: `Listening at http://localhost:${port}`
   })
+}
 
-  if (process.env.NODE_ENV !== 'production') {
-    clearCacheOnChange({ directory: path.resolve(), log: printLog })
-    importModule(applicationPath)
+function importAndLogErrors(modulePath) {
+  try {
+    return importModule(modulePath)
+  } catch (error) {
+    printLog({
+      date: new Date(),
+      hrtime: process.hrtime(),
+      type: 'CLI',
+      message: 'Failed to import API definition',
+      error
+    })
+
+    process.exit(1)
+    throw new Error('Exiting Process') // eslint-disable-line
   }
 }
 

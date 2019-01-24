@@ -172,3 +172,16 @@ testWithProject('not hot-reloading when NODE_ENV=production', async t => {
 
   await stop(server)
 })
+
+testWithProject.only('gracefully handling errors thrown on import', async t => {
+  const { project } = t.context
+  await writeFile(project, 'server.js', `throw new Error('Error on Import')`)
+
+  await t.throwsAsync(
+    start(['yarn', 'pass-notes'], {
+      cwd: project,
+      env: { PORT: '10004' },
+      waitForOutput: 'Listening'
+    })
+  )
+})
