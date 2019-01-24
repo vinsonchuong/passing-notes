@@ -1,8 +1,4 @@
 group: travis_latest
-os:
-  - linux
-  - osx
-  - windows
 language: node_js
 node_js: node
 cache: yarn
