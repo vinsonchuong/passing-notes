@@ -27,12 +27,12 @@
     "prepack": "build-esm"
   },
   "dependencies": {
-    "@babel/parser": "^7.3.1",
+    "@babel/parser": "^7.3.3",
     "babel-preset-diff": "^6.1.1",
-    "chokidar": "^2.0.4",
-    "compressible": "^2.0.15",
+    "chokidar": "^2.1.2",
+    "compressible": "^2.0.16",
     "content-type": "^1.0.4",
-    "cross-fetch": "^3.0.0",
+    "cross-fetch": "^3.0.1",
     "filenamify": "^2.1.0",
     "fresh": "^0.5.2",
     "fs-extra": "^7.0.1",
@@ -51,18 +51,18 @@
     "promisify-event": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "^1.1.0",
-    "build-esm": "^4.2.0",
-    "flow-bin": "0.91.0",
+    "ava": "^1.2.1",
+    "build-esm": "^4.2.1",
+    "flow-bin": "0.93.0",
     "flow-typed": "^2.5.1",
     "into-stream": "^4.0.0",
     "puppet-strings": "^2.4.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "semantic-release": "^15.13.3",
-    "standard-esnext": "^5.2.1",
+    "standard-esnext": "^5.3.0",
     "tempy": "^0.2.1",
-    "testdouble": "^3.9.3"
+    "testdouble": "^3.10.0"
   },
   "ava": {
     "require": "overdub/register",
