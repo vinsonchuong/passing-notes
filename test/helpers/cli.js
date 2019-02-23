@@ -36,7 +36,13 @@ export async function start(
       }
     })
     spawned.process.once('close', code => {
-      reject(new Error(`Command exited with code ${code}`))
+      reject(
+        new Error(
+          `Command exited with code ${code}\n\nSTDOUT:\n${
+            spawned.stdout
+          }\n\nSTDERR:\n${spawned.stderr}`
+        )
+      )
     })
   })
 
