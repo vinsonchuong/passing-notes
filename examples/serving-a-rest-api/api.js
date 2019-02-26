@@ -1,5 +1,5 @@
 /* @flow */
-import { parse as parseUrl } from 'url'
+import parseUrl from 'url-parse'
 import { respondToRequests } from 'passing-notes'
 
 const things = []
@@ -7,7 +7,7 @@ const things = []
 export default respondToRequests(next => async request => {
   const parsedUrl = parseUrl(request.url)
 
-  if (request.method === 'GET' && parsedUrl.path === '/things') {
+  if (request.method === 'GET' && parsedUrl.pathname === '/things') {
     return {
       status: 200,
       headers: { 'content-type': 'application/json' },
@@ -17,7 +17,7 @@ export default respondToRequests(next => async request => {
 
   if (
     request.method === 'POST' &&
-    parsedUrl.path === '/things' &&
+    parsedUrl.pathname === '/things' &&
     typeof request.body === 'string'
   ) {
     const newThing = JSON.parse(request.body)

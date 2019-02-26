@@ -142,7 +142,7 @@ to top.
 `puppet-strings` provides a set of middleware to support modern web application
 development.
 
-#### logRequestsAndResponses({ log })
+#### `logRequestsAndResponses({ log })`
 Log all requests and responses, along with their timings.
 
 ```js
@@ -170,7 +170,7 @@ about the response.
 Shown above, `printLog` from `passing-notes/lib/log` formats and prints log
 entries to `stdout`.
 
-#### serveUi({ entry, log })
+#### `serveUi({ entry, log })`
 Compile and serve an ES.next web UI.
 
 ```js
@@ -212,57 +212,119 @@ If a requested file cannot be found, the contents of `/` are returned.
 `log` is as described [above](#serveui-entry-log-). Log entries are emitted to
 indicate compilation status and any compilation errors.
 
-#### defineRpc(actions)
-Define a Node.js-side middleware and a browser-side client that enables calling
-procedures defined in Node.js from the browser.
+#### `serveRpc({ actions, path, log, ...dependencies })`
+Define a server-side middleware that when used in conjunction with
+[`makeRpcClient`](#makerpcclientserverurl), enables calling actions defined
+on the server over HTTP.
 
 ```js
-// api.js
-import {
-  respondToRequests,
-  defineRpc,
-  serveUi
-} from 'passing-notes'
+import { respondToRequests, serveRpc } from 'passing-notes'
 import { printLog } from 'passing-notes/lib/log'
 
-const { serveRpc, api } = defineRpc({
+const actions = {
   getItems: () => () => ['Item 1', 'Item 2', 'Item 3'],
-  add: () => ({ x, y }) => x + y,
+  add: () => (x, y) => x + y,
   readFromDatabase: ({ db }) => () => db.select('some_table')
-})
+}
 
 export default respondToRequests(
-  serveRpc({ log: printLog, db: someDbAdapter }),
-  serveUi({ log: printLog, entry: 'ui/index.html' })
+  serveRpc({ actions, path: '/rpc', log: printLog, db: someDbAdapter }),
 )
-
-export { api }
 ```
 
+Each action can take any number of parameters and return any value so long as
+they are JSON serializable.
+
+`serveRpc` will respond to `POST` requests to the given `path`:
+
+```
+POST /rpc
+
+{
+  "action": "add",
+  "params": [1, 2]
+}
+```
+
+The result returned by the action will be serialized to JSON and returned in
+response:
+
+```
+{
+  "result": 3
+}
+
+```
+
+If the action throws an error, the error message will be serialized and returned:
+
+```
+{
+  "error": "ReferenceError: foo is not defined"
+}
+```
+`serveRpc` can take additional dependencies, all of which are injected into each
+action. In this way, actions can be tested independently from HTTP and any
+outside dependencies.
+
+#### `makeRpcClient(serverUrl)`
+Define a client for use in conjunction with
+[`serveRpc`](#serverpcactionspathlogdependencies) to call actions defined on
+the server over HTTP.
+
 ```js
-// ui/index.js
-import { api } from '../api'
+import { makeRpcClient } from 'passing-notes'
+
+const api = makeRpcClient('http://localhost:8080/rpc')
 
 async function run() {
   const items = await api.getItems()
-  const sum = await api.add({ x: 4, y: 3 })
+  const sum = await api.add(4, 3)
   const records = await api.readFromDatabase()
 }
 
 run()
 ```
 
-Each procedure can optionally take an object as argument. That object must be JSON
-serializable. Any return value must also be JSON serializable.
+`makeRpcClient` returns an object. When a method on that object is called, a
+`POST` request is sent to the given `serverUrl` with the name of the method and
+any parameters. For example:
 
-`defineRpc` returns a middleware, `serveRpc` that responds to `POST` requests
-to `/rpc`. The name of the action and any parameters are specified in the
-request body. The return value of the action is returned in the response body.
+```js
+async function run() {
+  const api = makeRpcClient('http://localhost:8080/rpc')
+  const sum = await api.add(4, 3)
+}
+```
 
-`serveRpc` can take additional dependencies, all of which are injected into each
-action. In this way, actions can be tested independently from HTTP and any
-outside dependencies.
+is translated into:
 
-`defineRpc` also returns a client, `api` that has a method representing each
-action. When a method is called, a `POST` request is sent to `/rpc`, and the
-response is returned.
+```
+POST http://localhost:8080/rpc
+{
+  "action": "add",
+  "params": [4, 3]
+}
+```
+
+The response:
+
+```
+POST http://localhost:8080/rpc
+{
+  "result": 7
+}
+```
+
+is returned by the method.
+
+If, instead the response indicates an error:
+
+```
+POST http://localhost:8080/rpc
+{
+  "error": "Something went wrong."
+}
+```
+
+The method will throw an error with that message.

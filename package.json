@@ -48,7 +48,8 @@
     "overdub": "^2.3.0",
     "parcel-bundler": "^1.11.0",
     "pretty-error": "^2.1.1",
-    "promisify-event": "^1.0.0"
+    "promisify-event": "^1.0.0",
+    "url-parse": "^1.4.4"
   },
   "devDependencies": {
     "ava": "^1.2.1",
