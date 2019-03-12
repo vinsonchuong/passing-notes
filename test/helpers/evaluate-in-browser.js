@@ -26,40 +26,40 @@ export default async function(moduleContents: string): Promise<any> {
   await exec(`yarn build-esm ${passingNotes}`)
   await install(passingNotes, project)
 
-  try {
-    await writeFile(
-      project,
-      'server.js',
-      `
-      import { respondToRequests, serveUi } from 'passing-notes'
-      import { printLog } from 'passing-notes/lib/log'
-      export default respondToRequests(
-        serveUi({ entry: 'index.html', log: printLog })
-      )
+  await writeFile(
+    project,
+    'server.js',
     `
+    import { respondToRequests, serveUi } from 'passing-notes'
+    import { printLog } from 'passing-notes/lib/log'
+    export default respondToRequests(
+      serveUi({ entry: 'index.html', log: printLog })
     )
+  `
+  )
 
-    await writeFile(
-      project,
-      'index.html',
-      `
-      <!doctype html>
-      <meta charset="utf-8">
-      <script async src="index.js"></script>
-      `
-    )
+  await writeFile(
+    project,
+    'index.html',
+    `
+    <!doctype html>
+    <meta charset="utf-8">
+    <script async src="index.js"></script>
+    `
+  )
 
-    await writeFile(project, 'user-module.js', moduleContents)
+  await writeFile(project, 'user-module.js', moduleContents)
 
-    await writeFile(
-      project,
-      'index.js',
-      `
-      import fn from './user-module'
-      window.fn = fn
-      `
-    )
+  await writeFile(
+    project,
+    'index.js',
+    `
+    import fn from './user-module'
+    window.fn = fn
+    `
+  )
 
+  try {
     const port = await getPort()
     const server = await start(['yarn', 'pass-notes', 'server.js'], {
       cwd: project,
