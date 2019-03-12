@@ -22,26 +22,14 @@ async function run() {
     })
   }
 
-  printLog({
-    date: new Date(),
-    hrtime: process.hrtime(),
-    type: 'CLI',
-    message: `Listening at http://localhost:${port}`
-  })
+  printLog({ type: 'CLI', message: `Listening at http://localhost:${port}` })
 }
 
 function importAndLogErrors(modulePath) {
   try {
     return importModule(modulePath)
   } catch (error) {
-    printLog({
-      date: new Date(),
-      hrtime: process.hrtime(),
-      type: 'CLI',
-      message: 'Failed to import API definition',
-      error
-    })
-
+    printLog({ type: 'CLI', message: 'Failed to import API definition', error })
     process.exit(1)
     throw new Error('Exiting Process') // eslint-disable-line
   }
