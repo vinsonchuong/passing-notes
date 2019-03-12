@@ -27,7 +27,6 @@
     "prepack": "build-esm"
   },
   "dependencies": {
-    "@babel/parser": "^7.3.3",
     "babel-preset-diff": "^6.1.1",
     "chokidar": "^2.1.2",
     "compressible": "^2.0.16",
