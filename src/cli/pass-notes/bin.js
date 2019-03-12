@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /* @flow */
+import 'dotenv/config'
 import * as path from 'path'
 import { startServer, getPort } from 'passing-notes/lib/http'
 import { importModule, clearCacheOnChange } from 'passing-notes/lib/babel'

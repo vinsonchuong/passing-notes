@@ -58,6 +58,9 @@ ES.next code is automatically compiled using
 [`@babel/register`](https://babeljs.io/docs/en/babel-register). Changed files
 are hot-reloaded.
 
+Environment variables specified in `.env` are loaded using
+[dotenv](https://github.com/motdotla/dotenv).
+
 This CLI tool is meant to be used in conjunction with other functions provided
 by `passing-notes`. But, if transpiling or hot-reloading is not needed, handlers
 can simply be run using `node`.

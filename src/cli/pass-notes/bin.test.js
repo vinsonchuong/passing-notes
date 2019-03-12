@@ -185,3 +185,43 @@ testWithProject('gracefully handling errors thrown on import', async t => {
     })
   )
 })
+
+testWithProject('loading environment variables from .env', async t => {
+  const { project } = t.context
+  await writeFile(
+    project,
+    '.env',
+    `
+    MESSAGE='Something Here'
+  `
+  )
+  await writeFile(
+    project,
+    'server.js',
+    `
+    export default function(request, response) {
+      response.writeHead(200, {
+        'content-type': 'text/plain'
+      })
+      response.end(process.env.MESSAGE)
+    }
+  `
+  )
+
+  const server = await start(['yarn', 'pass-notes'], {
+    cwd: project,
+    env: { PORT: '10005' },
+    waitForOutput: 'Listening'
+  })
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:10005',
+    headers: {},
+    body: ''
+  })
+
+  t.is(response.body, 'Something Here')
+
+  await stop(server)
+})
