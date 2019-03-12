@@ -4166,10 +4166,10 @@ filename-reserved-regex@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/filename-reserved-regex/-/filename-reserved-regex-2.0.0.tgz#abf73dfab735d045440abfea2d91f389ebbfa229"
 
-filenamify@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/filenamify/-/filenamify-2.1.0.tgz#88faf495fb1b47abfd612300002a16228c677ee9"
-  integrity sha512-ICw7NTT6RsDp2rnYKVd8Fu4cr6ITzGy3+u4vUujPkabyaz+03F24NWEX7fs5fp+kBonlaqPH8fAO2NM+SXt/JA==
+filenamify@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/filenamify/-/filenamify-3.0.0.tgz#9603eb688179f8c5d40d828626dcbb92c3a4672c"
+  integrity sha512-5EFZ//MsvJgXjBAFJ+Bh2YaCTRF/VP1YOmGrgt+KJ4SFRLjI87EIdwLLuT6wQX0I4F9W41xutobzczjsOKlI/g==
   dependencies:
     filename-reserved-regex "^2.0.0"
     strip-outer "^1.0.0"
@@ -4260,10 +4260,10 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@0.93.0:
-  version "0.93.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.93.0.tgz#9192a08d88db2a8da0ff55e42420f44539791430"
-  integrity sha512-p8yq4ocOlpyJgOEBEj0v0GzCP25c9WP0ilFQ8hXSbrTR7RPKuR+Whr+OitlVyp8ocdX0j1MrIwQ8x28dacy1pg==
+flow-bin@0.94.0:
+  version "0.94.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.94.0.tgz#b5d58fe7559705b73a18229f97edfc3ab6ffffcb"
+  integrity sha512-DYF7r9CJ/AksfmmB4+q+TyLMoeQPRnqtF1Pk7KY3zgfkB/nVuA3nXyzqgsIPIvnMSiFEXQcFK4z+iPxSLckZhQ==
 
 flow-typed@^2.5.1:
   version "2.5.1"
@@ -4492,10 +4492,10 @@ get-stream@^4.0.0:
   dependencies:
     pump "^3.0.0"
 
-get-stream@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-4.1.0.tgz#c1b255575f3dc21d59bfc79cd3d2b46b1c3a54b5"
-  integrity sha512-GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==
+get-stream@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-5.0.0.tgz#7d1f137576da207fa83d843f44824a70ef999b5f"
+  integrity sha512-frc9F97ehylll1YI31eJRw5M21M86GCItj5U3S3hOEUa6JG6LtcvRKYDAtV/9E5lVasY8QJSPVsrMg/mbCSP5w==
   dependencies:
     pump "^3.0.0"
 
@@ -4951,14 +4951,15 @@ ignore@^5.0.2:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.0.4.tgz#33168af4a21e99b00c5d41cbadb6a6cb49903a45"
   integrity sha512-WLsTMEhsQuXpCiG173+f3aymI43SXa+fB1rSfbzyP4GkPP+ZFVuO0/3sFUGNBtifisPeDcl/uD/Y2NxZ7xFq4g==
 
-iltorb@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/iltorb/-/iltorb-2.4.1.tgz#3ae14f0a76ba880503884a2fe630b1f748eb4c17"
-  integrity sha512-huyAN7dSNe2b7VAl5AyvaeZ8XTcDTSF1b8JVYDggl+SBfHsORq3qMZeesZW7zoEy21s15SiERAITWT5cwxu1Uw==
+iltorb@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/iltorb/-/iltorb-2.4.2.tgz#51e341045ad5181bf64832a569ec576e7df0faf2"
+  integrity sha512-RvsVTHt1Pw1/Zcepfd+3jinu38rO8IBFVONcroT9Dwrb5RSNE/CEX7uy1yZKN/kYCQB7FWx/oQgXhN9qAwZY9Q==
   dependencies:
     detect-libc "^1.0.3"
+    nan "^2.12.1"
     npmlog "^4.1.2"
-    prebuild-install "^5.2.1"
+    prebuild-install "^5.2.4"
     which-pm-runs "^1.0.0"
 
 immediate@~3.0.5:
@@ -5070,6 +5071,14 @@ into-stream@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/into-stream/-/into-stream-4.0.0.tgz#ef10ee2ffb6f78af34c93194bbdc36c35f7d8a9d"
   integrity sha512-i29KNyE5r0Y/UQzcQ0IbZO1MYJ53Jn0EcFRZPj5FzWKYH17kDFEOwuA+3jroymOI06SW1dEDnly9A1CAreC5dg==
+  dependencies:
+    from2 "^2.1.1"
+    p-is-promise "^2.0.0"
+
+into-stream@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/into-stream/-/into-stream-5.0.0.tgz#690569d7806b29d7cbd496cb05972fbe725b42a5"
+  integrity sha512-VcdJDRK7+vZrcGCdklXy9Zu6lwh2BFVwxCUhqYwolNYAsJE5og3aY4PR+03Hup8pwKV6JhvQ4dxRMOHUgrutdg==
   dependencies:
     from2 "^2.1.1"
     p-is-promise "^2.0.0"
@@ -6313,6 +6322,11 @@ mz@^2.7.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
+nan@^2.12.1:
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
+  integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
+
 nan@^2.9.2:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.0.tgz#574e360e4d954ab16966ec102c0c049fd961a099"
@@ -6362,9 +6376,10 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
 
-node-abi@^2.2.0:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.4.4.tgz#410d8968809fe616dc078a181c44a370912f12fd"
+node-abi@^2.7.0:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.7.1.tgz#a8997ae91176a5fbaa455b194976e32683cda643"
+  integrity sha512-OV8Bq1OrPh6z+Y4dqwo05HqrRL9YNF7QVMRfq1/pguwKLG+q9UB/Lk0x5qXjO23JjJg+/jqCHSTaG1P3tfKfuw==
   dependencies:
     semver "^5.4.1"
 
@@ -7147,7 +7162,7 @@ parallel-transform@^1.1.0:
     inherits "^2.0.3"
     readable-stream "^2.1.5"
 
-parcel-bundler@^1.11.0:
+parcel-bundler@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/parcel-bundler/-/parcel-bundler-1.12.0.tgz#b6ef8165004c05c4d411a75e3be54c619675f5ac"
   integrity sha512-nPmOp5eTeYXEp/tEqZmDBtCjIzm1MjeufWprsLnYUQKCdBMG5LMfKuhq0n8Cvzeti9bMHJXXi4WRkA5ER6nIlA==
@@ -8018,10 +8033,10 @@ posthtml@^0.11.2, posthtml@^0.11.3:
     posthtml-parser "^0.3.3"
     posthtml-render "^1.1.0"
 
-prebuild-install@^5.2.1:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-5.2.2.tgz#237888f21bfda441d0ee5f5612484390bccd4046"
-  integrity sha512-4e8VJnP3zJdZv/uP0eNWmr2r9urp4NECw7Mt1OSAi3rcLrbBRxGiAkfUFtre2MhQ5wfREAjRV+K1gubvs/GPsA==
+prebuild-install@^5.2.4:
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-5.2.5.tgz#c7485911fe98950b7f7cd15bb9daee11b875cc44"
+  integrity sha512-6uZgMVg7yDfqlP5CPurVhtq3hUKBFNufiar4J5hZrlHTo59DDBEtyxw01xCdFss9j0Zb9+qzFVf/s4niayba3w==
   dependencies:
     detect-libc "^1.0.3"
     expand-template "^2.0.3"
@@ -8029,7 +8044,7 @@ prebuild-install@^5.2.1:
     minimist "^1.2.0"
     mkdirp "^0.5.1"
     napi-build-utils "^1.0.1"
-    node-abi "^2.2.0"
+    node-abi "^2.7.0"
     noop-logger "^0.1.1"
     npmlog "^4.0.1"
     os-homedir "^1.0.1"
