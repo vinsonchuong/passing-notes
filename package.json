@@ -31,6 +31,7 @@
     "chokidar": "^2.1.5",
     "compressible": "^2.0.17",
     "content-type": "^1.0.4",
+    "core-js": "^3.0.1",
     "cross-fetch": "^3.0.2",
     "dotenv": "^7.0.0",
     "filenamify": "^4.0.0",
