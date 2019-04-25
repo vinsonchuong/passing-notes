@@ -95,6 +95,68 @@ async function run() {
 run()
 ```
 
+### `startServer(port, requestHandler)`
+Given a
+[Node.js request handler](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener),
+starts a
+[Node.js HTTP server](https://nodejs.org/api/http.html#http_class_http_server),
+waits for it to start listening on the given port, and then returns the server.
+
+```js
+import { startServer } from 'passing-notes'
+
+async function run() {
+  const server = await startServer(8080, (request, response) => {
+    response.end('Hello World!')
+  })
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:8080',
+    headers: {},
+    body: ''
+  })
+
+  console.log(response.body)
+}
+
+run()
+```
+
+### `stopServer(server)`
+Stops the given
+[Node.js HTTP server](https://nodejs.org/api/http.html#http_class_http_server),
+returning after it is no longer listening.
+
+```js
+import { startServer, stopServer } from 'passing-notes'
+
+async function run() {
+  const server = await startServer(8080, (request, response) => {
+    response.end('Hello World!')
+  })
+
+  await stopServer(server)
+}
+
+run()
+```
+
+### `getPort()`
+Returns the `PORT` environment variable, if set. Returns port `8080` if it is
+open. Otherwise, returns a random open port.
+
+```js
+import { getPort } from 'passing-notes'
+
+async function run() {
+  const openPort = await getPort()
+}
+
+run()
+```
+
+
 ### `respondToRequests(...middleware)`
 Take an array of middleware and returns a
 [Node.js request handler](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener).
