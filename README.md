@@ -272,6 +272,9 @@ render(<div>Hello World!</div>, window.root)
 web UI. It is assumed to be a file named `index.html`. It is compiled and
 served using [parcel-bundler](https://github.com/parcel-bundler/parcel).
 
+Hot Module Replacement (HMR) is provided by Parcel but defaults to triggering
+full-page reloads unless [configured](https://parceljs.org/hmr.html).
+
 If a requested file cannot be found, the contents of `/` are returned.
 
 `log` is as described [above](#serveui-entry-log-). Log entries are emitted to
