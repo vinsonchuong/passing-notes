@@ -27,9 +27,11 @@ export async function start(
     spawned.process.stderr.setEncoding('utf8')
 
     spawned.process.stderr.on('data', chunk => {
+      console.log(chunk)
       spawned.stderr += chunk
     })
     spawned.process.stdout.on('data', chunk => {
+      console.log(chunk)
       spawned.stdout += chunk
       if (chunk.includes(options.waitForOutput)) {
         resolve()

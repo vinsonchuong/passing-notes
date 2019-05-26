@@ -17,7 +17,6 @@ testWithProjectAndBrowser('serving a web app', async t => {
   })
 
   while (!server.stdout.includes('Compiling UI... › Finished')) {
-    console.log(server.stdout)
     await sleep(1000)
   }
 
