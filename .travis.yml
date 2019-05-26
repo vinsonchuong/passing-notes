@@ -1,4 +1,6 @@
-group: travis_latest
+dist: xenial
+addons:
+  chrome: stable
 language: node_js
 node_js: node
 cache: yarn
