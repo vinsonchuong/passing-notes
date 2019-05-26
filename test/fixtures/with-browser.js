@@ -2,7 +2,8 @@
 /* @flow */
 import type { TestInterface } from 'ava'
 import type { Browser } from 'puppet-strings'
-import { openChrome, closeBrowser } from 'puppet-strings'
+import { closeBrowser } from 'puppet-strings'
+import { openChrome } from 'puppet-strings-chrome'
 
 export default function<Context: {}>(
   test: TestInterface<Context>

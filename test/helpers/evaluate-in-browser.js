@@ -11,7 +11,8 @@ import {
   sleep,
   install
 } from 'passing-notes/test/helpers'
-import { openChrome, closeBrowser, openTab, evalInTab } from 'puppet-strings'
+import { closeBrowser, openTab, evalInTab } from 'puppet-strings'
+import { openChrome } from 'puppet-strings-chrome'
 import { getPort } from 'passing-notes/lib/http'
 
 const exec = promisify(childProcess.exec)
