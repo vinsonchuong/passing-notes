@@ -15,7 +15,7 @@ export default function<Context: {}>(
 
   let browser
 
-  testWithBrowser.before.serial(async () => {
+  testWithBrowser.serial.before(async () => {
     browser = await openChrome()
   })
 
