@@ -28,13 +28,13 @@
   },
   "dependencies": {
     "babel-preset-diff": "^6.1.1",
-    "chokidar": "^3.0.0",
+    "chokidar": "^3.0.1",
     "compressible": "^2.0.17",
     "content-type": "^1.0.4",
-    "core-js": "^3.1.2",
+    "core-js": "^3.1.3",
     "cross-fetch": "^3.0.3",
     "dotenv": "^8.0.0",
-    "filenamify": "^4.0.0",
+    "filenamify": "^4.1.0",
     "fresh": "^0.5.2",
     "fs-extra": "^8.0.1",
     "get-port": "^5.0.0",
@@ -53,9 +53,9 @@
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
-    "ava": "^1.3.1",
+    "ava": "^2.0.0",
     "build-esm": "^4.2.1",
-    "flow-bin": "^0.98.1",
+    "flow-bin": "^0.100.0",
     "flow-typed": "^2.5.2",
     "into-stream": "^5.1.0",
     "puppet-strings": "^3.1.2",
@@ -68,6 +68,10 @@
     "testdouble": "^3.11.0"
   },
   "ava": {
+    "helpers": [
+      "**/fixtures/**/*",
+      "**/helpers/**/*"
+    ],
     "require": "overdub/register",
     "babel": {
       "testOptions": {
