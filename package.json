@@ -68,7 +68,6 @@
     "testdouble": "^3.11.0"
   },
   "ava": {
-    "concurrency": 2,
     "helpers": [
       "**/fixtures/**/*",
       "**/helpers/**/*"
