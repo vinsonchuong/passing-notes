@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable */
 import test from 'ava'
 import { promisify } from 'util'
 import { sendRequest } from 'passing-notes'
@@ -74,7 +75,7 @@ testWithProject('starting a server and specifying the entrypoint', async t => {
   await stop(server)
 })
 
-testWithProject('hot-reloading', async t => {
+testWithProject.only('hot-reloading', async t => {
   const { project } = t.context
   await writeFile(
     project,
@@ -110,7 +111,7 @@ testWithProject('hot-reloading', async t => {
   `
   )
 
-  await sleep(1000)
+  await sleep(5000)
 
   const response = await sendRequest({
     method: 'GET',
