@@ -69,6 +69,10 @@
   },
   "ava": {
     "concurrency": 1,
+    "files": [
+      "src/cli/pass-notes/bin.test.js",
+      "lib/bundler/generate-bundle/index.test.js"
+    ],
     "helpers": [
       "**/fixtures/**/*",
       "**/helpers/**/*"
