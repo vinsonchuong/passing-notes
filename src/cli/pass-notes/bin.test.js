@@ -95,7 +95,7 @@ testWithProject('hot-reloading', async t => {
     waitForOutput: 'Listening'
   })
 
-  await sleep(2000)
+  await sleep(5000)
 
   await writeFile(
     project,
