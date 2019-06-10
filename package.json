@@ -22,7 +22,7 @@
   "repository": "vinsonchuong/passing-notes",
   "scripts": {
     "prepare": "flow-typed update --skip",
-    "test": "ava -v",
+    "test": "[[ -n $CI ]] && standard -v && flow check && ava -v || standard -v --fix && flow && ava -v",
     "release": "semantic-release",
     "prepack": "build-esm"
   },
@@ -68,11 +68,6 @@
     "testdouble": "^3.11.0"
   },
   "ava": {
-    "concurrency": 1,
-    "files": [
-      "src/cli/pass-notes/bin.test.js",
-      "lib/bundler/generate-bundle/index.test.js"
-    ],
     "helpers": [
       "**/fixtures/**/*",
       "**/helpers/**/*"
