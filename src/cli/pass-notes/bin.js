@@ -2,7 +2,8 @@
 /* @flow */
 import 'dotenv/config'
 import * as path from 'path'
-import { startServer, getPort } from 'passing-notes/lib/http'
+import { startServer } from 'passing-notes/lib/node'
+import { getPort } from 'passing-notes/lib/http'
 import { importModule, clearCacheOnChange } from 'passing-notes/lib/babel'
 import { printLog } from 'passing-notes/lib/log'
 
