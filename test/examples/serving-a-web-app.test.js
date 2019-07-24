@@ -20,13 +20,18 @@ testWithProjectAndBrowser('serving a web app', async t => {
     await sleep(1000)
   }
 
+  let tab
   try {
-    const tab = await openTab(browser, 'http://localhost:30000')
+    tab = await openTab(browser, 'http://localhost:30000')
     t.truthy(await findElement(tab, 'div', 'Item 1'))
     t.truthy(await findElement(tab, 'div', 'Item 2'))
     t.truthy(await findElement(tab, 'div', 'Item 3'))
   } catch (error) {
     t.log(server.stdout)
+    if (tab) {
+      t.log(tab.errors)
+      t.log(tab.console)
+    }
     throw error
   } finally {
     await stop(server)

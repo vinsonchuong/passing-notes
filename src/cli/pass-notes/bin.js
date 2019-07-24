@@ -3,7 +3,7 @@
 import 'dotenv/config'
 import * as path from 'path'
 import { startServer } from 'passing-notes/lib/node'
-import { getPort } from 'passing-notes/lib/http'
+import { getPort } from 'passing-notes/lib/environment'
 import { importModule, clearCacheOnChange } from 'passing-notes/lib/babel'
 import { printLog } from 'passing-notes/lib/log'
 

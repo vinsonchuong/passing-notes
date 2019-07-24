@@ -12,9 +12,9 @@
     "pass-notes": "./src/cli/pass-notes/bin.js"
   },
   "browser": {
+    "./src/index.js": "./src/index.browser.js",
     "./lib/bundler/index.js": "./lib/bundler/index.browser.js",
     "./lib/bundler/serve-ui/index.js": "./lib/bundler/serve-ui/index.browser.js",
-    "./lib/http/index.js": "./lib/http/index.browser.js",
     "./lib/http/respond-to-requests/index.js": "./lib/http/respond-to-requests/index.browser.js",
     "./lib/http/send-request/resolve-absolute-url/index.js": "./lib/http/send-request/resolve-absolute-url/index.browser.js",
     "./lib/log/format/format-error.js": "./lib/log/format/format-error.browser.js"

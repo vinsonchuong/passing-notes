@@ -13,7 +13,7 @@ import {
 } from 'passing-notes/test/helpers'
 import { closeBrowser, openTab, evalInTab } from 'puppet-strings'
 import { openChrome } from 'puppet-strings-chrome'
-import { getPort } from 'passing-notes/lib/http'
+import { getPort } from 'passing-notes/lib/environment'
 
 const exec = promisify(childProcess.exec)
 
