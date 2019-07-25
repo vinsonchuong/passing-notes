@@ -43,17 +43,19 @@
     "mime": "^2.4.4",
     "negotiator": "^0.6.2",
     "overdub": "^2.3.2",
+    "p-event": "^4.1.0",
     "parcel-bundler": "^1.12.3",
     "pretty-error": "^2.1.1",
     "promisify-event": "^1.0.0",
-    "url-parse": "^1.4.7"
+    "url-parse": "^1.4.7",
+    "ws": "^7.1.1"
   },
   "devDependencies": {
     "ava": "^2.2.0",
     "build-esm": "^4.2.1",
     "flow-bin": "^0.103.0",
     "flow-typed": "^2.6.0",
-    "heliograph": "^4.10.4",
+    "heliograph": "^4.10.5",
     "into-stream": "^5.1.0",
     "node-fetch": "^2.6.0",
     "puppet-strings": "^3.1.2",
@@ -61,10 +63,9 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "semantic-release": "^15.13.18",
-    "standard-esnext": "^5.3.1",
+    "standard-esnext": "^5.3.2",
     "tempy": "^0.3.0",
-    "testdouble": "^3.12.2",
-    "ws": "^7.1.1"
+    "testdouble": "^3.12.2"
   },
   "ava": {
     "helpers": [
