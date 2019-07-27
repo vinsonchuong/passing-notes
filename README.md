@@ -24,9 +24,12 @@ yarn add passing-notes
 
 ### `pass-notes request-handler.js`
 A CLI script that takes the path to a file that exports a
-[Node.js request handler](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener),
-transpiles that handler, and uses it to start an HTTP server.
+[Node.js request handler](https://nodejs.org/api/http.html#http_event_request)
+and/or a
+[Node.js WebSocket upgrade handler](https://nodejs.org/api/http.html#http_event_upgrade_1),
+transpiles that file, and uses it to start an HTTP server.
 
+#### Example with HTTP Only
 ```js
 // api.js
 import { respondToRequests } from 'passing-notes'
@@ -54,9 +57,52 @@ export default respondToRequests(
 $ yarn pass-notes api.js
 ```
 
+#### Example with WebSocket Only
+```js
+// api.js
+import { acceptConnections } from 'passing-notes'
+
+export const webSocket = acceptConnections(async socket => {
+  for await (const message of socket) {
+    await socket.send(`Echo: ${message}`)
+  }
+})
+```
+
+```sh
+$ yarn pass-notes api.js
+```
+
+#### Example with Both HTTP and WebSocket
+```js
+// api.js
+import { respondToRequests } from 'passing-notes'
+import { acceptConnections } from 'passing-notes'
+
+export const http = respondToRequests(
+  next => async request => {
+    return {
+      status: 200,
+      headers: {},
+      body: 'Hello World!'
+    }
+  }
+)
+
+export const webSocket = acceptConnections(async socket => {
+  for await (const message of socket) {
+    await socket.send(`Echo: ${message}`)
+  }
+})
+```
+
+```sh
+$ yarn pass-notes api.js
+```
+
 ES.next code is automatically compiled using
 [`@babel/register`](https://babeljs.io/docs/en/babel-register). Changed files
-are hot-reloaded.
+are hot-reloaded in development.
 
 Environment variables specified in `.env` are loaded using
 [dotenv](https://github.com/motdotla/dotenv).
@@ -95,9 +141,11 @@ async function run() {
 run()
 ```
 
-### `startServer(port, requestHandler)`
+### `startServer(port, ?requestHandler, ?upgradeHandler)`
 Given a
-[Node.js request handler](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener),
+[Node.js request handler](https://nodejs.org/api/http.html#http_event_request)
+and/or a
+[Node.js WebSocket upgrade handler](https://nodejs.org/api/http.html#http_event_upgrade_1),
 starts a
 [Node.js HTTP server](https://nodejs.org/api/http.html#http_class_http_server),
 waits for it to start listening on the given port, and then returns the server.
@@ -106,9 +154,15 @@ waits for it to start listening on the given port, and then returns the server.
 import { startServer } from 'passing-notes'
 
 async function run() {
-  const server = await startServer(8080, (request, response) => {
-    response.end('Hello World!')
-  })
+  const server = await startServer(
+    8080,
+    (request, response) => {
+      response.end('Hello World!')
+    },
+    (request, socket, head) => {
+      socket.end()
+    }
+  ) 
 
   const response = await sendRequest({
     method: 'GET',
@@ -156,7 +210,6 @@ async function run() {
 run()
 ```
 
-
 ### `respondToRequests(...middleware)`
 Take an array of middleware and returns a
 [Node.js request handler](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener).
@@ -202,6 +255,24 @@ can then:
 
 In this way, requests go from top to bottom, and responses come back from bottom
 to top.
+
+### `acceptConnections(socketAcceptor)`
+Interact with clients over WebSocket.
+
+```js
+import { acceptConnections } from 'passing-notes'
+
+export const webSocket = acceptConnections(async socket => {
+  for await (const message of socket) {
+    await socket.send(`Echo: ${message}`)
+  }
+})
+```
+
+A socket object is passed into the given handler whenever a client connects. It
+is an `AsyncIterator` that emits messages from the client (assumed to be
+strings). It also has a `send` method for sending messages to the client and a
+`close` method for closing the connection.
 
 ### Middleware
 `puppet-strings` provides a set of middleware to support modern web application
