@@ -9,20 +9,26 @@ import {
   hotRequireAndCompile
 } from 'passing-notes/lib/require'
 import { printLog } from 'passing-notes/lib/log'
+import { pathExists } from 'fs-extra'
+import filenamify from 'filenamify'
 
 async function run() {
-  const applicationPath = path.resolve(process.argv[2] || 'server.js')
+  const applicationPath = process.argv[2] || 'server.js'
+  const precompilePath = path.resolve('dist', filenamify(applicationPath))
   const port = await getPort()
 
+  await pathExists(precompilePath)
   const application =
     process.env.NODE_ENV === 'production'
-      ? requireAndCompile({
-          modulePath: applicationPath,
-          log: printLog
-        }) || {}
+      ? (await pathExists(precompilePath))
+        ? requireAndCompile({
+            modulePath: path.resolve(applicationPath),
+            log: printLog
+          }) || {}
+        : require(precompilePath)
       : hotRequireAndCompile({
           baseDirectory: path.resolve(),
-          modulePath: applicationPath,
+          modulePath: path.resolve(applicationPath),
           log: printLog
         })
 
