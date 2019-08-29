@@ -8181,10 +8181,10 @@ overdub@^2.3.0:
     "@babel/register" "^7.0.0"
     babel-preset-diff "^6.1.1"
 
-overdub@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/overdub/-/overdub-2.5.0.tgz#e89d3faf7086a2124b408708d147711f9bbbf673"
-  integrity sha512-+7B0FQJe1eN6xH70PSG4zoJiXE+pPm3nFpXh+GFwYfd2FhdythyqX7Lfm2E2sP20+YwYLZNldGzCwCdG670dsQ==
+overdub@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/overdub/-/overdub-2.5.1.tgz#43083a5e8e4aa054b24608e883880203d16dc8bf"
+  integrity sha512-tqjEnlh/FJbQYh+dRXcc0ttumdFFOS+pxD5rlAfhGKaTw2M6nwBCXmm5zHPjhcUAdVPVMTZRuN9Z8hD3793V1g==
   dependencies:
     "@babel/core" "^7.5.5"
     "@babel/register" "^7.5.5"
