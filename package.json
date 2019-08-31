@@ -51,8 +51,8 @@
   },
   "devDependencies": {
     "ava": "^2.3.0",
-    "build-esm": "^4.2.1",
-    "flow-bin": "^0.106.2",
+    "build-esm": "^4.2.2",
+    "flow-bin": "^0.106.3",
     "flow-typed": "^2.6.1",
     "heliograph": "^4.10.5",
     "into-stream": "^5.1.0",
