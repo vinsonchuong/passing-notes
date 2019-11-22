@@ -9,3 +9,4 @@
 [options]
 module.name_mapper='^passing-notes$' -> '<PROJECT_ROOT>'
 module.name_mapper='^passing-notes\/\(.*\)$' -> '<PROJECT_ROOT>/\1'
+sharedmemory.hash_table_pow=21

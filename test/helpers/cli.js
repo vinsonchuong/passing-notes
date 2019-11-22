@@ -15,6 +15,7 @@ export async function start(
   const spawned = {
     process: childProcess.spawn(command[0], command.slice(1), {
       ...options,
+      // $FlowFixMe
       env: { ...process.env, ...options.env },
       detached: true
     }),
