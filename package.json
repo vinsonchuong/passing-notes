@@ -9,26 +9,46 @@
   "author": "Vinson Chuong <vinsonchuong@gmail.com>",
   "type": "module",
   "main": "index.js",
-  "bin": {},
+  "bin": {
+    "pass-notes": "./bin.js"
+  },
   "repository": "vinsonchuong/passing-notes",
   "scripts": {
     "test": "xo && ava",
     "release": "semantic-release"
   },
-  "dependencies": {},
+  "dependencies": {
+    "get-port": "^5.1.1",
+    "get-stream": "^6.0.0",
+    "hot-esm": "^1.0.3",
+    "httpx-server": "^1.4.1",
+    "indent-string": "^4.0.0",
+    "lodash": "^4.17.20",
+    "make-cert": "^1.1.0",
+    "p-event": "^4.2.0",
+    "pretty-ms": "^7.0.1",
+    "puff-pastry": "^1.2.0",
+    "type-is": "^1.6.18"
+  },
   "devDependencies": {
-    "ava": "^3.10.1",
-    "semantic-release": "^17.1.1",
-    "xo": "^0.32.1"
+    "ava": "^3.13.0",
+    "ava-patterns": "^2.4.0",
+    "heliograph": "^4.10.5",
+    "quick-install": "^1.2.0",
+    "semantic-release": "^17.2.1",
+    "strip-indent": "^3.0.0",
+    "xo": "^0.34.0"
   },
   "ava": {
-    "verbose": true
+    "verbose": true,
+    "timeout": "5m"
   },
   "xo": {
     "prettier": true,
     "space": 2,
     "semicolon": false,
     "rules": {
+      "ava/use-t-well": "off",
       "import/extensions": "off",
       "import/no-anonymous-default-export": "off",
       "import/no-useless-path-segments": "off",
