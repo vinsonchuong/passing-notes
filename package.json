@@ -1,7 +1,7 @@
 {
   "name": "passing-notes",
   "version": "0.0.0",
-  "description": "Workflows for transfering data between frontend and backend",
+  "description": "Build an HTTP server out of composable blocks",
   "keywords": [],
   "homepage": "https://github.com/vinsonchuong/passing-notes",
   "bugs": "https://github.com/vinsonchuong/passing-notes/issues",
