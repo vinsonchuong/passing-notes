@@ -12,6 +12,7 @@ const {
 export default function (computeResponse) {
   return async (nodeRequest, nodeResponse) => {
     const request = {
+      version: nodeRequest.httpVersion,
       method: nodeRequest.method,
       url: nodeRequest.url,
       headers: omit(nodeRequest.headers, [

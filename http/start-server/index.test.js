@@ -5,11 +5,21 @@ import makeCert from 'make-cert'
 test('starting an HTTP server', async (t) => {
   const {key, cert} = makeCert('localhost')
 
-  const server = await startServer({port: 10000, cert, key}, () => {
+  const server = await startServer({port: 10000, cert, key}, (request) => {
+    t.like(request, {
+      version: '1.1',
+      method: 'GET',
+      url: '/',
+      headers: {
+        'accept': 'text/plain'
+      },
+      body: ''
+    })
+
     return {
       status: 200,
       headers: {
-        'Content-Type': 'text/plain'
+        'content-type': 'text/plain'
       },
       body: 'Hello World!'
     }
@@ -23,29 +33,15 @@ test('starting an HTTP server', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10000',
-      headers: {},
-      body: null
-    }),
-    {
-      status: 200,
       headers: {
-        connection: 'close'
+        'accept': 'text/plain'
       },
-      body: 'Hello World!'
-    }
-  )
-
-  t.like(
-    await sendRequest({
-      method: 'GET',
-      url: 'https://localhost:10000',
-      headers: {},
-      body: null
+      body: ''
     }),
     {
       status: 200,
       headers: {
-        connection: 'close'
+        'content-type': 'text/plain'
       },
       body: 'Hello World!'
     }
