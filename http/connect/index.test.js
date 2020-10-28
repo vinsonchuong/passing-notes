@@ -1,36 +1,51 @@
 import test from 'ava'
-import {startServer, stopServer, connect} from '../../index.js'
-import makeCert from 'make-cert'
+import * as httpx from 'httpx-server'
+import http2 from 'http2'
+import {connect} from '../../index.js'
+
+const {HTTP2_HEADER_METHOD, HTTP2_HEADER_PATH} = http2.constants
 
 test('connecting via HTTP/2', async (t) => {
-  const {key, cert} = makeCert('localhost')
-  const server = await startServer({port: 10002, key, cert}, (request) => {
-    t.like(request, {
-      method: 'GET',
-      url: '/path',
-      headers: {
-        key: 'value'
+  const server = httpx.createServer((request, response) => {
+    t.is(request.method, 'GET')
+    t.is(request.url, '/')
+    t.is(request.headers.key, 'value')
+
+    response.createPushResponse(
+      {
+        [HTTP2_HEADER_METHOD]: 'GET',
+        [HTTP2_HEADER_PATH]: '/push'
       },
-      body: ''
+      (error, response) => {
+        response.writeHead(200, {
+          'content-type': 'text/plain'
+        })
+        response.end('Push')
+      }
+    )
+
+    response.writeHead(200, {
+      'content-type': 'text/plain',
+      foo: 'bar'
     })
-
-    return {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/plain',
-        foo: 'bar'
-      },
-      body: 'Hello World!'
-    }
+    response.end('Hello World!')
   })
+
+  await new Promise((resolve) => {
+    server.listen(10002, resolve)
+  })
+  t.teardown(() => {
+    server.close()
+  })
+
+  const session = await connect('http://localhost:10002')
   t.teardown(async () => {
-    await stopServer(server)
+    await session.close()
   })
 
-  const session = await connect('https://localhost:10002')
   const response = await session.sendRequest({
     method: 'GET',
-    url: '/path',
+    url: '/',
     headers: {
       key: 'value'
     }
@@ -44,5 +59,15 @@ test('connecting via HTTP/2', async (t) => {
     body: 'Hello World!'
   })
 
-  await session.close()
+  for await (const [request, response] of session.pushedResponses) {
+    t.like(request, {
+      method: 'GET',
+      url: '/push'
+    })
+    t.like(response, {
+      status: 200,
+      body: 'Push'
+    })
+    break
+  }
 })

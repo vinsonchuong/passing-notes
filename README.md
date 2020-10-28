@@ -67,6 +67,7 @@ yarn pass-notes server.mjs
 The ES module's default export must be a function that takes as argument an
 object with the following keys:
 
+- `version`: The HTTP version used, either `'1.1'` or `'2.0'`
 - `method`: An HTTP request method in capital letters (e.g. `GET` or `POST`)
 - `url`: The absolute URL or path to a resource
 - `headers`: An object mapping case-insensitive HTTP header names to values
@@ -78,6 +79,9 @@ keys:
 - `status`: The HTTP response status code (e.g. `200`)
 - `headers`
 - `body`
+- `push`: An optional array of requests that will be fed back into the request
+  handler to compute responses and then pushed to the client. This is only
+  supported over HTTP/2 (indicated by `request.version` being `'2.0'`).
 
 #### Protocol Support
 This HTTP server supports HTTP/1.1 and HTTP/2 as well as TLS.

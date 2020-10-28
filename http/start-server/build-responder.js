@@ -28,5 +28,23 @@ export default function (computeResponse) {
 
     nodeResponse.writeHead(response.status, response.headers)
     nodeResponse.end(response.body)
+
+    const pushes = [...(response.push || [])]
+    while (pushes.length > 0) {
+      const pushRequest = pushes.shift()
+      nodeResponse.createPushResponse(
+        {
+          [HTTP2_HEADER_METHOD]: pushRequest.method,
+          [HTTP2_HEADER_PATH]: pushRequest.url,
+          ...pushRequest.headers
+        },
+        async (error, nodePushResponse) => {
+          const pushResponse = await computeResponse(pushRequest)
+          pushes.push(...(pushResponse.push || []))
+          nodePushResponse.writeHead(pushResponse.status, pushResponse.headers)
+          nodePushResponse.end(pushResponse.body)
+        }
+      )
+    }
   }
 }

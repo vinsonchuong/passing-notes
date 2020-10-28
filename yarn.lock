@@ -5256,16 +5256,16 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-heliograph@^4.10.5:
-  version "4.10.5"
-  resolved "https://registry.yarnpkg.com/heliograph/-/heliograph-4.10.5.tgz#0114c814d708fd0a3e286cbcfe5e65bac868a1b9"
-  integrity sha512-jmS5Jd2uc/ByhSkpjuLFDhfd/ImjYLetigxXxMWbPcDGNeJhgYJX4txm4OPV/V6xXU8ccjyQ0mlocEEgrgDLWA==
+heliograph@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/heliograph/-/heliograph-5.0.0.tgz#a683c52e47ce9a736a76de659c73a7034f8559ff"
+  integrity sha512-g6yTgcKIS24YiWrhngRdmqF9HS612WWLXACz6ULVREqnhNLCHgqgdbQ3GErGOJPEii+FSrTzQOkxokmPFcimkg==
   dependencies:
     isomorphic-ws "^4.0.1"
-    lodash "^4.17.15"
-    p-event "^4.1.0"
-    pify "^4.0.1"
-    ws "^7.1.1"
+    lodash "^4.17.20"
+    p-event "^4.2.0"
+    pify "^5.0.0"
+    ws "^7.3.1"
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
@@ -8476,6 +8476,11 @@ pify@^4.0.1:
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
+pify@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/pify/-/pify-5.0.0.tgz#1f5eca3f5e87ebec28cc6d54a0e4aaf00acc127f"
+  integrity sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==
+
 pinkie-promise@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pinkie-promise/-/pinkie-promise-2.0.1.tgz#2135d6dfa7a358c069ac9b178776288228450ffa"
@@ -11517,7 +11522,7 @@ ws@^6.1.2:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^7.1.1, ws@^7.2.0:
+ws@^7.2.0, ws@^7.3.1:
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
   integrity sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==
