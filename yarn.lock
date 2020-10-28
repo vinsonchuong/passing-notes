@@ -9189,10 +9189,10 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
   integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
-quick-install@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/quick-install/-/quick-install-1.2.0.tgz#6d11bb1e136a646a8ed942f6467dcb1654ca4233"
-  integrity sha512-QTENmRLf3l4JL4/cUUGtHONNgeOTvVJT5MVNv5+h1tnUUhYMy8Wp7541ZmrAfabjXwDlzam1H/ssQFYHrLd20w==
+quick-install@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/quick-install/-/quick-install-1.2.1.tgz#9fe6ab9a7bcc3c90afa5d9e2017490cae952a458"
+  integrity sha512-qFuA08hJqSMwrzP0Fy5Tif5xQts5rAqrFhEDxRf+I8kRSHRZKCuDS3L7eMSCW48FRDLbypb9D+MJRndBi2BPGg==
   dependencies:
     fs-extra "^9.0.1"
 

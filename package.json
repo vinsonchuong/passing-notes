@@ -34,7 +34,7 @@
     "ava": "^3.13.0",
     "ava-patterns": "^2.4.0",
     "heliograph": "^5.0.0",
-    "quick-install": "^1.2.0",
+    "quick-install": "^1.2.1",
     "semantic-release": "^17.2.1",
     "strip-indent": "^3.0.0",
     "xo": "^0.34.1"
