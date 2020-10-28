@@ -39,7 +39,10 @@ export default function (computeResponse) {
           ...pushRequest.headers
         },
         async (error, nodePushResponse) => {
-          const pushResponse = await computeResponse(pushRequest)
+          const pushResponse = await computeResponse({
+            ...pushRequest,
+            version: request.version
+          })
           pushes.push(...(pushResponse.push || []))
           nodePushResponse.writeHead(pushResponse.status, pushResponse.headers)
           nodePushResponse.end(pushResponse.body)

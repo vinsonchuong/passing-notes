@@ -59,15 +59,15 @@ test('connecting via HTTP/2', async (t) => {
     body: 'Hello World!'
   })
 
-  for await (const [request, response] of session.pushedResponses) {
-    t.like(request, {
-      method: 'GET',
-      url: '/push'
-    })
-    t.like(response, {
-      status: 200,
-      body: 'Push'
-    })
-    break
-  }
+  const {
+    value: [pushedRequest, pushedResponse]
+  } = await session.pushedResponses.next()
+  t.like(pushedRequest, {
+    method: 'GET',
+    url: '/push'
+  })
+  t.like(pushedResponse, {
+    status: 200,
+    body: 'Push'
+  })
 })
