@@ -38,6 +38,143 @@ by running
 yarn add passing-notes
 ```
 
+## Concepts
+`passing-notes` provides an interface for building HTTP servers. At its core,
+it takes a function that takes in request data and returns response data.
+
+```js
+// server.mjs
+
+export default function(request) {
+// request = {
+//  version: '2.0',
+//   method: 'GET',
+//   url: '/',
+//   headers: {},
+//   body: ''
+// }
+
+  return {
+    status: 200,
+    headers: {
+      'content-type': 'text/plain'
+    },
+    body: 'Hello World!'
+  }
+}
+```
+
+This code can be run either from the command line:
+
+```sh
+yarn pass-notes server.mjs
+```
+
+Or from JavaScript:
+
+```js
+import {startServer} from 'passing-notes'
+import handleRequest from './server.mjs'
+
+startServer({port: 8080}, handleRequest)
+```
+
+### Middleware
+Taking cues from popular tools like Express, we encourage organizing your
+request-handling logic into middleware:
+
+```js
+import {compose} from 'passing-notes'
+
+export default compose(
+  (next) => (request) => {
+    const response = next(request)
+    return {
+      ...response,
+      headers: {
+        ...response.headers,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(response.body)
+    }
+  },
+  (next) => (request) => {
+    return {
+      status: 200,
+      headers: {},
+      body: {
+        message: 'A serializable object'
+      }
+    }
+  }
+)
+```
+
+Each request is passed from top to bottom until one of the middleware returns a
+response. That response then moves up and is ultimately sent to the client. In
+this way, each middleware is given a chance to process and modify the request
+and response data.
+
+Note that one of the middleware must return a response, otherwise, an `Error` is
+thrown and translated into a `500` response.
+
+### Developer Affordances
+When using the `pass-notes` CLI tool, during development (when
+`NODE_ENV !== 'production'`), additional features are provided:
+
+#### Hot Reloading
+The provided module and its dependencies are watched for changes and re-imported
+before each request. Changes to your code automatically take effect without you
+needing to restart the process.
+
+The `node_modules` directory, however, is not monitored due to its size.
+
+#### Self-Signed Certificate
+HTTPS is automatically supported for `localhost` with a self-signed certificate.
+This is needed for browsers to use HTTP/2.0 when making requests to the server.
+
+### Logging
+By default, the method and URL of each request and the status of the response is
+logged to `STDOUT`, alongside a timestamp and how long it took to return the
+response.
+
+To log additional information:
+
+```js
+import {Logger} from 'passing-notes'
+
+export const logger = new Logger()
+
+export default function(request) {
+  logger.log({
+    level: 'INFO',
+    topic: 'App',
+    message: 'A user did a thing'
+  })
+
+  // ...
+}
+```
+
+In addition, our `Logger` provides a way to log the runtime for expensive tasks,
+like database queries:
+
+```js
+const finish = logger.measure({
+  level: 'INFO',
+  topic: 'DB',
+  message: 'Starting DB Query'
+})
+
+// Perform DB Query
+
+finish({
+  message: 'Finished'
+})
+```
+
+The logger can be passed to any middleware that needs it as an argument.
+
 ## API
 
 ### `pass-notes server.js`

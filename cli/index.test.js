@@ -199,7 +199,6 @@ test('logging requests', async (t) => {
     t,
     {PORT: '11005'},
     `
-
     export default function (request) {
       if (request.url === '/error') {
         throw new Error('Bad')
