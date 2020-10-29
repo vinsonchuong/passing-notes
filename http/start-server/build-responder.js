@@ -27,7 +27,12 @@ export default function (computeResponse) {
     const response = await computeResponse(request)
 
     nodeResponse.writeHead(response.status, response.headers)
-    nodeResponse.end(response.body)
+
+    if (typeof response.body === 'string' || response.body instanceof Buffer) {
+      nodeResponse.end(response.body)
+    } else {
+      response.body.pipe(nodeResponse)
+    }
 
     const pushes = [...(response.push || [])]
     while (pushes.length > 0) {
@@ -45,7 +50,15 @@ export default function (computeResponse) {
           })
           pushes.push(...(pushResponse.push || []))
           nodePushResponse.writeHead(pushResponse.status, pushResponse.headers)
-          nodePushResponse.end(pushResponse.body)
+
+          if (
+            typeof pushResponse.body === 'string' ||
+            pushResponse.body instanceof Buffer
+          ) {
+            nodePushResponse.end(pushResponse.body)
+          } else {
+            pushResponse.body.pipe(nodePushResponse)
+          }
         }
       )
     }

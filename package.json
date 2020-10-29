@@ -34,6 +34,7 @@
   "devDependencies": {
     "ava": "^3.13.0",
     "ava-patterns": "^2.4.0",
+    "into-stream": "^6.0.0",
     "quick-install": "^1.2.1",
     "semantic-release": "^17.2.1",
     "strip-indent": "^3.0.0",

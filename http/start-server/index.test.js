@@ -1,6 +1,7 @@
 import test from 'ava'
 import {startServer, stopServer, sendRequest, connect} from '../../index.js'
 import makeCert from 'make-cert'
+import intoStream from 'into-stream'
 
 test('starting an HTTP server', async (t) => {
   const {key, cert} = makeCert('localhost')
@@ -110,4 +111,56 @@ test('starting an HTTP server', async (t) => {
   })
 
   await session.close()
+})
+
+test('supporting a stream body', async (t) => {
+  const server = await startServer({port: 10004}, () => {
+    return {
+      status: 200,
+      headers: {
+        'content-type': 'text/plain'
+      },
+      body: intoStream('Hello World!')
+    }
+  })
+  t.teardown(async () => {
+    stopServer(server)
+  })
+
+  t.like(
+    await sendRequest({
+      method: 'GET',
+      url: 'http://localhost:10004',
+      headers: {}
+    }),
+    {
+      body: 'Hello World!'
+    }
+  )
+})
+
+test('supporting a buffer body', async (t) => {
+  const server = await startServer({port: 10005}, () => {
+    return {
+      status: 200,
+      headers: {
+        'content-type': 'text/plain'
+      },
+      body: Buffer.from('Hello World!')
+    }
+  })
+  t.teardown(async () => {
+    stopServer(server)
+  })
+
+  t.like(
+    await sendRequest({
+      method: 'GET',
+      url: 'http://localhost:10005',
+      headers: {}
+    }),
+    {
+      body: 'Hello World!'
+    }
+  )
 })
