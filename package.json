@@ -20,6 +20,7 @@
   "dependencies": {
     "get-port": "^5.1.1",
     "get-stream": "^6.0.0",
+    "heliograph": "^5.0.0",
     "hot-esm": "^1.0.4",
     "httpx-server": "^1.4.1",
     "indent-string": "^4.0.0",
@@ -33,7 +34,6 @@
   "devDependencies": {
     "ava": "^3.13.0",
     "ava-patterns": "^2.4.0",
-    "heliograph": "^5.0.0",
     "quick-install": "^1.2.1",
     "semantic-release": "^17.2.1",
     "strip-indent": "^3.0.0",
