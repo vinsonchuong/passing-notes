@@ -118,6 +118,12 @@ and response data.
 Note that one of the middleware must return a response, otherwise, an `Error` is
 thrown and translated into a `500` response.
 
+#### Pre-Built Middleware
+We've built and packaged some middleware that handle common use cases:
+
+- [`static`](https://github.com/vinsonchuong/passing-notes-static): Serves
+  static files from the file system
+
 ### Developer Affordances
 When using the `pass-notes` CLI tool, during development (when
 `NODE_ENV !== 'production'`), additional features are provided:
