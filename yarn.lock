@@ -6847,12 +6847,12 @@ magic-string@^0.22.4:
   dependencies:
     vlq "^0.2.2"
 
-make-cert@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/make-cert/-/make-cert-1.1.0.tgz#a6b748a470a2d41ce035acbb7b4c7fa4e98ca8b3"
-  integrity sha512-RUZ/1euwmBAUb8Hhx+UtBq1azC4jzJXE4GV/X+QIntSR+2vaWBDIWPoPbZITkZ34liA5dWMdhNYp9Gj2Dqvwjw==
+make-cert@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/make-cert/-/make-cert-1.1.1.tgz#22ecc5719395464804efc05f9ef8c92e01929f9e"
+  integrity sha512-CFt+fLX0boEvJmAfelWjORgN+0cKJRSH7fEAZArfLLu9kf2p5G3/EZcRsJ3jrM5va583IpY1cArSQDVSsiR4lQ==
   dependencies:
-    node-forge "^0.9.1"
+    node-forge "^0.10.0"
 
 make-dir@^1.0.0:
   version "1.3.0"
@@ -7370,15 +7370,15 @@ node-fetch@2.6.0, node-fetch@^2.3.0:
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
+node-forge@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.10.0.tgz#32dea2afb3e9926f02ee5ce8794902691a676bf3"
+  integrity sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==
+
 node-forge@^0.7.1:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.6.tgz#fdf3b418aee1f94f0ef642cd63486c77ca9724ac"
   integrity sha512-sol30LUpz1jQFBjOKwbjxijiE3b6pjd74YwfD0fJOKPjF+fONKb2Yg8rYgS6+bK6VDl+/wfr4IYpC7jDzLUIfw==
-
-node-forge@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.1.tgz#775368e6846558ab6676858a4d8c6e8d16c677b5"
-  integrity sha512-G6RlQt5Sb4GMBzXvhfkeFmbqR6MzhtnT7VTHuLadjkii3rdYHNdw0m8zA4BTxVIh68FicCQ2NSUANpsqkr9jvQ==
 
 node-gyp-build@^4.2.1:
   version "4.2.3"
