@@ -30,6 +30,15 @@ test('sending headers and a body', async (t) => {
   t.is(info.data, 'Some Text')
 })
 
+test('omitting headers', async (t) => {
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://example.com'
+  })
+
+  t.is(response.status, 200)
+})
+
 test('making a HTTPS request to localhost', async (t) => {
   const server = https.createServer(
     makeCert('localhost'),

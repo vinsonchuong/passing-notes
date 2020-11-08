@@ -28,7 +28,12 @@ export default function (computeResponse) {
 
     nodeResponse.writeHead(response.status, response.headers)
 
-    if (typeof response.body === 'string' || response.body instanceof Buffer) {
+    if (!response.body) {
+      nodeResponse.end()
+    } else if (
+      typeof response.body === 'string' ||
+      response.body instanceof Buffer
+    ) {
       nodeResponse.end(response.body)
     } else {
       response.body.pipe(nodeResponse)
@@ -51,7 +56,9 @@ export default function (computeResponse) {
           pushes.push(...(pushResponse.push || []))
           nodePushResponse.writeHead(pushResponse.status, pushResponse.headers)
 
-          if (
+          if (!pushResponse.body) {
+            nodePushResponse.end()
+          } else if (
             typeof pushResponse.body === 'string' ||
             pushResponse.body instanceof Buffer
           ) {

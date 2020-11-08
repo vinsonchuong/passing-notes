@@ -164,3 +164,16 @@ test('supporting a buffer body', async (t) => {
     }
   )
 })
+
+test('omitting unused fields', async (t) => {
+  const server = await startServer({port: 10006}, () => {
+    return {status: 200}
+  })
+  t.teardown(async () => {
+    stopServer(server)
+  })
+
+  t.like(await sendRequest({method: 'GET', url: 'http://localhost:10006'}), {
+    status: 200
+  })
+})
