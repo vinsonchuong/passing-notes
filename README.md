@@ -256,7 +256,7 @@ By default, the method and URL for every request is logged to STDOUT.
 In order to log additional events to STDOUT, a custom logger can be created and
 exported:
 
-```
+```js
 import {Logger} from 'passing-notes'
 
 export const logger = new Logger()
