@@ -25,20 +25,20 @@
     "httpx-server": "^1.4.1",
     "indent-string": "^4.0.0",
     "lodash": "^4.17.20",
-    "make-cert": "^1.1.1",
+    "make-cert": "^1.1.2",
     "p-event": "^4.2.0",
     "pretty-ms": "^7.0.1",
     "puff-pastry": "^1.2.0",
     "type-is": "^1.6.18"
   },
   "devDependencies": {
-    "ava": "^3.13.0",
-    "ava-patterns": "^2.4.0",
+    "ava": "^3.14.0",
+    "ava-patterns": "^2.4.1",
     "into-stream": "^6.0.0",
     "quick-install": "^1.2.1",
-    "semantic-release": "^17.2.2",
+    "semantic-release": "^17.3.0",
     "strip-indent": "^3.0.0",
-    "xo": "^0.34.2"
+    "xo": "^0.36.1"
   },
   "ava": {
     "verbose": true,
