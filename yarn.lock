@@ -6433,10 +6433,10 @@ querystring@0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
-quick-install@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/quick-install/-/quick-install-1.2.1.tgz#9fe6ab9a7bcc3c90afa5d9e2017490cae952a458"
-  integrity sha512-qFuA08hJqSMwrzP0Fy5Tif5xQts5rAqrFhEDxRf+I8kRSHRZKCuDS3L7eMSCW48FRDLbypb9D+MJRndBi2BPGg==
+quick-install@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/quick-install/-/quick-install-2.0.0.tgz#795edc49a9f5f6dea10bba6602e7dd50b29d310a"
+  integrity sha512-OPui6ujYH78XmgqabWJmK3ag4Uiixx04LpUTIsZCuYgrOZrNtvsMoulMVWAzmqw0NDuQsL/HbprBcvSA0Xrq9w==
   dependencies:
     fs-extra "^9.0.1"
 
