@@ -1,5 +1,6 @@
 import test from 'ava'
 import {useTemporaryDirectory} from 'ava-patterns'
+import install from 'quick-install'
 import * as https from 'https'
 import makeCert from 'make-cert'
 import {stopServer, sendRequest} from '../index.js'
@@ -7,6 +8,8 @@ import cli from './index.js'
 
 async function runScript(t, env, script) {
   const directory = await useTemporaryDirectory(t)
+  await install(process.cwd(), directory.path)
+
   await directory.writeFile('server.mjs', script)
 
   const output = []
@@ -240,4 +243,30 @@ test('logging requests', async (t) => {
   t.true(output[5].includes('[INFO] [HTTP] GET /error'))
   t.true(output[6].includes('[ERROR] [HTTP] GET /error › 500'))
   t.true(output[6].includes('Error: Bad'))
+})
+
+test('using a custom logger', async (t) => {
+  const output = await runScript(
+    t,
+    {PORT: '11006'},
+    `
+    import {Logger} from 'passing-notes'
+
+    export const logger = new Logger()
+
+    export default function (request) {
+      logger.log({level: 'INFO', topic: 'APP', message: 'Hello World!'})
+      return {status: 200}
+    }
+    `
+  )
+
+  await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:11006',
+    headers: {}
+  })
+  t.true(output[1].includes('[INFO] [HTTP] GET /'))
+  t.true(output[2].includes('[INFO] [APP] Hello World!'))
+  t.true(output[3].includes('[INFO] [HTTP] GET / › 200'))
 })

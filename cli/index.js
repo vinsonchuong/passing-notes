@@ -4,15 +4,24 @@ import {startServer, Logger} from '../index.js'
 import findOpenPort from './find-open-port.js'
 
 export default async function ({cwd, env, argv, stdout}) {
-  const logger = new Logger()
-  logger.on('log', (event, line) => {
+  const defaultLogger = new Logger()
+  defaultLogger.on('log', (event, line) => {
     stdout.write(`${line}\n`)
   })
+
+  let logger = defaultLogger
 
   const appPath = argv[2]
   const port = await findOpenPort(Number(env.PORT), 8080)
 
   const app = await import(path.join(cwd, appPath))
+
+  if ('logger' in app) {
+    logger = app.logger
+    logger.on('log', (event, line) => {
+      stdout.write(`${line}\n`)
+    })
+  }
 
   const tlsConfig = {}
   if ('KEY' in env && 'CERT' in env) {
@@ -38,6 +47,16 @@ export default async function ({cwd, env, argv, stdout}) {
 
     try {
       const app = await import(path.join(cwd, appPath))
+
+      if (!('logger' in app)) {
+        logger = defaultLogger
+      } else if (logger !== app.logger) {
+        logger = app.logger
+        logger.on('log', (event, line) => {
+          stdout.write(`${line}\n`)
+        })
+      }
+
       response = await app.default(request)
     } catch (error_) {
       response = {
