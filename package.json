@@ -50,10 +50,7 @@
     "semicolon": false,
     "rules": {
       "ava/use-t-well": "off",
-      "import/extensions": "off",
-      "import/no-anonymous-default-export": "off",
-      "import/no-useless-path-segments": "off",
-      "unicorn/import-index": "off"
+      "import/no-anonymous-default-export": "off"
     }
   }
 }
