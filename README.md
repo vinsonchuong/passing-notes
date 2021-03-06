@@ -123,6 +123,8 @@ We've built and packaged some middleware that handle common use cases:
 
 - [`static`](https://github.com/vinsonchuong/passing-notes-static): Serves
   static files from the file system
+- [`ui`](https://github.com/vinsonchuong/passing-notes-ui): Serves application
+  code to the browser
 
 ### Developer Affordances
 When using the `pass-notes` CLI tool, during development (when
