@@ -24,7 +24,7 @@
     "hot-esm": "^1.0.4",
     "httpx-server": "^1.4.1",
     "indent-string": "^4.0.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "make-cert": "^1.1.2",
     "p-event": "^4.2.0",
     "pretty-ms": "^7.0.1",
@@ -36,9 +36,9 @@
     "ava-patterns": "^2.4.1",
     "into-stream": "^6.0.0",
     "quick-install": "^2.0.0",
-    "semantic-release": "^17.3.1",
+    "semantic-release": "^17.4.1",
     "strip-indent": "^3.0.0",
-    "xo": "^0.37.1"
+    "xo": "^0.38.2"
   },
   "ava": {
     "verbose": true,
