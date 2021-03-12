@@ -125,6 +125,8 @@ We've built and packaged some middleware that handle common use cases:
   static files from the file system
 - [`ui`](https://github.com/vinsonchuong/passing-notes-ui): Serves application
   code to the browser
+- [`rpc`](https://github.com/vinsonchuong/passing-notes-rpc): Simple
+  communication between browser and server
 
 ### Developer Affordances
 When using the `pass-notes` CLI tool, during development (when
