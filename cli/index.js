@@ -27,8 +27,6 @@ export default async function ({cwd, env, argv, stdout}) {
   if ('KEY' in env && 'CERT' in env) {
     tlsConfig.key = env.KEY
     tlsConfig.cert = env.CERT
-  } else if ('PFX' in env) {
-    tlsConfig.pfx = env.PFX
   } else if ('tls' in app) {
     Object.assign(tlsConfig, app.tls)
   } else if (env.NODE_ENV !== 'production') {

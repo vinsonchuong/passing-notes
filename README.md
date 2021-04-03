@@ -247,7 +247,7 @@ export const tls = {
 }
 ```
 
-`CERT` and `KEY` (or `PFX`) can also be provided as environment variables.
+`CERT` and `KEY` can also be provided as environment variables.
 
 #### Hot-Reloading
 When `NODE_ENV` is not set to `production`, the provided ES module is
