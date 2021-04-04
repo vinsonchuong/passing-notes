@@ -1151,6 +1151,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"argparse@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "argparse@npm:2.0.1"
+  checksum: 83644b56493e89a254bae05702abf3a1101b4fa4d0ca31df1c9985275a5a5bd47b3c27b7fa0b71098d41114d8ca000e6ed90cad764b306f8a503665e4d517ced
+  languageName: node
+  linkType: hard
+
 "argv-formatter@npm:~1.0.0":
   version: 1.0.0
   resolution: "argv-formatter@npm:1.0.0"
@@ -3310,6 +3317,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"envdotyml@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "envdotyml@npm:1.2.0"
+  dependencies:
+    js-yaml: ^4.0.0
+    lodash-es: ^4.17.21
+  checksum: a9e3017b925bf30b92995b5d67e990741a0b68e18b824c5236f11b3a2bedffd8de799ec4d4d5d4c570dbf0f06aadae6d49a02ded2b218fec444b0a694b87d728
+  languageName: node
+  linkType: hard
+
 "equal-length@npm:^1.0.0":
   version: 1.0.1
   resolution: "equal-length@npm:1.0.1"
@@ -4953,21 +4970,21 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"hosted-git-info@npm:^3.0.0":
-  version: 3.0.4
-  resolution: "hosted-git-info@npm:3.0.4"
-  dependencies:
-    lru-cache: ^5.1.1
-  checksum: dbd1b63676fa0951430223e8b717b7f39d5473ab1ee684511e186133b7279f5aa8cadd0c51ea4d535b65bc9013a4b74a1789d68df569fbfc8ceba5cb2bd4a37c
-  languageName: node
-  linkType: hard
-
 "hosted-git-info@npm:^3.0.6":
   version: 3.0.7
   resolution: "hosted-git-info@npm:3.0.7"
   dependencies:
     lru-cache: ^6.0.0
   checksum: e9da1f0852e732d8f59e95e501d14be643b4a63136107c1a733f1219b091f213a651d6e145d847f68322420fb77294475022b13da5d40eef8d6e67d087ea8978
+  languageName: node
+  linkType: hard
+
+"hosted-git-info@npm:^4.0.0":
+  version: 4.0.2
+  resolution: "hosted-git-info@npm:4.0.2"
+  dependencies:
+    lru-cache: ^6.0.0
+  checksum: d1b2d7720398ce96a788bd38d198fbddce089a2381f63cfb01743e6c7e5aed656e5547fe74090fb9fe53b2cb785b0e8c9ebdddadff48ed26bb471dd23cd25458
   languageName: node
   linkType: hard
 
@@ -5986,6 +6003,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "js-yaml@npm:4.0.0"
+  dependencies:
+    argparse: ^2.0.1
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 931d6dddb3589fa272c8273366c6dffa99fd6bd26ac7b70f9bac925c28cb7ae352b964192df84f90ecd7a2ff50ab87e6d58e2148eb19c89aa155c73ed847ab92
+  languageName: node
+  linkType: hard
+
 "jsbn@npm:~0.1.0":
   version: 0.1.1
   resolution: "jsbn@npm:0.1.1"
@@ -6509,6 +6537,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"lodash-es@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash-es@npm:4.17.21"
+  checksum: 05cbffad6e2adbb331a4e16fbd826e7faee403a1a04873b82b42c0f22090f280839f85b95393f487c1303c8a3d2a010048bf06151a6cbe03eee4d388fb0a12d2
+  languageName: node
+  linkType: hard
+
 "lodash._baseindexof@npm:*":
   version: 3.1.0
   resolution: "lodash._baseindexof@npm:3.1.0"
@@ -6763,14 +6798,14 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"make-cert@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "make-cert@npm:1.1.2"
+"make-cert@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "make-cert@npm:1.2.0"
   dependencies:
     node-forge: ^0.10.0
   bin:
     make-cert: make-cert.js
-  checksum: 20624b8c5a4b1ec254d8502bdd6b3d5064fecf90fffe20b06e290e52a622d08ddd545ec6c4aa99ea60c2d41475436c0d844b7d071ff532053b1e2cb43980f0b6
+  checksum: 900dbb76c973fd840e6df27d55984aeac9cf757ab84ccc97729327f73f790f5db0331cb3f7e29b46e88c5254b071b3f7f4db1d17832703c40c2918fc1447ee0d
   languageName: node
   linkType: hard
 
@@ -8519,15 +8554,15 @@ fsevents@~2.1.2:
     indent-string: ^4.0.0
     into-stream: ^6.0.0
     lodash: ^4.17.21
-    make-cert: ^1.1.2
+    make-cert: ^1.2.0
     p-event: ^4.2.0
     passing-notes-ui: ^1.0.3
     pretty-ms: ^7.0.1
-    puff-pastry: ^1.2.0
+    puff-pastry: ^1.3.0
     puppet-strings: ^4.0.1
     puppet-strings-chrome: ^2.0.1
     quick-install: ^2.0.0
-    semantic-release: ^17.4.1
+    semantic-release: ^17.4.2
     strip-indent: ^3.0.0
     type-is: ^1.6.18
     xo: ^0.38.2
@@ -8920,6 +8955,15 @@ fsevents@~2.1.2:
   version: 1.2.0
   resolution: "puff-pastry@npm:1.2.0"
   checksum: 3a8cd3d3380c093fe358ac281e80c7d833ed76950be486434b1154630c0a4a143f7192106508554c93b7bf29631ec81e160cf586205ec43232b12ca6b37c65c2
+  languageName: node
+  linkType: hard
+
+"puff-pastry@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "puff-pastry@npm:1.3.0"
+  dependencies:
+    envdotyml: ^1.2.0
+  checksum: bc10858aa3dcf17a703449dde31a5c549e208cd85842ad048c1ca80ed41a73f68846d0470be41d54a34e03526c7ec2b5675d7aab20dc33c03086a6ea4ec3b4a9
   languageName: node
   linkType: hard
 
@@ -9659,9 +9703,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:17.4.1, semantic-release@npm:^17.4.1":
-  version: 17.4.1
-  resolution: "semantic-release@npm:17.4.1"
+"semantic-release@npm:17.4.2, semantic-release@npm:^17.4.2":
+  version: 17.4.2
+  resolution: "semantic-release@npm:17.4.2"
   dependencies:
     "@semantic-release/commit-analyzer": ^8.0.0
     "@semantic-release/error": ^2.2.0
@@ -9678,7 +9722,7 @@ fsevents@~2.1.2:
     get-stream: ^6.0.0
     git-log-parser: ^1.2.0
     hook-std: ^2.0.0
-    hosted-git-info: ^3.0.0
+    hosted-git-info: ^4.0.0
     lodash: ^4.17.15
     marked: ^2.0.0
     marked-terminal: ^4.1.1
@@ -9693,7 +9737,7 @@ fsevents@~2.1.2:
     yargs: ^16.2.0
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: dbe03473f0837ec469f8a2ff28ccf1b81f385f3758c34a5661ac483b7efa8a536c9e04d198ee853ee6402a17e66fcc0a3be57c70becc5edcad5cff9c0740a01b
+  checksum: 3c308bc4dcb817eda4b31f11f1bdb09af425d6aecab0368d3d6fd57afff91fec432dc539ff874ca1f813d10b8613988b2a2e3e5885f6b94a15d8a04a5067b790
   languageName: node
   linkType: hard
 

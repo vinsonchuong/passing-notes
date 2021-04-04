@@ -143,6 +143,23 @@ The `node_modules` directory, however, is not monitored due to its size.
 HTTPS is automatically supported for `localhost` with a self-signed certificate.
 This is needed for browsers to use HTTP/2.0 when making requests to the server.
 
+### Per-Environment Configuration
+A common pattern for implementing per-environment configuration is to store that
+configuration in a file that is modified per environment. This is useful for
+scenarios for which it's not convenient to directly set environment variables.
+
+We support setting environment variables via a `.env.yml` file:
+
+```
+FOO: string
+BAR:
+  - JSON
+  - array
+BAZ:
+  key1: JSON
+  key2: object
+```
+
 ### Logging
 By default, the method and URL of each request and the status of the response is
 logged to `STDOUT`, alongside a timestamp and how long it took to return the
