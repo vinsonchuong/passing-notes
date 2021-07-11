@@ -7,7 +7,7 @@
 Build an HTTP server out of composable blocks
 
 ## Example
-```js
+```javascript
 // server.mjs
 export default function(request) {
   console.log(request)
@@ -42,7 +42,7 @@ yarn add passing-notes
 `passing-notes` provides an interface for building HTTP servers. At its core,
 it takes a function that takes in request data and returns response data.
 
-```js
+```javascript
 // server.mjs
 
 export default function(request) {
@@ -72,7 +72,7 @@ yarn pass-notes server.mjs
 
 Or from JavaScript:
 
-```js
+```javascript
 import {startServer} from 'passing-notes'
 import handleRequest from './server.mjs'
 
@@ -83,7 +83,7 @@ startServer({port: 8080}, handleRequest)
 Taking cues from popular tools like Express, we encourage organizing your
 request-handling logic into middleware:
 
-```js
+```javascript
 import {compose} from 'passing-notes'
 
 export default compose(
@@ -167,7 +167,7 @@ response.
 
 To log additional information:
 
-```js
+```javascript
 import {Logger} from 'passing-notes'
 
 export const logger = new Logger()
@@ -186,7 +186,7 @@ export default function(request) {
 In addition, our `Logger` provides a way to log the runtime for expensive tasks,
 like database queries:
 
-```js
+```javascript
 const finish = logger.measure({
   level: 'INFO',
   topic: 'DB',
@@ -208,7 +208,7 @@ The logger can be passed to any middleware that needs it as an argument.
 A CLI that takes an ES module that exports an HTTP request handler and uses it
 to start an HTTP server.
 
-```js
+```javascript
 // server.mjs
 export default function(request) {
   console.log(request)
@@ -257,7 +257,7 @@ by exporting an object named `tls` containing any of the options for
 [`tls.createSecureContext`](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options),
 for example:
 
-```js
+```javascript
 export const tls = {
   cert: 'PEM format string',
   key: 'PEM format string'
@@ -277,7 +277,7 @@ By default, the method and URL for every request is logged to STDOUT.
 In order to log additional events to STDOUT, a custom logger can be created and
 exported:
 
-```js
+```javascript
 import {Logger} from 'passing-notes'
 
 export const logger = new Logger()
