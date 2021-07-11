@@ -1,6 +1,6 @@
+import http2 from 'node:http2'
 import test from 'ava'
 import * as httpx from 'httpx-server'
-import http2 from 'http2'
 import {connect} from '../../index.js'
 
 const {HTTP2_HEADER_METHOD, HTTP2_HEADER_PATH} = http2.constants
@@ -32,7 +32,7 @@ test('connecting via HTTP/2', async (t) => {
   })
 
   await new Promise((resolve) => {
-    server.listen(10002, resolve)
+    server.listen(10_002, resolve)
   })
   t.teardown(() => {
     server.close()

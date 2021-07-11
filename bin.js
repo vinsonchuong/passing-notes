@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import {createRequire} from 'module'
+import {createRequire} from 'node:module'
 import run from 'puff-pastry'
 
 const require = createRequire(import.meta.url)

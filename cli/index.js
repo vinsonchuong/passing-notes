@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import makeCert from 'make-cert'
 import {startServer, Logger} from '../index.js'
 import findOpenPort from './find-open-port.js'

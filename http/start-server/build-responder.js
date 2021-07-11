@@ -1,4 +1,4 @@
-import * as http2 from 'http2'
+import * as http2 from 'node:http2'
 import omit from 'lodash/omit.js'
 import {parseHttp1Body} from '../parse-body.js'
 

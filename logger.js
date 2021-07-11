@@ -1,4 +1,4 @@
-import EventEmitter from 'events'
+import EventEmitter from 'node:events'
 import prettyMs from 'pretty-ms'
 import indent from 'indent-string'
 

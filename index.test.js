@@ -3,8 +3,8 @@ import {useTemporaryDirectory} from 'ava-patterns'
 import install from 'quick-install'
 import {closeBrowser, openTab, evalInTab} from 'puppet-strings'
 import {openChrome} from 'puppet-strings-chrome'
-import {Logger, startServer, stopServer, compose} from './index.js'
 import serveUi from 'passing-notes-ui'
+import {Logger, startServer, stopServer, compose} from './index.js'
 
 test('running in the browser', async (t) => {
   await install(process.cwd(), process.cwd())
@@ -38,7 +38,7 @@ test('running in the browser', async (t) => {
   const logger = new Logger()
   logger.on('log', (event, line) => console.log(line))
   const server = await startServer(
-    {port: 10020},
+    {port: 10_020},
     compose(
       (next) => (request) => {
         if (request.url !== '/message') {

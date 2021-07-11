@@ -1,7 +1,7 @@
+import * as https from 'node:https'
 import test from 'ava'
 import {useTemporaryDirectory} from 'ava-patterns'
 import install from 'quick-install'
-import * as https from 'https'
 import makeCert from 'make-cert'
 import {stopServer, sendRequest} from '../index.js'
 import cli from './index.js'

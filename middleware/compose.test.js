@@ -3,7 +3,7 @@ import {startServer, stopServer, sendRequest, compose} from '../index.js'
 
 test('composing middleware', async (t) => {
   const server = await startServer(
-    {port: 10003},
+    {port: 10_003},
     compose(
       (next) => async (request) => {
         const response = await next({

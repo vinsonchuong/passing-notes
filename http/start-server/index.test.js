@@ -1,12 +1,12 @@
 import test from 'ava'
-import {startServer, stopServer, sendRequest, connect} from '../../index.js'
 import makeCert from 'make-cert'
 import intoStream from 'into-stream'
+import {startServer, stopServer, sendRequest, connect} from '../../index.js'
 
 test('starting an HTTP server', async (t) => {
   const {key, cert} = makeCert('localhost')
 
-  const server = await startServer({port: 10000, cert, key}, (request) => {
+  const server = await startServer({port: 10_000, cert, key}, (request) => {
     if (request.url === '/') {
       t.like(request, {
         method: 'GET',
@@ -114,15 +114,13 @@ test('starting an HTTP server', async (t) => {
 })
 
 test('supporting a stream body', async (t) => {
-  const server = await startServer({port: 10004}, () => {
-    return {
-      status: 200,
-      headers: {
-        'content-type': 'text/plain'
-      },
-      body: intoStream('Hello World!')
-    }
-  })
+  const server = await startServer({port: 10_004}, () => ({
+    status: 200,
+    headers: {
+      'content-type': 'text/plain'
+    },
+    body: intoStream('Hello World!')
+  }))
   t.teardown(async () => {
     stopServer(server)
   })
@@ -140,15 +138,13 @@ test('supporting a stream body', async (t) => {
 })
 
 test('supporting a buffer body', async (t) => {
-  const server = await startServer({port: 10005}, () => {
-    return {
-      status: 200,
-      headers: {
-        'content-type': 'text/plain'
-      },
-      body: Buffer.from('Hello World!')
-    }
-  })
+  const server = await startServer({port: 10_005}, () => ({
+    status: 200,
+    headers: {
+      'content-type': 'text/plain'
+    },
+    body: Buffer.from('Hello World!')
+  }))
   t.teardown(async () => {
     stopServer(server)
   })
@@ -166,9 +162,7 @@ test('supporting a buffer body', async (t) => {
 })
 
 test('omitting unused fields', async (t) => {
-  const server = await startServer({port: 10006}, () => {
-    return {status: 200}
-  })
+  const server = await startServer({port: 10_006}, () => ({status: 200}))
   t.teardown(async () => {
     stopServer(server)
   })

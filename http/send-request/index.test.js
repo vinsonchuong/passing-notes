@@ -1,5 +1,5 @@
+import * as https from 'node:https'
 import test from 'ava'
-import * as https from 'https'
 import makeCert from 'make-cert'
 import sendRequest from './index.js'
 
@@ -49,7 +49,7 @@ test('making a HTTPS request to localhost', async (t) => {
   )
 
   await new Promise((resolve) => {
-    server.listen(10001, resolve)
+    server.listen(10_001, resolve)
   })
 
   t.teardown(() => {

@@ -1,5 +1,5 @@
+import {promisify} from 'node:util'
 import test from 'ava'
-import {promisify} from 'util'
 import Logger from './logger.js'
 
 const sleep = promisify(setTimeout)
