@@ -1,2 +1,7 @@
 **/*.test.js
 **/test/
+
+.yarn/
+.yarnrc.yml
+
+.github/
