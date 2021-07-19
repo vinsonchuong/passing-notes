@@ -14,7 +14,7 @@ export default async function ({cwd, env, argv, stdout}) {
   const appPath = argv[2]
   const port = await findOpenPort(Number(env.PORT), 8080)
 
-  const app = await import(path.join(cwd, appPath))
+  const app = await import(path.resolve(cwd, appPath))
 
   if ('logger' in app) {
     logger = app.logger
@@ -44,7 +44,7 @@ export default async function ({cwd, env, argv, stdout}) {
     })
 
     try {
-      const app = await import(path.join(cwd, appPath))
+      const app = await import(path.resolve(cwd, appPath))
 
       if (!('logger' in app)) {
         logger = defaultLogger
