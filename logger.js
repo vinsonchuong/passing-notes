@@ -1,3 +1,4 @@
+import process from 'node:process'
 import EventEmitter from 'node:events'
 import prettyMs from 'pretty-ms'
 import indent from 'indent-string'
@@ -19,7 +20,7 @@ export default class extends EventEmitter {
         ...startEvent,
         ...endEvent,
         message: `${startEvent.message} › ${endEvent.message}`,
-        duration
+        duration,
       })
     }
   }
@@ -27,7 +28,7 @@ export default class extends EventEmitter {
   log(event) {
     event = {
       ...event,
-      time: Date.now()
+      time: Date.now(),
     }
     this.emit('log', event, this.format(event))
   }

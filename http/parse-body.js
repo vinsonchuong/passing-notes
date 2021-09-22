@@ -6,7 +6,7 @@ const textMediaTypes = [
   'application/json',
   '*/*+json',
   '*/*+text',
-  '*/*+xml'
+  '*/*+xml',
 ]
 
 export function parseHttp1Body(requestOrResponse) {

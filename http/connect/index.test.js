@@ -14,19 +14,19 @@ test('connecting via HTTP/2', async (t) => {
     response.createPushResponse(
       {
         [HTTP2_HEADER_METHOD]: 'GET',
-        [HTTP2_HEADER_PATH]: '/push'
+        [HTTP2_HEADER_PATH]: '/push',
       },
       (error, response) => {
         response.writeHead(200, {
-          'content-type': 'text/plain'
+          'content-type': 'text/plain',
         })
         response.end('Push')
-      }
+      },
     )
 
     response.writeHead(200, {
       'content-type': 'text/plain',
-      foo: 'bar'
+      foo: 'bar',
     })
     response.end('Hello World!')
   })
@@ -47,27 +47,27 @@ test('connecting via HTTP/2', async (t) => {
     method: 'GET',
     url: '/',
     headers: {
-      key: 'value'
-    }
+      key: 'value',
+    },
   })
 
   t.like(response, {
     status: 200,
     headers: {
-      foo: 'bar'
+      foo: 'bar',
     },
-    body: 'Hello World!'
+    body: 'Hello World!',
   })
 
   const {
-    value: [pushedRequest, pushedResponse]
+    value: [pushedRequest, pushedResponse],
   } = await session.pushedResponses.next()
   t.like(pushedRequest, {
     method: 'GET',
-    url: '/push'
+    url: '/push',
   })
   t.like(pushedResponse, {
     status: 200,
-    body: 'Push'
+    body: 'Push',
   })
 })

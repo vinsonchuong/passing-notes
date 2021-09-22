@@ -13,15 +13,15 @@ export default function (request) {
       {
         method: request.method,
         headers: request.headers,
-        rejectUnauthorized: url.hostname !== 'localhost'
+        rejectUnauthorized: url.hostname !== 'localhost',
       },
       async (nodeResponse) => {
         resolve({
           status: nodeResponse.statusCode,
           headers: nodeResponse.headers,
-          body: await parseHttp1Body(nodeResponse)
+          body: await parseHttp1Body(nodeResponse),
         })
-      }
+      },
     )
 
     nodeRequest.on('error', (error) => {

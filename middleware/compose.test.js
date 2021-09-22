@@ -10,8 +10,8 @@ test('composing middleware', async (t) => {
           ...request,
           headers: {
             ...request.headers,
-            trace: '1'
-          }
+            trace: '1',
+          },
         })
 
         t.is(response.headers.trace, '2')
@@ -20,8 +20,8 @@ test('composing middleware', async (t) => {
           ...response,
           headers: {
             ...response.headers,
-            trace: `${response.headers.trace}1`
-          }
+            trace: `${response.headers.trace}1`,
+          },
         }
       },
       () => (request) => {
@@ -31,13 +31,13 @@ test('composing middleware', async (t) => {
           status: 200,
           headers: {
             trace: '2',
-            'content-type': 'text/plain'
+            'content-type': 'text/plain',
           },
-          body: 'Hello World!'
+          body: 'Hello World!',
         }
       },
-      () => () => ({status: 404, headers: {}, body: ''})
-    )
+      () => () => ({status: 404, headers: {}, body: ''}),
+    ),
   )
   t.teardown(async () => {
     await stopServer(server)
@@ -47,14 +47,14 @@ test('composing middleware', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10003',
-      headers: {}
+      headers: {},
     }),
     {
       status: 200,
       headers: {
-        trace: '21'
+        trace: '21',
       },
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 })

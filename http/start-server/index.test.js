@@ -1,3 +1,4 @@
+import {Buffer} from 'node:buffer'
 import test from 'ava'
 import makeCert from 'make-cert'
 import intoStream from 'into-stream'
@@ -12,15 +13,15 @@ test('starting an HTTP server', async (t) => {
         method: 'GET',
         url: '/',
         headers: {
-          accept: 'text/plain'
+          accept: 'text/plain',
         },
-        body: ''
+        body: '',
       })
     } else {
       t.like(request, {
         version: '2.0',
         method: 'GET',
-        url: '/push'
+        url: '/push',
       })
     }
 
@@ -28,9 +29,9 @@ test('starting an HTTP server', async (t) => {
       return {
         status: 200,
         headers: {
-          'content-type': 'text/plain'
+          'content-type': 'text/plain',
         },
-        body: 'Hello World!'
+        body: 'Hello World!',
       }
     }
 
@@ -39,10 +40,10 @@ test('starting an HTTP server', async (t) => {
         return {
           status: 200,
           headers: {
-            'content-type': 'text/plain'
+            'content-type': 'text/plain',
           },
           body: 'Hello World!',
-          push: [{method: 'GET', url: '/push', headers: {}}]
+          push: [{method: 'GET', url: '/push', headers: {}}],
         }
       }
 
@@ -50,9 +51,9 @@ test('starting an HTTP server', async (t) => {
         return {
           status: 200,
           headers: {
-            'content-type': 'text/plain'
+            'content-type': 'text/plain',
           },
-          body: 'Push!'
+          body: 'Push!',
         }
       }
     }
@@ -66,17 +67,17 @@ test('starting an HTTP server', async (t) => {
       method: 'GET',
       url: 'http://localhost:10000',
       headers: {
-        accept: 'text/plain'
+        accept: 'text/plain',
       },
-      body: ''
+      body: '',
     }),
     {
       status: 200,
       headers: {
-        'content-type': 'text/plain'
+        'content-type': 'text/plain',
       },
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 
   const session = await connect('https://localhost:10000')
@@ -86,28 +87,28 @@ test('starting an HTTP server', async (t) => {
       method: 'GET',
       url: '/',
       headers: {
-        accept: 'text/plain'
-      }
+        accept: 'text/plain',
+      },
     }),
     {
       status: 200,
       headers: {
-        'content-type': 'text/plain'
+        'content-type': 'text/plain',
       },
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 
   const {
-    value: [request, response]
+    value: [request, response],
   } = await session.pushedResponses.next()
   t.like(request, {
     method: 'GET',
-    url: '/push'
+    url: '/push',
   })
   t.like(response, {
     status: 200,
-    body: 'Push!'
+    body: 'Push!',
   })
 
   await session.close()
@@ -117,9 +118,9 @@ test('supporting a stream body', async (t) => {
   const server = await startServer({port: 10_004}, () => ({
     status: 200,
     headers: {
-      'content-type': 'text/plain'
+      'content-type': 'text/plain',
     },
-    body: intoStream('Hello World!')
+    body: intoStream('Hello World!'),
   }))
   t.teardown(async () => {
     stopServer(server)
@@ -129,11 +130,11 @@ test('supporting a stream body', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10004',
-      headers: {}
+      headers: {},
     }),
     {
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 })
 
@@ -141,9 +142,9 @@ test('supporting a buffer body', async (t) => {
   const server = await startServer({port: 10_005}, () => ({
     status: 200,
     headers: {
-      'content-type': 'text/plain'
+      'content-type': 'text/plain',
     },
-    body: Buffer.from('Hello World!')
+    body: Buffer.from('Hello World!'),
   }))
   t.teardown(async () => {
     stopServer(server)
@@ -153,11 +154,11 @@ test('supporting a buffer body', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10005',
-      headers: {}
+      headers: {},
     }),
     {
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 })
 
@@ -168,6 +169,6 @@ test('omitting unused fields', async (t) => {
   })
 
   t.like(await sendRequest({method: 'GET', url: 'http://localhost:10006'}), {
-    status: 200
+    status: 200,
   })
 })

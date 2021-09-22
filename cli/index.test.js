@@ -1,3 +1,4 @@
+import process from 'node:process'
 import * as https from 'node:https'
 import test from 'ava'
 import {useTemporaryDirectory} from 'ava-patterns'
@@ -21,8 +22,8 @@ async function runScript(t, env, script) {
     stdout: {
       write(text) {
         output.push(text)
-      }
-    }
+      },
+    },
   })
   t.teardown(async () => {
     await stopServer(server)
@@ -46,7 +47,7 @@ test('running the CLI', async (t) => {
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   t.true(output[0].includes('Listening on port 11000'))
@@ -55,15 +56,15 @@ test('running the CLI', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:11000',
-      headers: {}
+      headers: {},
     }),
     {
       status: 200,
       headers: {
-        'content-type': 'text/plain'
+        'content-type': 'text/plain',
       },
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 })
 
@@ -79,7 +80,7 @@ test('defaulting to port 8080', async (t) => {
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   t.true(output[0].includes('Listening on port 8080'))
@@ -88,9 +89,9 @@ test('defaulting to port 8080', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:8080',
-      headers: {}
+      headers: {},
     }),
-    {status: 200}
+    {status: 200},
   )
 })
 
@@ -102,19 +103,19 @@ test('gracefully handling errors', async (t) => {
     export default function () {
       throw new Error('Something bad happened.')
     }
-    `
+    `,
   )
 
   t.like(
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:11001',
-      headers: {}
+      headers: {},
     }),
     {
       status: 500,
-      body: 'Something bad happened.'
-    }
+      body: 'Something bad happened.',
+    },
   )
 })
 
@@ -140,11 +141,11 @@ test('automatically creating a self-signed certificate for localhost', async (t)
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   t.like(await getCertificate('https://localhost:11002'), {
-    subject: {CN: 'localhost'}
+    subject: {CN: 'localhost'},
   })
 })
 
@@ -162,11 +163,11 @@ test('allowing a certificate to be provided via environment variables', async (t
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   t.like(await getCertificate('https://localhost:11003'), {
-    subject: {CN: 'foo'}
+    subject: {CN: 'foo'},
   })
 })
 
@@ -189,11 +190,11 @@ test('allowing a certificate to be provided in application code', async (t) => {
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   t.like(await getCertificate('https://localhost:11004'), {
-    subject: {CN: 'bar'}
+    subject: {CN: 'bar'},
   })
 })
 
@@ -215,13 +216,13 @@ test('logging requests', async (t) => {
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   await sendRequest({
     method: 'GET',
     url: 'http://localhost:11005/foo',
-    headers: {}
+    headers: {},
   })
   t.true(output[1].includes('[INFO] [HTTP] GET /foo'))
   t.true(output[2].includes('[INFO] [HTTP] GET /foo › 200'))
@@ -230,7 +231,7 @@ test('logging requests', async (t) => {
     method: 'POST',
     url: 'http://localhost:11005/bar',
     headers: {},
-    body: ''
+    body: '',
   })
   t.true(output[3].includes('[INFO] [HTTP] POST /bar'))
   t.true(output[4].includes('[INFO] [HTTP] POST /bar › 200'))
@@ -238,7 +239,7 @@ test('logging requests', async (t) => {
   await sendRequest({
     method: 'GET',
     url: 'http://localhost:11005/error',
-    headers: {}
+    headers: {},
   })
   t.true(output[5].includes('[INFO] [HTTP] GET /error'))
   t.true(output[6].includes('[ERROR] [HTTP] GET /error › 500'))
@@ -258,13 +259,13 @@ test('using a custom logger', async (t) => {
       logger.log({level: 'INFO', topic: 'APP', message: 'Hello World!'})
       return {status: 200}
     }
-    `
+    `,
   )
 
   await sendRequest({
     method: 'GET',
     url: 'http://localhost:11006',
-    headers: {}
+    headers: {},
   })
   t.true(output[1].includes('[INFO] [HTTP] GET /'))
   t.true(output[2].includes('[INFO] [APP] Hello World!'))

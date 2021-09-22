@@ -1,3 +1,4 @@
+import {Buffer} from 'node:buffer'
 import * as https from 'node:https'
 import test from 'ava'
 import makeCert from 'make-cert'
@@ -7,7 +8,7 @@ test('sending a simple GET request', async (t) => {
   const response = await sendRequest({
     method: 'GET',
     url: 'http://example.com',
-    headers: {}
+    headers: {},
   })
 
   t.is(response.status, 200)
@@ -20,9 +21,9 @@ test('sending headers and a body', async (t) => {
     method: 'POST',
     url: 'https://httpbin.org/post',
     headers: {
-      Name: 'value'
+      Name: 'value',
     },
-    body: 'Some Text'
+    body: 'Some Text',
   })
 
   const info = JSON.parse(response.body)
@@ -33,7 +34,7 @@ test('sending headers and a body', async (t) => {
 test('omitting headers', async (t) => {
   const response = await sendRequest({
     method: 'GET',
-    url: 'http://example.com'
+    url: 'http://example.com',
   })
 
   t.is(response.status, 200)
@@ -45,7 +46,7 @@ test('making a HTTPS request to localhost', async (t) => {
     (request, response) => {
       response.writeHead(200, {'Content-Type': 'text/plain'})
       response.end('Hello World!')
-    }
+    },
   )
 
   await new Promise((resolve) => {
@@ -59,7 +60,7 @@ test('making a HTTPS request to localhost', async (t) => {
   const response = await sendRequest({
     method: 'GET',
     url: 'https://localhost:10001',
-    headers: {}
+    headers: {},
   })
   t.is(response.body, 'Hello World!')
 })
@@ -68,7 +69,7 @@ test('parsing a binary body into a Buffer', async (t) => {
   const response = await sendRequest({
     method: 'GET',
     url: 'https://picsum.photos/10',
-    headers: {}
+    headers: {},
   })
 
   t.true(response.body instanceof Buffer)

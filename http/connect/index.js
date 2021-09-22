@@ -31,7 +31,7 @@ export default async function (url) {
 
     pushedResponses.push([
       {method, url, headers: requestHeaders},
-      {status, headers: responseHeaders, body}
+      {status, headers: responseHeaders, body},
     ])
   })
 
@@ -39,7 +39,7 @@ export default async function (url) {
     async sendRequest(request) {
       const nodeResponse = client.request({
         [HTTP2_HEADER_PATH]: request.url,
-        ...request.headers
+        ...request.headers,
       })
 
       const nodeHeaders = await pEvent(nodeResponse, 'response')
@@ -55,6 +55,6 @@ export default async function (url) {
       await pEvent(client, 'close')
     },
 
-    pushedResponses
+    pushedResponses,
   }
 }

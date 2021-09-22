@@ -11,7 +11,7 @@ export async function sendRequest({method, headers = {}, url, body}) {
   return {
     status: response.status,
     headers: responseHeaders,
-    body: await parseBody(response)
+    body: await parseBody(response),
   }
 }
 

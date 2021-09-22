@@ -17,13 +17,13 @@ test('logging', async (t) => {
   logger.log({
     level: 'INFO',
     topic: 'Test',
-    message: 'Hello World!'
+    message: 'Hello World!',
   })
 
   t.like(events[0], {
     level: 'INFO',
     topic: 'Test',
-    message: 'Hello World!'
+    message: 'Hello World!',
   })
   t.true(lines[0].includes('[INFO] [Test] Hello World!'))
 
@@ -35,23 +35,23 @@ test('logging', async (t) => {
   const finish = logger.measure({
     level: 'INFO',
     topic: 'HTTP',
-    message: 'GET /'
+    message: 'GET /',
   })
   t.like(events[1], {
     level: 'INFO',
     topic: 'HTTP',
-    message: 'GET /'
+    message: 'GET /',
   })
   t.true(lines[1].includes('[INFO] [HTTP] GET /'))
 
   await sleep(100)
   finish({
-    message: '200'
+    message: '200',
   })
   t.like(events[2], {
     level: 'INFO',
     topic: 'HTTP',
-    message: 'GET / › 200'
+    message: 'GET / › 200',
   })
   t.true(events[2].duration > 100)
   t.true(events[2].duration < 150)
@@ -62,13 +62,13 @@ test('logging', async (t) => {
     level: 'ERROR',
     topic: 'Test',
     message: 'An error happened',
-    error
+    error,
   })
   t.like(events[3], {
     level: 'ERROR',
     topic: 'Test',
     message: 'An error happened',
-    error
+    error,
   })
   t.true(lines[3].includes('Error: Something went wrong'))
 })

@@ -40,7 +40,7 @@ export default async function ({cwd, env, argv, stdout}) {
     const finish = logger.measure({
       level: 'INFO',
       topic: 'HTTP',
-      message: `${request.method} ${request.url}`
+      message: `${request.method} ${request.url}`,
     })
 
     try {
@@ -60,9 +60,9 @@ export default async function ({cwd, env, argv, stdout}) {
       response = {
         status: 500,
         headers: {
-          'Content-Type': 'text/plain'
+          'Content-Type': 'text/plain',
         },
-        body: error_.message
+        body: error_.message,
       }
       error = error_
     }
@@ -70,7 +70,7 @@ export default async function ({cwd, env, argv, stdout}) {
     finish({
       level: error ? 'ERROR' : 'INFO',
       message: `${response.status}`,
-      error
+      error,
     })
 
     return response
@@ -79,7 +79,7 @@ export default async function ({cwd, env, argv, stdout}) {
   logger.log({
     level: 'INFO',
     topic: 'HTTP',
-    message: `Listening on port ${port}`
+    message: `Listening on port ${port}`,
   })
 
   return server

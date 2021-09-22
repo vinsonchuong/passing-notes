@@ -1,3 +1,4 @@
+import process from 'node:process'
 import test from 'ava'
 import {useTemporaryDirectory, runProcess, wait} from 'ava-patterns'
 import install from 'quick-install'
@@ -20,13 +21,13 @@ test('starting a development server with hot-reloading', async (t) => {
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   const server = runProcess(t, {
     command: ['npx', 'pass-notes', 'server.mjs'],
     cwd: directory.path,
-    env: {PORT: '10010'}
+    env: {PORT: '10010'},
   })
   try {
     await server.waitForOutput('Listening', 5000)
@@ -39,15 +40,15 @@ test('starting a development server with hot-reloading', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10010',
-      headers: {}
+      headers: {},
     }),
     {
       status: 200,
       headers: {
-        'content-type': 'text/plain'
+        'content-type': 'text/plain',
       },
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 
   await directory.writeFile(
@@ -62,7 +63,7 @@ test('starting a development server with hot-reloading', async (t) => {
         body: 'Hello There!'
       }
     }
-    `
+    `,
   )
   await wait(500)
 
@@ -70,15 +71,15 @@ test('starting a development server with hot-reloading', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10010',
-      headers: {}
+      headers: {},
     }),
     {
       status: 200,
       headers: {
-        'content-type': 'text/plain'
+        'content-type': 'text/plain',
       },
-      body: 'Hello There!'
-    }
+      body: 'Hello There!',
+    },
   )
 })
 
@@ -99,13 +100,13 @@ test('not enabling hot-reloading in production', async (t) => {
         body: 'Hello World!'
       }
     }
-    `
+    `,
   )
 
   const server = runProcess(t, {
     command: ['npx', 'pass-notes', 'server.mjs'],
     cwd: directory.path,
-    env: {PORT: '10011', NODE_ENV: 'production'}
+    env: {PORT: '10011', NODE_ENV: 'production'},
   })
   try {
     await server.waitForOutput('Listening', 5000)
@@ -118,11 +119,11 @@ test('not enabling hot-reloading in production', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10011',
-      headers: {}
+      headers: {},
     }),
     {
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 
   await directory.writeFile(
@@ -137,7 +138,7 @@ test('not enabling hot-reloading in production', async (t) => {
         body: 'Hello There!'
       }
     }
-    `
+    `,
   )
   await wait(500)
 
@@ -145,10 +146,10 @@ test('not enabling hot-reloading in production', async (t) => {
     await sendRequest({
       method: 'GET',
       url: 'http://localhost:10011',
-      headers: {}
+      headers: {},
     }),
     {
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 })

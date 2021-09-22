@@ -1,3 +1,4 @@
+import {Buffer} from 'node:buffer'
 import * as http2 from 'node:http2'
 import omit from 'lodash/omit.js'
 import {parseHttp1Body} from '../parse-body.js'
@@ -6,7 +7,7 @@ const {
   HTTP2_HEADER_METHOD,
   HTTP2_HEADER_SCHEME,
   HTTP2_HEADER_AUTHORITY,
-  HTTP2_HEADER_PATH
+  HTTP2_HEADER_PATH,
 } = http2.constants
 
 export default function (computeResponse) {
@@ -19,9 +20,9 @@ export default function (computeResponse) {
         HTTP2_HEADER_METHOD,
         HTTP2_HEADER_SCHEME,
         HTTP2_HEADER_AUTHORITY,
-        HTTP2_HEADER_PATH
+        HTTP2_HEADER_PATH,
       ]),
-      body: await parseHttp1Body(nodeRequest)
+      body: await parseHttp1Body(nodeRequest),
     }
 
     const response = await computeResponse(request)
@@ -46,12 +47,12 @@ export default function (computeResponse) {
         {
           [HTTP2_HEADER_METHOD]: pushRequest.method,
           [HTTP2_HEADER_PATH]: pushRequest.url,
-          ...pushRequest.headers
+          ...pushRequest.headers,
         },
         async (error, nodePushResponse) => {
           const pushResponse = await computeResponse({
             ...pushRequest,
-            version: request.version
+            version: request.version,
           })
           pushes.push(...(pushResponse.push || []))
           nodePushResponse.writeHead(pushResponse.status, pushResponse.headers)
@@ -66,7 +67,7 @@ export default function (computeResponse) {
           } else {
             pushResponse.body.pipe(nodePushResponse)
           }
-        }
+        },
       )
     }
   }

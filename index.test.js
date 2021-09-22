@@ -1,3 +1,4 @@
+import process from 'node:process'
 import test from 'ava'
 import {useTemporaryDirectory} from 'ava-patterns'
 import install from 'quick-install'
@@ -16,7 +17,7 @@ test('running in the browser', async (t) => {
     <!doctype html>
     <meta charset="utf-8">
     <script type="module" src="/index.js"></script>
-  `
+  `,
   )
   await directory.writeFile(
     'index.js',
@@ -32,7 +33,7 @@ test('running in the browser', async (t) => {
       document.body.textContent = JSON.stringify(response, null, 2)
     }
     run()
-  `
+  `,
   )
 
   const logger = new Logger()
@@ -48,14 +49,14 @@ test('running in the browser', async (t) => {
         return {
           status: 200,
           headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'text/plain',
           },
-          body: 'Hello World!'
+          body: 'Hello World!',
         }
       },
       serveUi({path: directory.path, logger}),
-      () => () => ({status: 404})
-    )
+      () => () => ({status: 404}),
+    ),
   )
   t.teardown(async () => {
     await stopServer(server)
@@ -73,9 +74,9 @@ test('running in the browser', async (t) => {
     {
       status: 200,
       headers: {
-        'content-type': 'text/plain'
+        'content-type': 'text/plain',
       },
-      body: 'Hello World!'
-    }
+      body: 'Hello World!',
+    },
   )
 })
