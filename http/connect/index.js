@@ -1,5 +1,5 @@
 import * as http2 from 'node:http2'
-import pEvent from 'p-event'
+import {pEvent} from 'p-event'
 import {fromQueue} from 'heliograph'
 import {parseHttp2Body} from '../parse-body.js'
 

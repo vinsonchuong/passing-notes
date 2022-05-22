@@ -1,5 +1,4 @@
 export async function sendRequest({method, headers = {}, url, body}) {
-  // eslint-disable-next-line no-undef
   const response = await fetch(url, {method, headers, body})
 
   const responseHeaders = {}

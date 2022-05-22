@@ -1,4 +1,4 @@
-import pEvent from 'p-event'
+import {pEvent} from 'p-event'
 
 export default async function (server) {
   server.close()
