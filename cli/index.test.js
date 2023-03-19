@@ -121,11 +121,15 @@ test('gracefully handling errors', async (t) => {
 
 function getCertificate(url) {
   return new Promise((resolve) => {
-    https
-      .get(url, {rejectUnauthorized: false}, (response) => {
+    const request = https.get(
+      url,
+      {rejectUnauthorized: false},
+      async (response) => {
         resolve(response.connection.getPeerCertificate())
-      })
-      .end()
+        request.destroy()
+      },
+    )
+    request.end()
   })
 }
 

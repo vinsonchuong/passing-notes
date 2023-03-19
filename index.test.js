@@ -2,7 +2,7 @@ import process from 'node:process'
 import test from 'ava'
 import {useTemporaryDirectory} from 'ava-patterns'
 import install from 'quick-install'
-import {closeBrowser, openTab, evalInTab} from 'puppet-strings'
+import {closeBrowser, openTab, findElement} from 'puppet-strings'
 import {openChrome} from 'puppet-strings-chrome'
 import serveUi from 'passing-notes-ui'
 import {Logger, startServer, stopServer, compose} from './index.js'
@@ -37,7 +37,7 @@ test('running in the browser', async (t) => {
   )
 
   const logger = new Logger()
-  logger.on('log', (event, line) => console.log(line))
+  logger.on('log', (event, line) => t.log(line))
   const server = await startServer(
     {port: 10_020},
     compose(
@@ -69,14 +69,12 @@ test('running in the browser', async (t) => {
 
   const tab = await openTab(browser, 'http://localhost:10020')
 
-  t.like(
-    JSON.parse(await evalInTab(tab, [], 'return document.body.textContent')),
-    {
-      status: 200,
-      headers: {
-        'content-type': 'text/plain',
-      },
-      body: 'Hello World!',
+  const body = await findElement(tab, 'body', 'Hello World!')
+  t.like(JSON.parse(body.textContent), {
+    status: 200,
+    headers: {
+      'content-type': 'text/plain',
     },
-  )
+    body: 'Hello World!',
+  })
 })
