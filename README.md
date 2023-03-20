@@ -1,8 +1,6 @@
 # passing-notes
 ![npm](https://img.shields.io/npm/v/passing-notes.svg)
 [![CI Status](https://github.com/vinsonchuong/passing-notes/workflows/CI/badge.svg)](https://github.com/vinsonchuong/passing-notes/actions?query=workflow%3ACI)
-[![dependencies Status](https://david-dm.org/vinsonchuong/passing-notes/status.svg)](https://david-dm.org/vinsonchuong/passing-notes)
-[![devDependencies Status](https://david-dm.org/vinsonchuong/passing-notes/dev-status.svg)](https://david-dm.org/vinsonchuong/passing-notes?type=dev)
 
 Build an HTTP server out of composable blocks
 
