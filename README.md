@@ -104,7 +104,8 @@ export default compose(
         message: 'A serializable object'
       }
     }
-  }
+  },
+  () => () => ({ status: 404 })
 )
 ```
 
