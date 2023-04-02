@@ -1,5 +1,7 @@
 import {Buffer} from 'node:buffer'
+import {createHash} from 'node:crypto'
 import test from 'ava'
+import WebSocket from 'ws'
 import makeCert from 'make-cert'
 import intoStream from 'into-stream'
 import {startServer, stopServer, sendRequest, connect} from '../../index.js'
@@ -171,4 +173,79 @@ test('omitting unused fields', async (t) => {
   t.like(await sendRequest({method: 'GET', url: 'http://localhost:10006'}), {
     status: 200,
   })
+})
+
+test('allowing upgrading to WebSocket', async (t) => {
+  const webSocketHashingConstant = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
+
+  const server = await startServer({port: 10_007}, (request) => {
+    if (
+      request.headers.connection === 'Upgrade' &&
+      request.headers.upgrade === 'websocket'
+    ) {
+      t.log(request)
+      const key = request.headers['sec-websocket-key']
+
+      return {
+        status: 101,
+        headers: {
+          Upgrade: 'websocket',
+          Connection: 'Upgrade',
+          'Sec-WebSocket-Accept': createHash('sha1')
+            .update(`${key}${webSocketHashingConstant}`)
+            .digest('base64'),
+        },
+        async upgrade(socket, head) {
+          const ws = new WebSocket(null)
+          ws.setSocket(socket, head, {
+            maxPayload: 100 * 1024 * 1024,
+            skipUTF8Validation: false,
+          })
+
+          const message = await new Promise((resolve) => {
+            ws.once('message', resolve)
+          })
+          t.is(message.toString(), 'Ping')
+
+          ws.send('Pong')
+        },
+      }
+    }
+
+    return {
+      status: 426,
+    }
+  })
+  t.teardown(async () => {
+    stopServer(server)
+  })
+
+  t.like(await sendRequest({method: 'GET', url: 'http://localhost:10007'}), {
+    status: 426,
+  })
+
+  t.like(
+    await sendRequest({
+      method: 'GET',
+      url: 'http://localhost:10007',
+      headers: {
+        Connection: 'Upgrade',
+        Upgrade: 'unsupported',
+      },
+    }),
+    {
+      status: 426,
+    },
+  )
+
+  const ws = new WebSocket('ws://localhost:10007')
+  await new Promise((resolve) => {
+    ws.once('open', resolve)
+  })
+  ws.send('Ping')
+
+  const message = await new Promise((resolve) => {
+    ws.once('message', resolve)
+  })
+  t.is(message.toString(), 'Pong')
 })

@@ -246,6 +246,56 @@ keys:
   handler to compute responses and then pushed to the client. This is only
   supported over HTTP/2 (indicated by `request.version` being `'2.0'`).
 
+##### HTTP/1.1 Upgrade
+The request handler is also able to negotiate protocol upgrades (e.g. to
+WebSocket). When a client sends the `Connection: Upgrade` header, the request
+handler can respond with status `101 Switching Protocols` and immediately take
+control of the underlying TCP `Socket` by providing an `upgrade` method on the
+response object.
+
+```javascript
+import {createHash} from 'node:crypto'
+import WebSocket from 'ws'
+
+const webSocketHashingConstant = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
+
+export default function(request) {
+  if (
+    request.headers.connection === 'Upgrade' &&
+    request.headers.upgrade === 'websocket'
+  ) {
+    const key = request.headers['sec-websocket-key']
+
+    return {
+      status: 101,
+      headers: {
+        Upgrade: 'websocket',
+        Connection: 'Upgrade',
+        'Sec-WebSocket-Accept': createHash('sha1')
+          .update(`${key}${webSocketHashingConstant}`)
+          .digest('base64'),
+      },
+      async upgrade(socket, head) {
+        const ws = new WebSocket(null)
+        ws.setSocket(socket, head, {
+          maxPayload: 100 * 1024 * 1024,
+          skipUTF8Validation: false,
+        })
+        ws.on('message', (message) => {
+          console.log(message.toString())
+        })
+      },
+    }
+  } else {
+    return {
+      status: 426,
+    }
+  }
+}
+```
+
+See [Pre-Built Middleware](#pre-built-middleware) for pre-packaged solutions.
+
 #### Protocol Support
 This HTTP server supports HTTP/1.1 and HTTP/2 as well as TLS.
 
