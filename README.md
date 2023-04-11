@@ -126,6 +126,8 @@ We've built and packaged some middleware that handle common use cases:
   code to the browser
 - [`rpc`](https://github.com/vinsonchuong/passing-notes-rpc): Simple
   communication between browser and server
+- [`websocket`](https://github.com/vinsonchuong/passing-notes-websocket): Accept
+  WebSocket connections
 
 ### Developer Affordances
 When using the `pass-notes` CLI tool, during development (when
