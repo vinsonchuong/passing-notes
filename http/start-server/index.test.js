@@ -177,6 +177,7 @@ test('omitting unused fields', async (t) => {
 
 test('allowing upgrading to WebSocket', async (t) => {
   const webSocketHashingConstant = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
+  const keyRegex = /^[+/\dA-Za-z]{22}==$/
 
   const server = await startServer({port: 10_007}, (request) => {
     if (
@@ -184,7 +185,14 @@ test('allowing upgrading to WebSocket', async (t) => {
       request.headers.upgrade === 'websocket'
     ) {
       t.log(request)
+
       const key = request.headers['sec-websocket-key']
+      if (!key || !keyRegex.test(key)) {
+        return {
+          status: 400,
+          body: 'Invalid Key',
+        }
+      }
 
       return {
         status: 101,
@@ -235,6 +243,35 @@ test('allowing upgrading to WebSocket', async (t) => {
     }),
     {
       status: 426,
+    },
+  )
+
+  t.like(
+    await sendRequest({
+      method: 'GET',
+      url: 'http://localhost:10007',
+      headers: {
+        Connection: 'Upgrade',
+        Upgrade: 'websocket',
+      },
+    }),
+    {
+      status: 400,
+    },
+  )
+
+  t.like(
+    await sendRequest({
+      method: 'GET',
+      url: 'http://localhost:10007',
+      headers: {
+        Connection: 'Upgrade',
+        Upgrade: 'websocket',
+        'Sec-WebSocket-Key': 'invalid',
+      },
+    }),
+    {
+      status: 400,
     },
   )
 

@@ -10,7 +10,7 @@ const {
   HTTP2_HEADER_PATH,
 } = http2.constants
 
-export default function (computeResponse, {endAfterBody = true} = {}) {
+export default function (computeResponse) {
   return async (nodeRequest, nodeResponse) => {
     const request = {
       version: nodeRequest.httpVersion,
@@ -30,18 +30,12 @@ export default function (computeResponse, {endAfterBody = true} = {}) {
     nodeResponse.writeHead(response.status, response.headers)
 
     if (!response.body) {
-      if (endAfterBody) {
-        nodeResponse.end()
-      }
+      nodeResponse.end()
     } else if (
       typeof response.body === 'string' ||
       response.body instanceof Buffer
     ) {
-      if (endAfterBody) {
-        nodeResponse.end(response.body)
-      } else {
-        nodeResponse.write(response.body)
-      }
+      nodeResponse.end(response.body)
     } else {
       response.body.pipe(nodeResponse)
     }
