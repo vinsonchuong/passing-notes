@@ -19,7 +19,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "get-port": "^6.1.2",
+    "get-port": "^7.0.0",
     "get-stream": "^6.0.1",
     "heliograph": "^7.0.0",
     "hot-esm": "^1.6.0",
@@ -27,23 +27,23 @@
     "indent-string": "^5.0.0",
     "lodash": "^4.17.21",
     "make-cert": "^1.2.1",
-    "p-event": "^5.0.1",
+    "p-event": "^6.0.0",
     "pretty-ms": "^8.0.0",
     "puff-pastry": "^1.3.2",
     "type-is": "^1.6.18"
   },
   "devDependencies": {
-    "ava": "^5.2.0",
-    "ava-patterns": "^3.2.0",
-    "into-stream": "^7.0.0",
-    "passing-notes-ui": "^1.2.1",
+    "ava": "^5.3.1",
+    "ava-patterns": "^3.2.1",
+    "into-stream": "^8.0.0",
+    "passing-notes-ui": "^1.3.2",
     "puppet-strings": "^5.0.1",
     "puppet-strings-chrome": "^2.0.3",
     "quick-install": "^2.0.3",
-    "semantic-release": "^20.1.3",
+    "semantic-release": "^21.0.7",
     "strip-indent": "^4.0.0",
     "ws": "^8.13.0",
-    "xo": "^0.53.1"
+    "xo": "^0.54.2"
   },
   "ava": {
     "verbose": true,
