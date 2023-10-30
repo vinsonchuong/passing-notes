@@ -1,3 +1,4 @@
+import {Readable} from 'node:stream'
 import typeIs from 'type-is'
 import getStream from 'get-stream'
 
@@ -12,6 +13,11 @@ const textMediaTypes = [
 export function parseHttp1Body(requestOrResponse) {
   if (!typeIs.hasBody(requestOrResponse)) {
     return ''
+  }
+
+  if (typeIs(requestOrResponse, ['text/event-stream'])) {
+    requestOrResponse.setEncoding('utf8')
+    return Readable.toWeb(requestOrResponse)
   }
 
   if (typeIs(requestOrResponse, textMediaTypes)) {

@@ -1,7 +1,10 @@
 import {Buffer} from 'node:buffer'
+import {ReadableStream} from 'node:stream/web'
 import * as https from 'node:https'
+import * as http from 'node:http'
 import test from 'ava'
 import makeCert from 'make-cert'
+import getStream from 'get-stream'
 import sendRequest from './index.js'
 
 test('sending a simple GET request', async (t) => {
@@ -73,4 +76,55 @@ test('parsing a binary body into a Buffer', async (t) => {
   })
 
   t.true(response.body instanceof Buffer)
+})
+
+test('supporting streaming server-sent events', async (t) => {
+  const server = new http.Server()
+  server.on('request', (request, response) => {
+    response.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+    })
+    response.end(
+      [
+        ': comment\n',
+        '\n',
+        'data: some text\n',
+        '\n',
+        'data: multiple\n',
+        'data: lines\n',
+        '\n',
+        'event: foo\n',
+        'data: bar\n',
+        '\n',
+      ].join(''),
+    )
+  })
+
+  await new Promise((resolve) => {
+    server.listen(12_000)
+    server.once('listening', resolve)
+  })
+
+  const response = await sendRequest({
+    method: 'GET',
+    url: 'http://localhost:12000',
+    headers: {},
+  })
+
+  t.true(response.body instanceof ReadableStream)
+  t.is(
+    await getStream(response.body),
+    [
+      ': comment\n',
+      '\n',
+      'data: some text\n',
+      '\n',
+      'data: multiple\n',
+      'data: lines\n',
+      '\n',
+      'event: foo\n',
+      'data: bar\n',
+      '\n',
+    ].join(''),
+  )
 })

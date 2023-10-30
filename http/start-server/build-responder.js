@@ -1,3 +1,5 @@
+import {ReadableStream} from 'node:stream/web'
+import {Readable} from 'node:stream'
 import {Buffer} from 'node:buffer'
 import * as http2 from 'node:http2'
 import omit from 'lodash/omit.js'
@@ -36,6 +38,8 @@ export default function (computeResponse) {
       response.body instanceof Buffer
     ) {
       nodeResponse.end(response.body)
+    } else if (response.body instanceof ReadableStream) {
+      Readable.fromWeb(response.body).pipe(nodeResponse)
     } else {
       response.body.pipe(nodeResponse)
     }

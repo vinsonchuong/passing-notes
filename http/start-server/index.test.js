@@ -1,5 +1,6 @@
 import {Buffer} from 'node:buffer'
 import {createHash} from 'node:crypto'
+import {Readable} from 'node:stream'
 import test from 'ava'
 import WebSocket from 'ws'
 import makeCert from 'make-cert'
@@ -116,13 +117,13 @@ test('starting an HTTP server', async (t) => {
   await session.close()
 })
 
-test('supporting a stream body', async (t) => {
+test('supporting a web stream body', async (t) => {
   const server = await startServer({port: 10_004}, () => ({
     status: 200,
     headers: {
       'content-type': 'text/plain',
     },
-    body: intoStream('Hello World!'),
+    body: Readable.toWeb(intoStream('Hello World!')),
   }))
   t.teardown(async () => {
     stopServer(server)
@@ -140,13 +141,13 @@ test('supporting a stream body', async (t) => {
   )
 })
 
-test('supporting a buffer body', async (t) => {
+test('supporting a stream body', async (t) => {
   const server = await startServer({port: 10_005}, () => ({
     status: 200,
     headers: {
       'content-type': 'text/plain',
     },
-    body: Buffer.from('Hello World!'),
+    body: intoStream('Hello World!'),
   }))
   t.teardown(async () => {
     stopServer(server)
@@ -164,13 +165,37 @@ test('supporting a buffer body', async (t) => {
   )
 })
 
-test('omitting unused fields', async (t) => {
-  const server = await startServer({port: 10_006}, () => ({status: 200}))
+test('supporting a buffer body', async (t) => {
+  const server = await startServer({port: 10_006}, () => ({
+    status: 200,
+    headers: {
+      'content-type': 'text/plain',
+    },
+    body: Buffer.from('Hello World!'),
+  }))
   t.teardown(async () => {
     stopServer(server)
   })
 
-  t.like(await sendRequest({method: 'GET', url: 'http://localhost:10006'}), {
+  t.like(
+    await sendRequest({
+      method: 'GET',
+      url: 'http://localhost:10006',
+      headers: {},
+    }),
+    {
+      body: 'Hello World!',
+    },
+  )
+})
+
+test('omitting unused fields', async (t) => {
+  const server = await startServer({port: 10_007}, () => ({status: 200}))
+  t.teardown(async () => {
+    stopServer(server)
+  })
+
+  t.like(await sendRequest({method: 'GET', url: 'http://localhost:10007'}), {
     status: 200,
   })
 })
@@ -179,7 +204,7 @@ test('allowing upgrading to WebSocket', async (t) => {
   const webSocketHashingConstant = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
   const keyRegex = /^[+/\dA-Za-z]{22}==$/
 
-  const server = await startServer({port: 10_007}, (request) => {
+  const server = await startServer({port: 10_008}, (request) => {
     if (
       request.headers.connection === 'Upgrade' &&
       request.headers.upgrade === 'websocket'
@@ -228,14 +253,14 @@ test('allowing upgrading to WebSocket', async (t) => {
     stopServer(server)
   })
 
-  t.like(await sendRequest({method: 'GET', url: 'http://localhost:10007'}), {
+  t.like(await sendRequest({method: 'GET', url: 'http://localhost:10008'}), {
     status: 426,
   })
 
   t.like(
     await sendRequest({
       method: 'GET',
-      url: 'http://localhost:10007',
+      url: 'http://localhost:10008',
       headers: {
         Connection: 'Upgrade',
         Upgrade: 'unsupported',
@@ -249,7 +274,7 @@ test('allowing upgrading to WebSocket', async (t) => {
   t.like(
     await sendRequest({
       method: 'GET',
-      url: 'http://localhost:10007',
+      url: 'http://localhost:10008',
       headers: {
         Connection: 'Upgrade',
         Upgrade: 'websocket',
@@ -263,7 +288,7 @@ test('allowing upgrading to WebSocket', async (t) => {
   t.like(
     await sendRequest({
       method: 'GET',
-      url: 'http://localhost:10007',
+      url: 'http://localhost:10008',
       headers: {
         Connection: 'Upgrade',
         Upgrade: 'websocket',
@@ -275,7 +300,7 @@ test('allowing upgrading to WebSocket', async (t) => {
     },
   )
 
-  const ws = new WebSocket('ws://localhost:10007')
+  const ws = new WebSocket('ws://localhost:10008')
   await new Promise((resolve) => {
     ws.once('open', resolve)
   })
