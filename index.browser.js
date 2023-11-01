@@ -1,3 +1,5 @@
+export {default as getHeader} from './http/get-header/index.js'
+
 export async function sendRequest({method, headers = {}, url, body}) {
   const response = await fetch(url, {method, headers, body})
 
