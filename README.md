@@ -128,6 +128,8 @@ We've built and packaged some middleware that handle common use cases:
   communication between browser and server
 - [`websocket`](https://github.com/vinsonchuong/passing-notes-websocket): Accept
   WebSocket connections
+- [`sse`](https://github.com/vinsonchuong/passing-notes-sse): Send and receive
+  server-sent events
 
 ### Developer Affordances
 When using the `pass-notes` CLI tool, during development (when
