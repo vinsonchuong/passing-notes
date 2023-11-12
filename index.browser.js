@@ -22,7 +22,8 @@ function parseBody(response) {
 
   if (
     contentType.includes('json') ||
-    contentType.includes('text') ||
+    (contentType.includes('text') &&
+      !contentType.includes('text/event-stream')) ||
     contentType.includes('xml')
   ) {
     return response.text()
