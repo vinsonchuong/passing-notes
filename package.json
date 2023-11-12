@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "get-port": "^7.0.0",
-    "get-stream": "^6.0.1",
+    "get-stream": "^8.0.1",
     "heliograph": "^7.0.0",
     "hot-esm": "^1.6.0",
     "httpx-server": "^1.4.4",
@@ -36,14 +36,14 @@
     "ava": "^5.3.1",
     "ava-patterns": "^3.2.1",
     "into-stream": "^8.0.0",
-    "passing-notes-ui": "^1.3.2",
-    "puppet-strings": "^5.0.1",
+    "passing-notes-ui": "^1.3.5",
+    "puppet-strings": "^5.0.2",
     "puppet-strings-chrome": "^2.0.3",
     "quick-install": "^2.0.3",
-    "semantic-release": "^21.0.7",
+    "semantic-release": "^22.0.7",
     "strip-indent": "^4.0.0",
-    "ws": "^8.13.0",
-    "xo": "^0.54.2"
+    "ws": "^8.14.2",
+    "xo": "^0.56.0"
   },
   "ava": {
     "verbose": true,
@@ -55,8 +55,9 @@
     "semicolon": false,
     "rules": {
       "ava/use-t-well": "off",
-      "import/no-anonymous-default-export": "off"
+      "import/no-anonymous-default-export": "off",
+      "unicorn/prefer-event-target": "off"
     }
   },
-  "packageManager": "yarn@3.2.1"
+  "packageManager": "yarn@4.0.1"
 }

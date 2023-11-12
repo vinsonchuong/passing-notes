@@ -1,6 +1,6 @@
 import {Readable} from 'node:stream'
 import typeIs from 'type-is'
-import getStream from 'get-stream'
+import getStream, {getStreamAsBuffer} from 'get-stream'
 
 const textMediaTypes = [
   'text/*',
@@ -24,7 +24,7 @@ export function parseHttp1Body(requestOrResponse) {
     return getStream(requestOrResponse)
   }
 
-  return getStream.buffer(requestOrResponse)
+  return getStreamAsBuffer(requestOrResponse)
 }
 
 export function parseHttp2Body(nodeHeaders, nodeResponse) {

@@ -71,7 +71,7 @@ test('making a HTTPS request to localhost', async (t) => {
 test('parsing a binary body into a Buffer', async (t) => {
   const response = await sendRequest({
     method: 'GET',
-    url: 'http://dummyimage.com/450x250/f00/fff',
+    url: 'https://dummyimage.com/450x250/f00/fff',
     headers: {},
   })
 

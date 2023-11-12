@@ -1,8 +1,6 @@
-import {promisify} from 'node:util'
+import {setTimeout} from 'node:timers/promises'
 import test from 'ava'
 import Logger from './logger.js'
-
-const sleep = promisify(setTimeout)
 
 test('logging', async (t) => {
   const logger = new Logger()
@@ -44,7 +42,7 @@ test('logging', async (t) => {
   })
   t.true(lines[1].includes('[INFO] [HTTP] GET /'))
 
-  await sleep(100)
+  await setTimeout(100)
   finish({
     message: '200',
   })
