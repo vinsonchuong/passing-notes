@@ -7,9 +7,11 @@ import {openChrome} from 'puppet-strings-chrome'
 import serveUi from 'passing-notes-ui'
 import {Logger, startServer, stopServer, compose} from './index.js'
 
-test('running in the browser', async (t) => {
+test.before(async () => {
   await install(process.cwd(), process.cwd())
+})
 
+test('running in the browser', async (t) => {
   const directory = await useTemporaryDirectory(t)
   await directory.writeFile(
     'index.html',
@@ -80,8 +82,6 @@ test('running in the browser', async (t) => {
 })
 
 test('supporting streaming server-sent events in the browser', async (t) => {
-  await install(process.cwd(), process.cwd())
-
   const directory = await useTemporaryDirectory(t)
   await directory.writeFile(
     'index.html',
