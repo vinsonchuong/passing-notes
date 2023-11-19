@@ -16,7 +16,6 @@ export function parseHttp1Body(requestOrResponse) {
   }
 
   if (typeIs(requestOrResponse, ['text/event-stream'])) {
-    requestOrResponse.setEncoding('utf8')
     return Readable.toWeb(requestOrResponse)
   }
 
