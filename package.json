@@ -53,10 +53,14 @@
     "prettier": true,
     "space": 2,
     "semicolon": false,
+    "envs": [
+      "browser"
+    ],
     "rules": {
       "ava/use-t-well": "off",
       "import/no-anonymous-default-export": "off",
-      "unicorn/prefer-event-target": "off"
+      "unicorn/prefer-event-target": "off",
+      "no-async-promise-executor": "off"
     }
   },
   "packageManager": "yarn@4.0.1"

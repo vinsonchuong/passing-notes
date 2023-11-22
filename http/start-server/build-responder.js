@@ -39,7 +39,11 @@ export default function (computeResponse) {
     ) {
       nodeResponse.end(response.body)
     } else if (response.body instanceof ReadableStream) {
-      Readable.fromWeb(response.body).pipe(nodeResponse)
+      const stream = Readable.fromWeb(response.body)
+      stream.pipe(nodeResponse)
+      nodeResponse.once('close', () => {
+        stream.destroy()
+      })
     } else {
       response.body.pipe(nodeResponse)
     }
