@@ -63,5 +63,5 @@
       "no-async-promise-executor": "off"
     }
   },
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.4.0"
 }
