@@ -3,7 +3,7 @@ import makeCert from 'make-cert'
 import {startServer, Logger} from '../index.js'
 import findOpenPort from './find-open-port.js'
 
-export default async function ({cwd, env, argv, stdout}) {
+export default async function cli({cwd, env, argv, stdout}) {
   const defaultLogger = new Logger()
   defaultLogger.on('log', (event, line) => {
     stdout.write(`${line}\n`)

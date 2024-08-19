@@ -2,7 +2,7 @@ import {Buffer} from 'node:buffer'
 import {STATUS_CODES} from 'node:http'
 import {parseHttp1Body} from '../parse-body.js'
 
-export default function (computeResponse) {
+export default function buildUpgradeResponder(computeResponse) {
   return async (nodeRequest, socket, head) => {
     const request = {
       version: nodeRequest.httpVersion,

@@ -6,7 +6,7 @@ import {parseHttp2Body} from '../parse-body.js'
 const {HTTP2_HEADER_METHOD, HTTP2_HEADER_PATH, HTTP2_HEADER_STATUS} =
   http2.constants
 
-export default async function (url) {
+export default async function connect(url) {
   const options = {}
   const parsedUrl = new URL(url)
   if (parsedUrl.protocol === 'https:' && parsedUrl.hostname === 'localhost') {

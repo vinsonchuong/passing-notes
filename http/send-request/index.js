@@ -2,7 +2,7 @@ import * as http from 'node:http'
 import * as https from 'node:https'
 import {parseHttp1Body} from '../parse-body.js'
 
-export default function (request) {
+export default function sendRequest(request) {
   const url = new URL(request.url)
   const nodeSendRequest =
     url.protocol === 'https:' ? https.request : http.request

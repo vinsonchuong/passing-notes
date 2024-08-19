@@ -99,6 +99,9 @@ test('supporting streaming server-sent events', async (t) => {
       ].join(''),
     )
   })
+  t.teardown(() => {
+    server.close()
+  })
 
   await new Promise((resolve) => {
     server.listen(12_000)

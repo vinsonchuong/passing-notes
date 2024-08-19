@@ -2,13 +2,17 @@ import process from 'node:process'
 import test from 'ava'
 import {useTemporaryDirectory} from 'ava-patterns'
 import install from 'quick-install'
-import {closeBrowser, openTab, findElement} from 'puppet-strings'
+import {closeBrowser, openTab, findElement, closeTab} from 'puppet-strings'
 import {openChrome} from 'puppet-strings-chrome'
-import serveUi from 'passing-notes-ui'
+import serveUi, {teardown} from 'passing-notes-ui'
 import {Logger, startServer, stopServer, compose} from './index.js'
 
 test.before(async () => {
   await install(process.cwd(), process.cwd())
+})
+
+test.after(async () => {
+  await teardown()
 })
 
 test('running in the browser', async (t) => {
@@ -27,6 +31,7 @@ test('running in the browser', async (t) => {
     import {sendRequest} from 'passing-notes'
 
     async function run() {
+      document.body.textContent = 'Hello World!'
       const response = await sendRequest({
         method: 'GET',
         url: '/message'
@@ -70,6 +75,9 @@ test('running in the browser', async (t) => {
   })
 
   const tab = await openTab(browser, 'http://localhost:10020')
+  t.teardown(async () => {
+    await closeTab(tab)
+  })
 
   const body = await findElement(tab, 'body', 'Hello World!')
   t.like(JSON.parse(body.textContent), {

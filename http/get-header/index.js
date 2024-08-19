@@ -1,4 +1,4 @@
-export default function (requestOrResponse, headerName) {
+export default function getHeader(requestOrResponse, headerName) {
   const headers = requestOrResponse.headers
   if (!headers) {
     return null

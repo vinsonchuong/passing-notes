@@ -12,7 +12,7 @@ const {
   HTTP2_HEADER_PATH,
 } = http2.constants
 
-export default function (computeResponse) {
+export default function buildResponder(computeResponse) {
   return async (nodeRequest, nodeResponse) => {
     const request = {
       version: nodeRequest.httpVersion,

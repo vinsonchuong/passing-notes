@@ -3,7 +3,7 @@ import EventEmitter from 'node:events'
 import prettyMs from 'pretty-ms'
 import indent from 'indent-string'
 
-export default class extends EventEmitter {
+export default class Logger extends EventEmitter {
   constructor(overrides) {
     super()
     Object.assign(this, overrides)

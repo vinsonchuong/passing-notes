@@ -262,7 +262,7 @@ test('allowing upgrading to WebSocket', async (t) => {
             .digest('base64'),
         },
         async upgrade(socket, head) {
-          const ws = new WebSocket(null)
+          const ws = new WebSocket(null, undefined, {})
           ws.setSocket(socket, head, {
             maxPayload: 100 * 1024 * 1024,
             skipUTF8Validation: false,
@@ -343,4 +343,6 @@ test('allowing upgrading to WebSocket', async (t) => {
     ws.once('message', resolve)
   })
   t.is(message.toString(), 'Pong')
+
+  ws.close()
 })
